@@ -8,7 +8,7 @@ export default {
 };
 
 export const Default = () => <CategoryButton question="What should I eat?"/>;
-
+export const Second = () => <CategoryButton question="What should I eat?"/>;
 
 // Unknown boilerplate code:
 // CategoryButton.story = {
