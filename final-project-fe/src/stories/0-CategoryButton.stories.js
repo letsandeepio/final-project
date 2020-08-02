@@ -7,10 +7,5 @@ export default {
   component: CategoryButton,
 };
 
-export const Default = () => <CategoryButton question="What should I eat?"/>;
-export const Second = () => <CategoryButton question="What should I eat?"/>;
-
-// Unknown boilerplate code:
-// CategoryButton.story = {
-//   name: 'CategoryButton',
-// };
+export const WhatEat = () => <CategoryButton question="What should I eat?"/>;
+export const WhatWatch = () => <CategoryButton question="What should I watch?"/>;
