@@ -17,6 +17,6 @@ CREATE TABLE activities(
   user_id INTEGER REFERENCES users(id),
   title VARCHAR(255) NOT NULL,
   category VARCHAR(255) NOT NULL,
-  duration INTEGER NOT NULL
+  duration INTEGER NOT NULL,
   completed BIT
 );
