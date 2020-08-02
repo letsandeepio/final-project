@@ -1,10 +1,40 @@
-import React from 'react';
-import { Fab, AddIcon } from '@material-ui/core';
+// import React from 'react';
+// import { Fab } from '@material-ui/core';
+// // import AddIcon from '@material-ui/icons/Add';
+// // import { AddIcon } from '@material-ui/icons/Add';
 
-export default function CategoryButton(props) {
+// export default function CategoryButton(props) {
+//   return (
+//     <Fab color="primary" aria-label="add">
+//       {/* <AddIcon /> */}
+//     </Fab>
+//   )
+// }
+
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+}));
+
+export default function FloatingActionButtons() {
+  const classes = useStyles();
+
   return (
-    <Fab color="primary" aria-label="add">
-      {/* <AddIcon /> */}
-    </Fab>
-  )
+    <div className={classes.root}>
+      <Fab color="primary" aria-label="add">
+        <AddIcon />
+      </Fab>
+    </div>
+  );
 }
