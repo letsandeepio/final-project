@@ -1,5 +1,9 @@
 import { GraphQLServer } from 'graphql-yoga';
 
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
 const activities = [
   {
     id: 1,
@@ -39,7 +43,9 @@ type Activity {
 const resolvers = {
   Query: {
     info: () => `Eileen, Keith and Sandeep. Get to work!!!!`,
-    activities: () => activities
+    users: async () => {
+      prisma.users.findMany();
+    }
   }
 };
 
