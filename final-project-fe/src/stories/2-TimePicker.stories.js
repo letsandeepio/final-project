@@ -1,6 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import TimePicker from '../components/TimePicker';
+import "../index.scss"
 
 
 export default {
@@ -8,4 +9,4 @@ export default {
   component: TimePicker
 };
 
-export const Empty = () => <TimePicker>Hello Button</TimePicker>;
+export const Empty = () => <TimePicker/>;

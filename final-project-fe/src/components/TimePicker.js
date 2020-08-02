@@ -7,11 +7,11 @@ export default function TimePicker(props) {
   return (
     <div className="time-picker-container">
       <form noValidate autoComplete="off" className = "time-picker-form">
-        <section>I have&nbsp;&nbsp;</section>
-        <TextField value="44" size="2" maxlength="2"/>
-        <section>&nbsp;&nbsp;Hours and&nbsp;&nbsp;</section>
-        <TextField value="44" size="2" maxlength="2"/>
-        <section>&nbsp;&nbsp;Minutes.</section>
+        <section>I have&nbsp;</section>
+        <TextField value="2" size="2" maxlength="2"/>
+        <section>&nbsp;hours and&nbsp;</section>
+        <TextField value="30" size="2" maxlength="2"/>
+        <section>&nbsp;minutes</section>
       </form>
     </div>
   )
