@@ -11,12 +11,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function FloatingActionButtons() {
+export default function AddActivityButton(props) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Fab color="primary" aria-label="add">
+      <Fab color="primary" onClick={props.onClick} aria-label="add">
         <AddIcon />
       </Fab>
     </div>
