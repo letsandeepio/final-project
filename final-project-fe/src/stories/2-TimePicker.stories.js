@@ -9,4 +9,4 @@ export default {
   component: TimePicker
 };
 
-export const Empty = () => <TimePicker/>;
+export const Empty = () => <TimePicker onChange={action('time = changed')}/>;

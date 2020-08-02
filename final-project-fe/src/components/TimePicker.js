@@ -8,9 +8,9 @@ export default function TimePicker(props) {
     <div className="time-picker-container">
       <form noValidate autoComplete="off" className = "time-picker-form">
         <section>I have&nbsp;</section>
-        <TextField value="2" size="2" maxlength="2"/>
+        <TextField value="2" onChange={props.onChange} size="2" maxlength="2"/>
         <section>&nbsp;hours and&nbsp;</section>
-        <TextField value="30" size="2" maxlength="2"/>
+        <TextField value="30" onChange={props.onChange} size="2" maxlength="2"/>
         <section>&nbsp;minutes</section>
       </form>
     </div>
