@@ -8,8 +8,7 @@ export default function CategoryButtonList(props) {
     category => {
       return (
         <ul>
-          <CategoryButton 
-          question={category.question} />
+          <CategoryButton>{category.question}</CategoryButton>
         </ul>
       )}
   )
