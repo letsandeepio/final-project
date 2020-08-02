@@ -1,0 +1,17 @@
+.time-picker-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 2rem;
+  
+  input {
+    width: 2.5rem;
+    padding: 0.2rem;
+    font-size: 2rem;
+  }
+}
+
+
+.time-picker-container{
+  display: inline-block;
+}
