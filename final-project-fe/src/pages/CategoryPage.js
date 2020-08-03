@@ -1,6 +1,6 @@
 import React from 'react';
-import CategoryButtonList from './components/CategoryButtonList';
-import TimePicker from './components/TimePicker';
+import CategoryButtonList from '../components/CategoryButtonList';
+import TimePicker from '../components/TimePicker';
 import { Typography } from '@material-ui/core';
 
 export default function CategoryPage(props) {

@@ -4,7 +4,7 @@ import Login from "./components/Login";
 import About from "./components/About";
 import Signup from "./components/Signup";
 import Header from "./components/Header";
-import CategoryPage from "./CategoryPage";
+import CategoryPage from "./pages/CategoryPage";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
