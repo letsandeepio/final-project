@@ -7,20 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model activities {
-  id        Int     @default(autoincrement()) @id
+model activity {
+  id        Int    @default(autoincrement()) @id
   user_id   Int?
   title     String
   category  String
   duration  Int
-  completed String?
-  users     users?  @relation(fields: [user_id], references: [id])
+  completed Int?
+  users     users? @relation(fields: [user_id], references: [id])
 }
 
 model users {
-  id         Int          @default(autoincrement()) @id
-  name       String
-  email      String
-  password   String
-  activities activities[]
+  id       Int        @default(autoincrement()) @id
+  name     String
+  email    String
+  password String
+  activity activity[]
 }
