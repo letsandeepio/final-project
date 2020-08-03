@@ -14,7 +14,7 @@ export default function SuggesterPage(props) {
       <CategoryDropdown questions={props.categories} />
       <TimePicker />
       <SuggestionCard activity={suggestion} />
-      <SuggesterButtonBox />
+      <SuggesterButtonBox onAccept={e => console.log("Accepted " + e)} onReject={e => console.log("Rejected " + e)}/>
     </div>
   )
 }
