@@ -8,9 +8,9 @@ export default function CategoryButtonList(props) {
   const categories = props.categories.map(
     category => {
       return (
-        <ul>
+        <div className="categoryButton">
           <CategoryButton onClick={action(`${category.question} - clicked`)}>{category.question}</CategoryButton>
-        </ul>
+        </div>
       )}
   )
   return categories

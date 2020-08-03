@@ -5,14 +5,10 @@
   font-size: 2rem;
 
   input {
-    width: 2.5rem;
+    width: 2.3rem;
     padding: 0.2rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
-}
-
-.time-picker-container {
-  display: inline-block;
 }
 
 .categoryPage {
@@ -20,11 +16,18 @@
   flex-direction: column;
   align-items: center;
   h1 {
-    font-size: 4rem;
+    font-size: 3rem;
     text-align: center;
+    margin-bottom: 0.2em;
   }
   h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
+  }
+  .timePicker {
+    margin: 2em;;
+  }
+  .categoryButton {
+    margin: 0.5em;
   }
 }
 
