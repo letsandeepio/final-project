@@ -5,11 +5,15 @@ import * as serviceWorker from './serviceWorker';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { theme } from './theme';
 
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
 ReactDOM.render(
   <React.StrictMode>
-    <MuiThemeProvider theme={theme}>
-      <App />
-    </MuiThemeProvider>
+    <BrowserRouter>
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
