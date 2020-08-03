@@ -4,6 +4,8 @@ import TimePicker from '../components/TimePicker';
 import { Typography } from '@material-ui/core';
 
 export default function CategoryPage(props) {
+  
+
   return (
     <div className="categoryPage">
       <Typography variant="h1">Don't know what to do?</Typography>

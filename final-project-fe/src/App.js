@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { Router, Route, Switch } from 'react-router';
 import Signin from './components/Signin';
 import About from './components/About';
@@ -20,6 +20,9 @@ const categories = [
 ]
 
 function App() {
+  const [category, setCategory] = useState([categories[0].question]);
+  const [timeAvailable, setTimeAvailable] = useState(0);
+
   return (
     <div>
       <Header />
