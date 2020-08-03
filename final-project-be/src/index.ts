@@ -1,57 +1,19 @@
 import { GraphQLServer } from 'graphql-yoga';
-
 import { PrismaClient } from '@prisma/client';
+
+import Query from './resolvers/Query';
+import Mutation from './resolvers/Mutation';
 
 const prisma = new PrismaClient();
 
-const activities = [
-  {
-    id: 1,
-    user_id: 1,
-    title: 'Titanic',
-    category: 'Watch',
-    duration: 120,
-    completed: false
-  },
-  {
-    id: 2,
-    user_id: 1,
-    title: 'Lasagna',
-    category: 'Cook',
-    duration: 60,
-    completed: false
-  }
-];
-
-// 1
-const typeDefs = `
-type Query {
-  info: String!
-  activities: [Activity!]!
-}
-type Activity {
-  id: ID!,
-  user_id: Int!,
-  title: String!,
-  category: String!,
-  duration: Int!
-  completed: Boolean
-}
-`;
-
-// 2
 const resolvers = {
-  Query: {
-    info: () => `Eileen, Keith and Sandeep. Get to work!!!!`,
-    users: async () => {
-      prisma.users.findMany();
-    }
-  }
+  Query,
+  Mutation
 };
 
 // 3
 const server = new GraphQLServer({
-  typeDefs,
+  typeDefs: './src/schema.graphql',
   resolvers
 });
-server.start(() => console.log(`Server is running on http://localhost:4000`));
+server.start(() => console.log(`Server  is running on http://localhost:4000`));
