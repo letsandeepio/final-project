@@ -1,24 +1,38 @@
-import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import "../index.scss"
-import pluralize from "pluralize";
+import React, { useState, useEffect } from "react";
+import { Typography, TextField } from "@material-ui/core";
+import "../index.scss";
+import Pluralize from "react-pluralize";
+import timeInputFormat from "../helpers/timeInputFormat";
 
 export default function TimePicker(props) {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
-  const hourSelection = pluralize("hour", hours);
-  const minuteSelection = pluralize("minute", minutes);
-
   return (
-    <div className="time-picker-container">
-      <form noValidate autoComplete="off" className = "time-picker-form">
-        <section>I have&nbsp;</section>
-        <TextField value={hours} onChange={props.onChange} size="2" maxlength="2"/>
-        <section>&nbsp;{hourSelection} and&nbsp;</section>
-        <TextField value={minutes} onChange={props.onChange} size="2" maxlength="2"/>
-        <section>&nbsp;{minuteSelection}</section>
+    <div className="timePicker">
+      <form noValidate autoComplete="off" className="time-picker-form">
+        <Typography variant="h2">I have&nbsp;</Typography>
+        <TextField
+          placeholder={0}
+          value={hours}
+          onChange={(e) => setHours(timeInputFormat(e.target.value))}
+          autoFocus
+        />
+        <Typography variant="h2">
+          &nbsp;
+          <Pluralize singular={"hour"} count={hours} showCount={false} />{" "}
+          and&nbsp;
+        </Typography>
+        <TextField
+          placeholder={0}
+          value={minutes}
+          onChange={(e) => setMinutes(timeInputFormat(e.target.value))}
+        />
+        <Typography variant="h2">
+          &nbsp;
+          <Pluralize singular={"minute"} count={minutes} showCount={false} />
+        </Typography>
       </form>
     </div>
-  )
+  );
 }
