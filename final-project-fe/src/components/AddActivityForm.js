@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -12,17 +13,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddActivityForm() {
+export default function AddActivityForm(props) {
   const classes = useStyles();
 
   return (
     <section>
       <TextField id="standard-search" label="Activity Name" type="search" />
       <p>Approximate Duration</p>
-      <TextField id="add-activity-hours" label="Hours" type="search" />
-      <TextField id="add-activity-minutes" label="Minutes" type="search" />
+      <TextField id="add-activity-hours" label="Hours" type="number" />
+      <TextField id="add-activity-minutes" label="Minutes" type="number" />
       <br></br>
-      <Button variant="contained" color="primary">
+      <Button variant="contained" onClick={props.onClick} color="primary">
         Save
       </Button>
     </section>
