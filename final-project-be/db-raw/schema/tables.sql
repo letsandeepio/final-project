@@ -1,15 +1,14 @@
 DROP TABLE IF EXISTS users CASCADE;
-
 DROP TABLE IF EXISTS activities CASCADE;
 
-CREATE TABLE users (
+CREATE TABLE users(
   id serial PRIMARY KEY NOT NULL,
   name varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
   password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE activities (
+CREATE TABLE activity(
   id serial PRIMARY KEY NOT NULL,
   user_id integer REFERENCES users (id),
   title varchar(255) NOT NULL,
@@ -17,4 +16,3 @@ CREATE TABLE activities (
   duration integer NOT NULL,
   completed integer
 );
-
