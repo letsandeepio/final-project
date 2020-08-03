@@ -6,6 +6,7 @@ import Signup from './components/Signup';
 import Header from './components/Header';
 import CategoryPage from "./pages/CategoryPage";
 import SuggesterPage from "./pages/SuggesterPage";
+import HomePage from "./pages/HomePage";
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -30,6 +31,9 @@ function App() {
         <Route path="/login" component={Signin} exact />
         <Route path="/signup" component={Signup} exact />
         <Route path="/about" component={About} exact />
+        <Route exact path="/">
+          <HomePage />
+        </Route>
         <Route exact path="/categories">
           <CategoryPage categories={categories}/>
         </Route>
