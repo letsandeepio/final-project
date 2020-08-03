@@ -1,10 +1,10 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import Login from '../components/Login';
+import Signin from '../components/Signin';
 
 export default {
   title: 'Login Screen',
-  component: Login
+  component: Signin
 };
 
-export const LoginScreen = () => <Login />;
+export const LoginScreen = () => <Signin />;

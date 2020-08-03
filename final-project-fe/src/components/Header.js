@@ -40,9 +40,15 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             do.i.do
           </Typography>
-          <Button color="inherit" component={Link} to="/about">About</Button>
-          <Button color="inherit" component={Link} to="/signup">Sign Up</Button>
-          <Button color="inherit" component={Link} to="/login">Login</Button>
+          <Button color="inherit" component={Link} to="/about">
+            About
+          </Button>
+          <Button color="inherit" component={Link} to="/signup">
+            Sign Up
+          </Button>
+          <Button color="inherit" component={Link} to="/login">
+            Sign In
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
