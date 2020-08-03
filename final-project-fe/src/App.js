@@ -1,11 +1,12 @@
-import React from "react";
-import Login from "./components/Login";
-import About from "./components/About";
-import Signup from "./components/Signup";
-import Header from "./components/Header";
+import React from 'react';
+// import { Router, Route, Switch } from 'react-router';
+import Signin from './components/Signin';
+import About from './components/About';
+import Signup from './components/Signup';
+import Header from './components/Header';
 import CategoryPage from "./pages/CategoryPage";
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import "./index.scss";
 
@@ -22,7 +23,7 @@ function App() {
     <div>
       <Header />
       <Switch>
-        <Route path="/login" component={Login} exact />
+        <Route path="/login" component={Signin} exact />
         <Route path="/signup" component={Signup} exact />
         <Route path="/about" component={About} exact />
         <Route exact path="/categories">
