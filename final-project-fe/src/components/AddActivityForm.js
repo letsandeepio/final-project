@@ -18,34 +18,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddActivityForm(props) {
   const classes = useStyles();
-  
   const [question, setQuestion] = useState(props.questions[0].question);
-
   const menuItems= props.questions.map(obj=> <MenuItem value={obj.question}>{obj.question}</MenuItem>)
 
   const handleChange = (event) => {
     setQuestion(event.target.value);
   };
 
-
   return (
     <section>
-
-
-
-    <div>
-      <FormControl>
-        <Select value={question}
-          // onChange={handleChange}>
-          onChange={props.onChange}>
-          {menuItems}
-        </Select>
-      </FormControl>
-    </div>
-
-
-
-
+      <div>
+        <FormControl>
+          <Select value={question}
+            onChange={props.onChange}>
+            {menuItems}
+          </Select>
+        </FormControl>
+      </div>
       <TextField id="standard-search" label="Activity Name" type="search" />
       <p>Approximate Duration</p>
       <TextField id="add-activity-hours" label="Hours" type="number" />

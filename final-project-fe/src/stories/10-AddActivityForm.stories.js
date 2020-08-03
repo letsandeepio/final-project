@@ -16,4 +16,3 @@ const CategoryButtons = [
 ]
 
 export const AddActivity = () => <AddActivityForm questions={CategoryButtons} onChange={action('changed')} onClick={action('clicked')}></AddActivityForm>;
-// export const AddActivity2 = () => <AddActivityForm />;
