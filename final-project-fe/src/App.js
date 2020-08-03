@@ -1,9 +1,10 @@
 import React from 'react';
-import { Router, Route, Switch } from "react-router";
+import { Router, Route, Switch } from 'react-router';
+import Header from './components/Header';
 import './index.scss';
 
 function App() {
-  return <div className="App">Hello World from Eileen, Keith, Sandeep</div>;
+  return <Header />;
 }
 
 export default App;

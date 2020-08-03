@@ -3,7 +3,7 @@
   flex-direction: row;
   align-items: center;
   font-size: 2rem;
-  
+
   input {
     width: 2.5rem;
     padding: 0.2rem;
@@ -11,7 +11,10 @@
   }
 }
 
-
-.time-picker-container{
+.time-picker-container {
   display: inline-block;
+}
+
+body {
+  margin: 0px;
 }
