@@ -1,6 +1,6 @@
 import pluralize from 'pluralize';
 
-export default function hourTime(durationMinutes) {
+export default function hourTimeConvert(durationMinutes) {
   const hours = Math.floor(durationMinutes/60);
   const minutes = durationMinutes % 60;
   const pluralizedHours = pluralize("hour", hours);

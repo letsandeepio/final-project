@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import hourTime from "../helpers/hourTime";
+import hourTimeConvert from "../helpers/hourTimeConvert";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -26,7 +26,7 @@ export default function SuggestionCard(props) {
         {props.activity.title}
       </Typography>
         <Typography color="textSecondary" className={classes.pos}>
-        {hourTime(props.activity.duration)}
+        {hourTimeConvert(props.activity.duration)}
         </Typography>
       </CardContent>
     </Card>
