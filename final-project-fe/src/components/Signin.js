@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center'
   },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main
+  },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1)
@@ -24,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Signup() {
+export default function Login() {
   const classes = useStyles();
 
   return (
@@ -32,20 +36,9 @@ export default function Signup() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Sign up for do.i.do
+          Welcome back!
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="name"
-            label="Name"
-            name="name"
-            autoComplete="name"
-            autoFocus
-          />
           <TextField
             variant="outlined"
             margin="normal"
@@ -79,7 +72,7 @@ export default function Signup() {
             color="primary"
             className={classes.submit}
           >
-            Sign Up
+            Sign In
           </Button>
         </form>
       </div>
