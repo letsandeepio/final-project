@@ -15,6 +15,19 @@
   display: inline-block;
 }
 
+.categoryPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    font-size: 4rem;
+    text-align: center;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+}
+
 body {
   margin: 0px;
 }
