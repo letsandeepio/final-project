@@ -7,5 +7,13 @@ export default {
   component: AddActivityForm,
 };
 
-export const AddActivity = () => <AddActivityForm onClick={action('clicked')}></AddActivityForm>;
+const CategoryButtons = [
+  {question: "what should i do?"},
+  {question: "what should i watch?"},
+  {question: "where should i eat?"},
+  {question: "what should i cook?"},
+  {question: "what else could i do?"},
+]
+
+export const AddActivity = () => <AddActivityForm questions={CategoryButtons} onChange={action('changed')} onClick={action('clicked')}></AddActivityForm>;
 // export const AddActivity2 = () => <AddActivityForm />;
