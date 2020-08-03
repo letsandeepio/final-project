@@ -5,9 +5,9 @@ import SuggesterButton from './SuggesterButton';
 export default function SuggesterButtonBox(props) {
 
   return (
-    <>
-      <SuggesterButton onClick={props.onClick}>Now</SuggesterButton>
-      <SuggesterButton onClick={props.onClick}>Later</SuggesterButton>
-    </>
+    <div>
+      <SuggesterButton onClick={props.onAccept}>Now</SuggesterButton>
+      <SuggesterButton onClick={props.onReject}>Later</SuggesterButton>
+    </div>
   )
 }

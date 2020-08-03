@@ -5,6 +5,7 @@ import About from './components/About';
 import Signup from './components/Signup';
 import Header from './components/Header';
 import CategoryPage from "./pages/CategoryPage";
+import SuggesterPage from "./pages/SuggesterPage";
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -28,6 +29,9 @@ function App() {
         <Route path="/about" component={About} exact />
         <Route exact path="/categories">
           <CategoryPage categories={categories}/>
+        </Route>
+        <Route exact path="/suggestions">
+          <SuggesterPage categories={categories} />
         </Route>
       </Switch>
     </div>
