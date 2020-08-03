@@ -1,5 +1,4 @@
 import React from "react";
-// import { Router, Route, Switch } from 'react-router';
 import Login from "./components/Login";
 import About from "./components/About";
 import Signup from "./components/Signup";

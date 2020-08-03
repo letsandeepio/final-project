@@ -1,14 +1,5 @@
-.time-picker-form {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-size: 2rem;
-
-  input {
-    width: 2.3rem;
-    padding: 0.2rem;
-    font-size: 1.5rem;
-  }
+body {
+  margin: 0px;
 }
 
 .categoryPage {
@@ -32,6 +23,16 @@
   }
 }
 
-body {
-  margin: 0px;
+
+.time-picker-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 2rem;
+
+  input {
+    width: 2.3rem;
+    padding: 0.2rem;
+    font-size: 1.5rem;
+  }
 }

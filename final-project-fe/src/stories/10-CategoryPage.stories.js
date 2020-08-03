@@ -1,5 +1,5 @@
 import React from 'react';
-import CategoryPage from '../CategoryPage';
+import CategoryPage from '../pages/CategoryPage';
 import { action } from '@storybook/addon-actions';
 
 export default {
