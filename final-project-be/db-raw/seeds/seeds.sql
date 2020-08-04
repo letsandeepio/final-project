@@ -1,5 +1,6 @@
 INSERT INTO users(name, email, password)
-  VALUES ('Sandeep', 'sandeepchopra7@gmail.com', 'password'), ('Iva Harrison', 'allisonjackson@mail.com', 'password');
+  VALUES ('Sandeep', 'sandeepchopra7@gmail.com', 'password'),
+  ('Iva Harrison', 'allisonjackson@mail.com', 'password');
 
 INSERT INTO activity(user_id, title, category, duration, completed)
   VALUES (1, 'Shark', 'watch', '120', 0),
