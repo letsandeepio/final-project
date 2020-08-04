@@ -26,7 +26,7 @@ function App() {
   const [timeAvailable, setTimeAvailable] = useState({hours: 2, minutes: 30});
   
   let history = useHistory();
-  
+    
   const selectCategory = function(category) {
     setCategory(category)
     history.push('/suggestions')

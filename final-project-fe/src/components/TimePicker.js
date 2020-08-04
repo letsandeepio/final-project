@@ -17,7 +17,6 @@ export default function TimePicker(props) {
       <form noValidate autoComplete="off" className="time-picker-form">
         <Typography variant="h2">I have&nbsp;</Typography>
         <TextField
-          placeholder={0}
           value={timeAvailable.hours}
           onChange={(e)=>handleTimeChange({hours: timeInputFormat(e.target.value, 'hours'), minutes: timeAvailable.minutes})}
           autoFocus
@@ -28,7 +27,6 @@ export default function TimePicker(props) {
           and&nbsp;
         </Typography>
         <TextField
-          placeholder={0}
           value={timeAvailable.minutes}
           onChange={(e)=>handleTimeChange({hours: timeAvailable.hours, minutes: timeInputFormat(e.target.value, 'minutes')})}
         />
