@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { Router, Route, Switch } from 'react-router';
 import Signin from './components/Signin';
 import About from './components/About';
@@ -8,7 +8,7 @@ import CategoryPage from "./pages/CategoryPage";
 import SuggesterPage from "./pages/SuggesterPage";
 import HomePage from "./pages/HomePage";
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 
 import "./index.scss";
 
@@ -21,6 +21,17 @@ const categories = [
 ]
 
 function App() {
+  const [category, setCategory] = useState(categories[0].question);
+  const [timeAvailable, setTimeAvailable] = useState({hours: 2, minutes: 30});
+  let history = useHistory();
+  
+  console.log(category, timeAvailable, history)
+
+  const selectCategory = function(category) {
+    setCategory(category)
+    history.push('/suggestions')
+  }
+
   return (
     <div>
       <Header />
@@ -29,13 +40,13 @@ function App() {
         <Route path="/signup" component={Signup} exact />
         <Route path="/about" component={About} exact />
         <Route exact path="/">
-          <HomePage />
+         <HomePage />
         </Route>
         <Route exact path="/categories">
-          <CategoryPage categories={categories}/>
+          <CategoryPage categories={categories} onTimeChange={time=>setTimeAvailable(time)} onSelect={selectCategory} timeAvailable={timeAvailable}/>
         </Route>
         <Route exact path="/suggestions">
-          <SuggesterPage categories={categories} />
+          <SuggesterPage categories={categories} category={category} onTimeChange={time=>setTimeAvailable(time)} timeAvailable={timeAvailable}/>
         </Route>
       </Switch>
     </div>
