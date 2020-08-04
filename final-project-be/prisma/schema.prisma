@@ -20,7 +20,7 @@ model activity {
 model users {
   id       Int        @default(autoincrement()) @id
   name     String
-  email    String
+  email    String     @unique
   password String
   activity activity[]
 }
