@@ -10,8 +10,8 @@ export default function CategoryPage(props) {
     <div className="categoryPage">
       <Typography variant="h1">Don't know what to do?</Typography>
       <Typography variant="h2">Just ask!</Typography>
-      <TimePicker className="timePicker" onChange={props.onChange}/>
-      <CategoryButtonList className="CategoryButtonList" categories={props.categories} onChange={props.onChange}/>
+      <TimePicker className="timePicker" onChange={props.onTimeChange}/>
+      <CategoryButtonList className="CategoryButtonList" categories={props.categories} onSelect={props.onSelect}/>
     </div>
   )
 }

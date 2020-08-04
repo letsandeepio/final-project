@@ -7,7 +7,7 @@ export default function CategoryButtonList(props) {
     category => {
       return (
         <div className="categoryButton">
-          <CategoryButton onClick={()=>console.log(`${category.question} - clicked`)}>{category.question}</CategoryButton>
+          <CategoryButton onClick={()=>props.onSelect(category.question)}>{category.question}</CategoryButton>
         </div>
       )}
   )

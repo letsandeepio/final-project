@@ -8,7 +8,7 @@ import CategoryPage from "./pages/CategoryPage";
 import SuggesterPage from "./pages/SuggesterPage";
 import HomePage from "./pages/HomePage";
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 
 import "./index.scss";
 
@@ -21,8 +21,16 @@ const categories = [
 ]
 
 function App() {
-  const [category, setCategory] = useState([categories[0].question]);
-  const [timeAvailable, setTimeAvailable] = useState(0);
+  const [category, setCategory] = useState(categories[0].question);
+  const [timeAvailable, setTimeAvailable] = useState({hours: 0, minutes: 0});
+  let history = useHistory();
+  
+  console.log(category, timeAvailable)
+
+  const selectCategory = function(category) {
+    setCategory(category)
+    history.push('/suggestions')
+  }
 
   return (
     <div>
@@ -35,7 +43,7 @@ function App() {
           <HomePage />
         </Route>
         <Route exact path="/categories">
-          <CategoryPage categories={categories}/>
+          <CategoryPage categories={categories} onTimeChange={time=>setTimeAvailable(time)} onSelect={selectCategory}/>
         </Route>
         <Route exact path="/suggestions">
           <SuggesterPage categories={categories} />
