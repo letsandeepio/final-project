@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddActivityForm(props) {
   const classes = useStyles();
-  const [question, setQuestion] = useState(props.questions[0].question);
-  const menuItems= props.questions.map(obj=> <MenuItem value={obj.question}>{obj.question}</MenuItem>)
+  const [question, setQuestion] = useState(props.categories[0].question);
+  const menuItems= props.categories.map(obj=> <MenuItem value={obj.question}>{obj.question}</MenuItem>)
 
   const handleChange = (event) => {
     setQuestion(event.target.value);
