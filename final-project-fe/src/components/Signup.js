@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +7,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+import { useHistory } from 'react-router-dom';
+import { gql, useMutation } from '@apollo/client';
+
+import _saveUserData from '../helpers/saveUserData';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,13 +29,51 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Signup() {
+const SIGNUP_MUTATION = gql`
+  mutation SignupMutation($email: String!, $password: String!, $name: String!) {
+    signup(email: $email, password: $password, name: $name) {
+      token
+    }
+  }
+`;
+
+export default function Signup({ setLoggedIn }) {
+  let history = useHistory();
+  const [state, setState] = useState({
+    name: '',
+    password: '',
+    email: ''
+  });
+
+  const [userSignup, { data }] = useMutation(SIGNUP_MUTATION, {
+    onCompleted(response) {
+      setLoggedIn(true);
+      _saveUserData(response.signup.token);
+      history.push('/categories');
+    }
+  });
+
   const classes = useStyles();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(
+      `Signing up with ${state.name}, ${state.password} & ${state.email}`
+    );
+
+    userSignup({
+      variables: {
+        name: state.name,
+        password: state.password,
+        email: state.email
+      }
+    });
+  }
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <div classemail={classes.paper}>
         <Typography component="h1" variant="h5">
           Sign up for do.i.do
         </Typography>
@@ -44,6 +87,8 @@ export default function Signup() {
             label="Name"
             name="name"
             autoComplete="name"
+            value={state.name}
+            onChange={(e) => setState({ ...state, name: e.target.value })}
             autoFocus
           />
           <TextField
@@ -56,6 +101,8 @@ export default function Signup() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={state.email}
+            onChange={(e) => setState({ ...state, email: e.target.value })}
           />
           <TextField
             variant="outlined"
@@ -67,6 +114,8 @@ export default function Signup() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={state.password}
+            onChange={(e) => setState({ ...state, password: e.target.value })}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -78,6 +127,7 @@ export default function Signup() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSubmit}
           >
             Sign Up
           </Button>

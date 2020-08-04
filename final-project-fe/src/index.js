@@ -5,15 +5,42 @@ import * as serviceWorker from './serviceWorker';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { theme } from './theme';
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
+
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { gql } from '@apollo/client';
+
+import { ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000/',
+  cache: new InMemoryCache(),
+  headers: {
+    authorization: localStorage.getItem('token') || '',
+    client: 'TimeFiller App'
+  }
+});
+
+client
+  .query({
+    query: gql`
+      query {
+        info
+      }
+    `
+  })
+  .then((result) => console.log(result.data.info));
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <MuiThemeProvider theme={theme}>
-        <App />
-      </MuiThemeProvider>
-    </BrowserRouter>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <MuiThemeProvider theme={theme}>
+          <App />
+        </MuiThemeProvider>
+      </BrowserRouter>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +7,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+import { useHistory } from 'react-router-dom';
+import { gql, useMutation } from '@apollo/client';
+
+import _saveUserData from '../helpers/saveUserData';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -28,7 +33,41 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Login() {
+const SIGNIN_MUTATION = gql`
+  mutation SigninMutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+    }
+  }
+`;
+
+export default function Login({ setLoggedIn }) {
+  let history = useHistory();
+  const [state, setState] = useState({
+    password: '',
+    email: ''
+  });
+
+  const [userSignIn, { data }] = useMutation(SIGNIN_MUTATION, {
+    onCompleted(response) {
+      setLoggedIn(true);
+      _saveUserData(response.login.token);
+      history.push('/categories');
+    }
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(`Signing in with ${state.email} & ${state.password} `);
+
+    userSignIn({
+      variables: {
+        password: state.password,
+        email: state.email
+      }
+    });
+  }
+
   const classes = useStyles();
 
   return (
@@ -49,6 +88,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e) => setState({ ...state, email: e.target.value })}
           />
           <TextField
             variant="outlined"
@@ -60,6 +100,7 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => setState({ ...state, password: e.target.value })}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -71,6 +112,7 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>

@@ -10,8 +10,9 @@ const hashedPassword = (password: any) => {
   return bcrypt.hashSync(password, saltRounds);
 };
 
-async function signup(parent: any, args: any, context: Context) {
+async function signup(parent: any, args: any, context: any) {
   console.log(args.name, args.password, args.email);
+  console.log(context.request.get('Client'));
   const hashPw = hashedPassword(args.password);
   const user = await context.prisma.users.create({
     data: {
