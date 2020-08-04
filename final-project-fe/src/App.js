@@ -7,6 +7,7 @@ import Header from './components/Header';
 import CategoryPage from "./pages/CategoryPage";
 import SuggesterPage from "./pages/SuggesterPage";
 import HomePage from "./pages/HomePage";
+import SuccessPage from "./pages/SuccessPage";
 
 import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 
@@ -23,10 +24,9 @@ const categories = [
 function App() {
   const [category, setCategory] = useState(categories[0].question);
   const [timeAvailable, setTimeAvailable] = useState({hours: 2, minutes: 30});
+  
   let history = useHistory();
   
-  console.log(category, timeAvailable, history)
-
   const selectCategory = function(category) {
     setCategory(category)
     history.push('/suggestions')
@@ -47,6 +47,9 @@ function App() {
         </Route>
         <Route exact path="/suggestions">
           <SuggesterPage categories={categories} category={category} onTimeChange={time=>setTimeAvailable(time)} timeAvailable={timeAvailable}/>
+        </Route>
+        <Route exact path="/success">
+          <SuccessPage/>
         </Route>
       </Switch>
     </div>

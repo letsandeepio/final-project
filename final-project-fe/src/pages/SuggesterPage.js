@@ -5,6 +5,8 @@ import SuggestionCard from '../components/SuggestionCard'
 import TimePicker from '../components/TimePicker'
 import SuggesterButtonBox from '../components/SuggesterButtonBox'
 
+import {useHistory } from 'react-router-dom';
+
 const activitySuggestions = [
   {title: "Korean BBQ", duration: 120},
   {title: "Enchiladas", duration: 90},
@@ -18,12 +20,11 @@ const activitySuggestions = [
   {title: "A&W", duration: 60},
   {title: "Tostitos", duration: 60},
   {title: "Boiled Food", duration: 60},
-  {title: "7 Layer Dip", duration: 60}
-]
+  {title: "7 Layer Dip", duration: 60}]
 
 export default function SuggesterPage(props) {
-
   const [suggestionIndex, setSuggestionIndex] = useState(0)
+  let history = useHistory();
 
   const indexIncrementor = function() {
     let i = suggestionIndex;
@@ -39,7 +40,7 @@ export default function SuggesterPage(props) {
       <CategoryDropdown questions={props.categories} question={props.category}/>
       <TimePicker onChange={props.onTimeChange} timeAvailable={props.timeAvailable}/>
       <SuggestionCard activity={activitySuggestions[suggestionIndex]}/>
-      <SuggesterButtonBox onAccept={e => console.log("Accepted " + e)} onReject={indexIncrementor}/>
+      <SuggesterButtonBox onAccept={()=>history.push('/success')} onReject={indexIncrementor}/>
     </div>
   )
 }
