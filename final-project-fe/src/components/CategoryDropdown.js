@@ -13,7 +13,6 @@ export default function(props) {
     <div>
       <FormControl>
         <Select value={question}
-          // onChange={handleChange}>
           onChange={e=>setQuestion(e.target.value)}>
           {menuItems}
         </Select>
