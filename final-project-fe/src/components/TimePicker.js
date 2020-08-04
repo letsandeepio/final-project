@@ -5,8 +5,6 @@ import Pluralize from "react-pluralize";
 import timeInputFormat from "../helpers/timeInputFormat";
 
 export default function TimePicker(props) {
-  // const [hours, setHours] = useState(2);
-  // const [minutes, setMinutes] = useState(30);
   const [timeAvailable, setTimeAvailable] = useState(props.timeAvailable)
 
   const handleTimeChange = function(value) {
@@ -21,7 +19,7 @@ export default function TimePicker(props) {
         <TextField
           placeholder={0}
           value={timeAvailable.hours}
-          onChange={(e)=>handleTimeChange({hours: timeInputFormat(e.target.value), minutes: timeAvailable.minutes})}
+          onChange={(e)=>handleTimeChange({hours: timeInputFormat(e.target.value, 'hours'), minutes: timeAvailable.minutes})}
           autoFocus
         />
         <Typography variant="h2">
@@ -32,7 +30,7 @@ export default function TimePicker(props) {
         <TextField
           placeholder={0}
           value={timeAvailable.minutes}
-          onChange={(e)=>handleTimeChange({hours: timeAvailable.hours, minutes: timeInputFormat(e.target.value)})}
+          onChange={(e)=>handleTimeChange({hours: timeAvailable.hours, minutes: timeInputFormat(e.target.value, 'minutes')})}
         />
         <Typography variant="h2">
           &nbsp;
