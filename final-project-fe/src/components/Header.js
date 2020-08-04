@@ -18,7 +18,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
+    textDecoration: 'none',
+    color: 'white'
   }
 }));
 
@@ -37,7 +39,7 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.title} component={Link} to="/">
             do.i.do
           </Typography>
           <Button color="inherit" component={Link} to="/about">
