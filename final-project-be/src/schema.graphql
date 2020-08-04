@@ -1,6 +1,6 @@
 type Query {
   info: String!
-  activities: [Activity!]!
+  activities(userId: Int!): [Activity!]!
 }
 
 type User {
