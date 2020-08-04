@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Header() {
+export default function Header({ loggedIn, logout }) {
   const classes = useStyles();
 
   return (
@@ -43,12 +43,20 @@ export default function Header() {
           <Button color="inherit" component={Link} to="/about">
             About
           </Button>
-          <Button color="inherit" component={Link} to="/signup">
-            Sign Up
-          </Button>
-          <Button color="inherit" component={Link} to="/login">
-            Sign In
-          </Button>
+          {loggedIn ? (
+            <Button color="inherit" onClick={() => logout()}>
+              Sign out
+            </Button>
+          ) : (
+            <span>
+              <Button color="inherit" component={Link} to="/signup">
+                Sign Up
+              </Button>
+              <Button color="inherit" component={Link} to="/login">
+                Sign In
+              </Button>
+            </span>
+          )}
         </Toolbar>
       </AppBar>
     </div>

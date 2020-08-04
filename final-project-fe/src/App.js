@@ -4,52 +4,77 @@ import Signin from './components/Signin';
 import About from './components/About';
 import Signup from './components/Signup';
 import Header from './components/Header';
-import CategoryPage from "./pages/CategoryPage";
-import SuggesterPage from "./pages/SuggesterPage";
-import HomePage from "./pages/HomePage";
-import SuccessPage from "./pages/SuccessPage";
+import CategoryPage from './pages/CategoryPage';
+import SuggesterPage from './pages/SuggesterPage';
+import HomePage from './pages/HomePage';
+import SuccessPage from './pages/SuccessPage';
 
-import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 
-import "./index.scss";
+import { AUTH_TOKEN } from './constants';
+
+import './index.scss';
 
 const categories = [
-  {question: "what should i do?"},
-  {question: "what should i watch?"},
-  {question: "where should i eat?"},
-  {question: "what should i cook?"},
-  {question: "what else could i do?"},
-]
+  { question: 'what should i do?' },
+  { question: 'what should i watch?' },
+  { question: 'where should i eat?' },
+  { question: 'what should i cook?' },
+  { question: 'what else could i do?' }
+];
 
 function App() {
   const [category, setCategory] = useState(categories[0].question);
-  const [timeAvailable, setTimeAvailable] = useState({hours: 2, minutes: 30});
-  
+  const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
+  const [isLoggedIn, setLoggedIn] = useState(
+    !!localStorage.getItem(AUTH_TOKEN)
+  );
+
+  console.log('token:', localStorage.getItem(AUTH_TOKEN));
+
   let history = useHistory();
-  
-  const selectCategory = function(category) {
-    setCategory(category)
-    history.push('/suggestions')
+
+  const selectCategory = function (category) {
+    setCategory(category);
+    history.push('/suggestions');
+  };
+
+  function logOut() {
+    console.log('working ');
+    localStorage.setItem(AUTH_TOKEN, '');
+    setLoggedIn(false);
   }
 
   return (
     <div>
-      <Header />
+      <Header loggedIn={isLoggedIn} logout={logOut} />
       <Switch>
         <Route path="/login" component={Signin} exact />
-        <Route path="/signup" component={Signup} exact />
+        <Route exact path="/signup">
+          <Signup setLoggedIn={setLoggedIn} />
+        </Route>
         <Route path="/about" component={About} exact />
         <Route exact path="/">
-         <HomePage />
+          <HomePage />
         </Route>
         <Route exact path="/categories">
-          <CategoryPage categories={categories} onTimeChange={time=>setTimeAvailable(time)} onSelect={selectCategory} timeAvailable={timeAvailable}/>
+          <CategoryPage
+            categories={categories}
+            onTimeChange={(time) => setTimeAvailable(time)}
+            onSelect={selectCategory}
+            timeAvailable={timeAvailable}
+          />
         </Route>
         <Route exact path="/suggestions">
-          <SuggesterPage categories={categories} category={category} onTimeChange={time=>setTimeAvailable(time)} timeAvailable={timeAvailable}/>
+          <SuggesterPage
+            categories={categories}
+            category={category}
+            onTimeChange={(time) => setTimeAvailable(time)}
+            timeAvailable={timeAvailable}
+          />
         </Route>
         <Route exact path="/success">
-          <SuccessPage/>
+          <SuccessPage />
         </Route>
       </Switch>
     </div>
