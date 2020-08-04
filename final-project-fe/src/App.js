@@ -8,6 +8,7 @@ import CategoryPage from "./pages/CategoryPage";
 import SuggesterPage from "./pages/SuggesterPage";
 import HomePage from "./pages/HomePage";
 import SuccessPage from "./pages/SuccessPage";
+import AddActivityPage from "./pages/AddActivityPage";
 
 import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 
@@ -50,6 +51,9 @@ function App() {
         </Route>
         <Route exact path="/success">
           <SuccessPage/>
+        </Route>
+        <Route exact path="/add-activity">
+          <AddActivityPage categories={categories}/>
         </Route>
       </Switch>
     </div>
