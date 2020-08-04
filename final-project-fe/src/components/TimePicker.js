@@ -7,7 +7,7 @@ import timeInputFormat from "../helpers/timeInputFormat";
 export default function TimePicker(props) {
   // const [hours, setHours] = useState(2);
   // const [minutes, setMinutes] = useState(30);
-  const [timeAvailable, setTimeAvailable] = useState({hours: 2, minutes: 30})
+  const [timeAvailable, setTimeAvailable] = useState(props.timeAvailable)
 
   const handleTimeChange = function(value) {
     setTimeAvailable(value);
@@ -32,7 +32,7 @@ export default function TimePicker(props) {
         <TextField
           placeholder={0}
           value={timeAvailable.minutes}
-          // onChange={(e) => setMinutes(timeInputFormat(e.target.value))}
+          onChange={(e)=>handleTimeChange({hours: timeAvailable.hours, minutes: timeInputFormat(e.target.value)})}
         />
         <Typography variant="h2">
           &nbsp;

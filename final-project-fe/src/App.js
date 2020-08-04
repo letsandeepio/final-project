@@ -22,10 +22,10 @@ const categories = [
 
 function App() {
   const [category, setCategory] = useState(categories[0].question);
-  const [timeAvailable, setTimeAvailable] = useState({hours: 0, minutes: 0});
+  const [timeAvailable, setTimeAvailable] = useState({hours: 2, minutes: 30});
   let history = useHistory();
   
-  console.log(category, timeAvailable)
+  console.log(category, timeAvailable, history)
 
   const selectCategory = function(category) {
     setCategory(category)
@@ -40,13 +40,13 @@ function App() {
         <Route path="/signup" component={Signup} exact />
         <Route path="/about" component={About} exact />
         <Route exact path="/">
-          <HomePage />
+         <HomePage />
         </Route>
         <Route exact path="/categories">
-          <CategoryPage categories={categories} onTimeChange={time=>setTimeAvailable(time)} onSelect={selectCategory}/>
+          <CategoryPage categories={categories} onTimeChange={time=>setTimeAvailable(time)} onSelect={selectCategory} timeAvailable={timeAvailable}/>
         </Route>
         <Route exact path="/suggestions">
-          <SuggesterPage categories={categories} />
+          <SuggesterPage categories={categories} onTimeChange={time=>setTimeAvailable(time)} timeAvailable={timeAvailable}/>
         </Route>
       </Switch>
     </div>
