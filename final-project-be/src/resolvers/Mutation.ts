@@ -1,19 +1,19 @@
 import bcrypt from 'bcrypt';
-import { PrismaClient } from '@prisma/client';
+import jwt from 'jsonwebtoken';
 
-const prisma = new PrismaClient();
+import { Context } from '../index';
+
+import { APP_SECRET, getUserId } from '../helpers';
 
 const hashedPassword = (password: any) => {
   const saltRounds = 10;
   return bcrypt.hashSync(password, saltRounds);
 };
 
-async function signup(parent: any, args: any) {
+async function signup(parent: any, args: any, context: Context) {
   console.log(args.name, args.password, args.email);
-
   const hashPw = hashedPassword(args.password);
-
-  await prisma.users.create({
+  const user = await context.prisma.users.create({
     data: {
       name: args.name,
       password: hashPw,
@@ -21,13 +21,33 @@ async function signup(parent: any, args: any) {
     }
   });
 
+  const token = jwt.sign({ userId: user.id }, APP_SECRET);
+
   return {
-    token: '32453'
+    token,
+    user
   };
 }
 
-function login() {
-  return 'hello you are logged in ';
+async function login(parent: any, args: any, context: Context) {
+  console.log(args);
+  const user = await context.prisma.users.findOne({
+    where: { email: args.email }
+  });
+  if (!user) {
+    throw new Error('No such user found');
+  }
+  const valid = await bcrypt.compare(args.password, user.password);
+
+  if (!valid) {
+    throw new Error('Invalid password');
+  }
+  const token = jwt.sign({ userId: user.id }, APP_SECRET);
+
+  return {
+    token,
+    user
+  };
 }
 
 export default {

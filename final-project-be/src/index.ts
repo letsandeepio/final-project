@@ -6,6 +6,11 @@ import Mutation from './resolvers/Mutation';
 
 const prisma = new PrismaClient();
 
+export interface Context {
+  prisma: typeof prisma;
+  db: any;
+}
+
 const resolvers = {
   Query,
   Mutation
@@ -14,6 +19,12 @@ const resolvers = {
 // 3
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
-  resolvers
+  resolvers,
+  context: (request) => {
+    return {
+      ...request,
+      prisma
+    };
+  }
 });
 server.start(() => console.log(`Server  is running on http://localhost:4000`));
