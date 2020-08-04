@@ -7,11 +7,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useHistory } from 'react-router-dom';
 
+import { useHistory } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 
-import { AUTH_TOKEN } from '../constants';
+import _saveUserData from '../helpers/saveUserData';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,6 +36,7 @@ const SIGNUP_MUTATION = gql`
     }
   }
 `;
+
 export default function Signup({ setLoggedIn }) {
   let history = useHistory();
   const [state, setState] = useState({
@@ -47,7 +48,7 @@ export default function Signup({ setLoggedIn }) {
   const [userSignup, { data }] = useMutation(SIGNUP_MUTATION, {
     onCompleted(response) {
       setLoggedIn(true);
-      localStorage.setItem(AUTH_TOKEN, response.signup.token);
+      _saveUserData(response.signup.token);
       history.push('/categories');
     }
   });
@@ -68,10 +69,6 @@ export default function Signup({ setLoggedIn }) {
       }
     });
   }
-
-  const _saveUserData = (token) => {
-    localStorage.setItem(AUTH_TOKEN, token);
-  };
 
   return (
     <Container component="main" maxWidth="xs">

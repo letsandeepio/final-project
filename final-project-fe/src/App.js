@@ -50,7 +50,9 @@ function App() {
     <div>
       <Header loggedIn={isLoggedIn} logout={logOut} />
       <Switch>
-        <Route path="/login" component={Signin} exact />
+        <Route exact path="/login">
+          <Signin setLoggedIn={setLoggedIn} />
+        </Route>
         <Route exact path="/signup">
           <Signup setLoggedIn={setLoggedIn} />
         </Route>
