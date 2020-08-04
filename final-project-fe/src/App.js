@@ -46,7 +46,7 @@ function App() {
           <CategoryPage categories={categories} onTimeChange={time=>setTimeAvailable(time)} onSelect={selectCategory} timeAvailable={timeAvailable}/>
         </Route>
         <Route exact path="/suggestions">
-          <SuggesterPage categories={categories} onTimeChange={time=>setTimeAvailable(time)} timeAvailable={timeAvailable}/>
+          <SuggesterPage categories={categories} category={category} onTimeChange={time=>setTimeAvailable(time)} timeAvailable={timeAvailable}/>
         </Route>
       </Switch>
     </div>
