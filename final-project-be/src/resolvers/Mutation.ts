@@ -9,7 +9,7 @@ const hashedPassword = (password: any) => {
 };
 
 async function signup(parent: any, args: any, context: any) {
-  console.log(`Signup recieved from ${context.request.get('Client')}`);
+  console.log(`Signup received from ${context.request.get('Client')}`);
 
   const hashPw = hashedPassword(args.password);
   let user;
