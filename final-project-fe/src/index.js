@@ -12,6 +12,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { createHttpLink } from '@apollo/client/link/http';
+import { setContext } from '@apollo/client/link/context';
 
 let client = '';
 const httpLink = createHttpLink({
@@ -28,14 +29,21 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+      client: 'Timefiller App'
+    }
+  };
+});
+
 try {
   client = new ApolloClient({
-    link: errorLink.concat(httpLink),
-    cache: new InMemoryCache(),
-    headers: {
-      authorization: localStorage.getItem('token') || '',
-      client: 'TimeFiller App'
-    }
+    link: errorLink.concat(authLink).concat(httpLink),
+    cache: new InMemoryCache()
   });
 } catch (error) {
   console.log(`Error setting up server:${error.message}`);
