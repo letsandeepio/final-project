@@ -8,28 +8,38 @@ import { theme } from './theme';
 import { BrowserRouter } from 'react-router-dom';
 
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { gql } from '@apollo/client';
 
 import { ApolloProvider } from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
+import { createHttpLink } from '@apollo/client/link/http';
 
-const client = new ApolloClient({
-  uri: 'http://localhost:4000/',
-  cache: new InMemoryCache(),
-  headers: {
-    authorization: localStorage.getItem('token') || '',
-    client: 'TimeFiller App'
-  }
+let client = '';
+const httpLink = createHttpLink({
+  uri: 'http://localhost:4000'
 });
 
-client
-  .query({
-    query: gql`
-      query {
-        info
-      }
-    `
-  })
-  .then((result) => console.log(result.data.info));
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    );
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
+
+try {
+  client = new ApolloClient({
+    link: errorLink.concat(httpLink),
+    cache: new InMemoryCache(),
+    headers: {
+      authorization: localStorage.getItem('token') || '',
+      client: 'TimeFiller App'
+    }
+  });
+} catch (error) {
+  console.log(`Error setting up server:${error.message}`);
+}
 
 ReactDOM.render(
   <React.StrictMode>

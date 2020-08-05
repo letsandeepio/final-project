@@ -57,6 +57,9 @@ export default function Login({ setLoggedIn, showSnackBar }) {
         showSnackBar({ message: 'Logged in succefully.', severity: 'success' });
         history.push('/categories');
       }
+    },
+    onError(e) {
+      showSnackBar({ message: 'Something went wrong.', severity: 'error' });
     }
   });
 
@@ -83,8 +86,6 @@ export default function Login({ setLoggedIn, showSnackBar }) {
   }
 
   const classes = useStyles();
-
-  console.log(classes.paper);
 
   return (
     <Container component="main" maxWidth="xs">
