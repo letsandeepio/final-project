@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { Router, Route, Switch } from 'react-router';
 import Signin from './components/Signin';
 import About from './components/About';
@@ -60,6 +60,11 @@ function App() {
   console.log('token:', localStorage.getItem(AUTH_TOKEN));
 
   let history = useHistory();
+
+  const { loading, error, data } = useQuery(ACTIVITY_QUERY);
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+  console.log(data);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
