@@ -12,17 +12,18 @@ import { useHistory } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 
 import _saveUserData from '../helpers/saveUserData';
+import validate from '../helpers/emailValidator';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(10),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing()
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
@@ -66,6 +67,27 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (!state.name) {
+      showSnackBar({ message: 'Name required.', severity: 'warning' });
+      return;
+    }
+
+    if (!state.email) {
+      showSnackBar({ message: 'Email required.', severity: 'warning' });
+      return;
+    }
+
+    if (!validate(state.email)) {
+      showSnackBar({ message: 'Valid Email required.', severity: 'warning' });
+      return;
+    }
+
+    if (!state.password) {
+      showSnackBar({ message: 'Password required.', severity: 'warning' });
+      return;
+    }
+
     console.log(
       `Signing up with ${state.name}, ${state.password} & ${state.email}`
     );
@@ -82,7 +104,7 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div classemail={classes.paper}>
+      <div classemail={classes.paper} style={{ marginTop: '4rem' }}>
         <Typography component="h1" variant="h5">
           Sign up for do.i.do
         </Typography>

@@ -16,7 +16,15 @@ const resolvers = {
   Mutation
 };
 
-// 3
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true
+};
+
+const options = {
+  cors: corsOptions
+};
+
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
@@ -27,4 +35,6 @@ const server = new GraphQLServer({
     };
   }
 });
-server.start(() => console.log(`Server  is running on http://localhost:4000`));
+server.start(options, () =>
+  console.log(`Server  is running on http://localhost:4000`)
+);
