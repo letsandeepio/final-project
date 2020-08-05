@@ -18,9 +18,16 @@ type Activity {
   completed: Boolean
 }
 
+type tempActivity {
+  title: String!
+  category: String!
+  duration: Int!
+}
+
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
+  addActivity(title: String!, category: String!, duration: Int!): tempActivity
 }
 
 type AuthPayload {
