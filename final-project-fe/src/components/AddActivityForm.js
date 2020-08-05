@@ -12,45 +12,51 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
+      width: '25ch'
+    }
+  }
 }));
 
 const ADDACTIVITY_MUTATION = gql`
-mutation AddActivityMutation($title: String!, $category: String!, $duration: Int!) {
-  addActivity(
-    title: $title
-    category: $category
-    duration: $duration){
-    	id
+  mutation AddActivityMutation(
+    $title: String!
+    $category: String!
+    $duration: Int!
+  ) {
+    addActivity(title: $title, category: $category, duration: $duration) {
+      id
+    }
   }
-}
 `;
 
 export default function AddActivityForm(props) {
   const classes = useStyles();
-  const menuItems= props.categories.map(obj=> <MenuItem value={obj.question}>{obj.question}</MenuItem>)
+  const menuItems = props.categories.map((obj) => (
+    <MenuItem value={obj.question}>{obj.question}</MenuItem>
+  ));
 
-  const [category, setCategory] = useState(props.category || "");
-  const [title, setTitle] = useState(props.title || "");
+  const [category, setCategory] = useState(props.category || '');
+  const [title, setTitle] = useState(props.title || '');
   const [hours, setHours] = useState(props.hours || 0);
   const [minutes, setMinutes] = useState(props.minutes || 0);
 
   const [addActivity, { data }] = useMutation(ADDACTIVITY_MUTATION, {
     onCompleted(response) {
-      console.log("activity added!", addActivity)
+      console.log('activity added!', addActivity);
+    },
+    onError(e) {
+      console.log(e);
     }
-  })
+  });
 
   function addActivityHelper() {
     addActivity({
       variables: {
         title,
         category,
-        duration: (hours * 60) + minutes
+        duration: Number(hours * 60) + Number(minutes)
       }
-    })
+    });
   }
 
   return (
@@ -59,7 +65,8 @@ export default function AddActivityForm(props) {
         <FormControl>
           <Select
             value={category}
-            onChange={e => setCategory(e.target.value)}>
+            onChange={(e) => setCategory(e.target.value)}
+          >
             {menuItems}
           </Select>
         </FormControl>
@@ -68,7 +75,7 @@ export default function AddActivityForm(props) {
         id="standard-search"
         label="Activity Name"
         value={title}
-        onChange={e => setTitle(e.target.value)}
+        onChange={(e) => setTitle(e.target.value)}
         type="search"
       />
       <p>Approximate Duration</p>
@@ -76,14 +83,14 @@ export default function AddActivityForm(props) {
         id="add-activity-hours"
         label="Hours"
         value={hours}
-        onChange={e => setHours(e.target.value)}
+        onChange={(e) => setHours(e.target.value)}
         type="number"
       />
       <TextField
         id="add-activity-minutes"
         label="Minutes"
         value={minutes}
-        onChange={e => setMinutes(e.target.value)}
+        onChange={(e) => setMinutes(e.target.value)}
         type="number"
       />
       <br></br>
@@ -91,5 +98,5 @@ export default function AddActivityForm(props) {
         Save
       </Button>
     </section>
-  )
+  );
 }
