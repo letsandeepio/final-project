@@ -1,8 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { Context } from '../index';
-
 import { APP_SECRET, getUserId } from '../helpers';
 
 const hashedPassword = (password: any) => {
