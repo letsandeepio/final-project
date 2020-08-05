@@ -73,15 +73,11 @@ async function addActivity(parent: any, args: any, context: Context) {
     data: {
       title: args.title,
       category: args.category,
-      duration: args.duration
+      duration: args.duration,
+      users: { connect: { id: 1 } }
     }
   });
-
-  return {
-    title: args.title,
-    category: args.category,
-    duration: args.duration
-  };
+  return activity;
 }
 
 export default {
