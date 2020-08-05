@@ -11,12 +11,14 @@ import SuccessPage from './pages/SuccessPage';
 import AddActivityPage from './pages/AddActivityPage';
 
 import Snackbar from '@material-ui/core/Snackbar';
-
 import MuiAlert from '@material-ui/lab/Alert';
 
 import { Route, Switch, useHistory } from 'react-router-dom';
 
 import { AUTH_TOKEN } from './constants';
+
+import { gql, useMutation } from '@apollo/client';
+
 
 import './index.scss';
 
