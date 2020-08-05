@@ -37,11 +37,12 @@ const SIGNIN_MUTATION = gql`
   mutation SigninMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
+      error
     }
   }
 `;
 
-export default function Login({ setLoggedIn }) {
+export default function Login({ setLoggedIn, showSnackBar }) {
   let history = useHistory();
   const [state, setState] = useState({
     password: '',
@@ -50,15 +51,32 @@ export default function Login({ setLoggedIn }) {
 
   const [userSignIn, { data }] = useMutation(SIGNIN_MUTATION, {
     onCompleted(response) {
-      setLoggedIn(true);
-      _saveUserData(response.login.token);
-      history.push('/categories');
+      console.log(data);
+      const { token, error } = response.login;
+      if (error) {
+        showSnackBar({ message: error, severity: 'error' });
+      } else {
+        setLoggedIn(true);
+        _saveUserData(token);
+        showSnackBar({ message: 'Logged in succefully.', severity: 'success' });
+        history.push('/categories');
+      }
     }
   });
 
   function handleSubmit(e) {
     e.preventDefault();
     console.log(`Signing in with ${state.email} & ${state.password} `);
+
+    if (!state.email) {
+      showSnackBar({ message: 'Email required.', severity: 'warning' });
+      return;
+    }
+
+    if (!state.password) {
+      showSnackBar({ message: 'Password required.', severity: 'warning' });
+      return;
+    }
 
     userSignIn({
       variables: {

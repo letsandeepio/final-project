@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Header({ loggedIn, logout }) {
+export default function Header({ loggedIn, logout, showSnackBar }) {
   const classes = useStyles();
 
   return (
@@ -39,7 +39,12 @@ export default function Header({ loggedIn, logout }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title} component={Link} to="/">
+          <Typography
+            variant="h6"
+            className={classes.title}
+            component={Link}
+            to="/"
+          >
             do.i.do
           </Typography>
           <Button color="inherit" component={Link} to="/about">
