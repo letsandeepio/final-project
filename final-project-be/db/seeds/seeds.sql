@@ -35,6 +35,4 @@ INSERT INTO activity(user_id, title, category, duration, completed)
   (1, 'Spring Cleaning', 'other', '420', 0),
   (1, 'BBC Oceans', 'watch', '30', 0),
   (1, 'Taquitos', 'watch', '30', 0),
-  (1, 'BBC Oceans', 'watch', '30', 0),
-  (1, 'BBC Oceans', 'watch', '30', 0),
   (1, 'Spicy Noodles', 'cook', '30', 0);
