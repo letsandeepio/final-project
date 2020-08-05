@@ -66,22 +66,17 @@ async function login(parent: any, args: any, context: any) {
   };
 }
 
-async function addActivity(parent: any, args: any, context: Context) {
-  console.log(args);
-
+async function addActivity(parent: any, args: any, context: any) {
+  const userID = getUserId(context);
   const activity = await context.prisma.activity.create({
     data: {
       title: args.title,
       category: args.category,
-      duration: args.duration
+      duration: args.duration,
+      users: { connect: { id: userID } }
     }
   });
-
-  return {
-    title: args.title,
-    category: args.category,
-    duration: args.duration
-  };
+  return activity;
 }
 
 export default {
