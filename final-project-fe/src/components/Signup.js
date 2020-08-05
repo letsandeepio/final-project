@@ -33,11 +33,12 @@ const SIGNUP_MUTATION = gql`
   mutation SignupMutation($email: String!, $password: String!, $name: String!) {
     signup(email: $email, password: $password, name: $name) {
       token
+      error
     }
   }
 `;
 
-export default function Signup({ setLoggedIn }) {
+export default function Signup({ setLoggedIn, showSnackBar }) {
   let history = useHistory();
   const [state, setState] = useState({
     name: '',
@@ -47,9 +48,17 @@ export default function Signup({ setLoggedIn }) {
 
   const [userSignup, { data }] = useMutation(SIGNUP_MUTATION, {
     onCompleted(response) {
-      setLoggedIn(true);
-      _saveUserData(response.signup.token);
-      history.push('/categories');
+      const { token, error } = response.signup;
+      if (error) {
+        let message = 'Something went wrong. Please try again later.';
+        if (error.includes('Unique constraint'))
+          message = 'User with that email already exists!';
+        showSnackBar({ message, severity: 'error' });
+      } else {
+        setLoggedIn(true);
+        _saveUserData(token);
+        history.push('/categories');
+      }
     }
   });
 

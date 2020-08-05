@@ -10,6 +10,10 @@ import HomePage from './pages/HomePage';
 import SuccessPage from './pages/SuccessPage';
 import AddActivityPage from './pages/AddActivityPage';
 
+import Snackbar from '@material-ui/core/Snackbar';
+
+import MuiAlert from '@material-ui/lab/Alert';
+
 import { Route, Switch, useHistory } from 'react-router-dom';
 
 import { AUTH_TOKEN } from './constants';
@@ -24,6 +28,10 @@ const categories = [
   { question: 'what else could i do?' }
 ];
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function App() {
   const [category, setCategory] = useState(categories[0].question);
   const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
@@ -31,9 +39,26 @@ function App() {
     !!localStorage.getItem(AUTH_TOKEN)
   );
 
+  const [snackBar, setSnackBar] = useState({
+    open: false,
+    message: '',
+    severity: 'success'
+  });
+
   console.log('token:', localStorage.getItem(AUTH_TOKEN));
 
   let history = useHistory();
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackBar({ ...snackBar, open: false });
+  };
+
+  const showSnackBar = (args) => {
+    setSnackBar({ ...snackBar, open: true, ...args });
+  };
 
   const selectCategory = function (category) {
     setCategory(category);
@@ -51,10 +76,10 @@ function App() {
       <Header loggedIn={isLoggedIn} logout={logOut} />
       <Switch>
         <Route exact path="/login">
-          <Signin setLoggedIn={setLoggedIn} />
+          <Signin setLoggedIn={setLoggedIn} showSnackBar={showSnackBar} />
         </Route>
         <Route exact path="/signup">
-          <Signup setLoggedIn={setLoggedIn} />
+          <Signup setLoggedIn={setLoggedIn} showSnackBar={showSnackBar} />
         </Route>
         <Route path="/about" component={About} exact />
         <Route exact path="/">
@@ -83,6 +108,18 @@ function App() {
           <AddActivityPage categories={categories} />
         </Route>
       </Switch>
+
+      <Snackbar
+        autoHideDuration={6000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={snackBar.open}
+        key="bottomcenter"
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity={snackBar.severity}>
+          {snackBar.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

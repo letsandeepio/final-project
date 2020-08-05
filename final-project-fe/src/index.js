@@ -8,7 +8,6 @@ import { theme } from './theme';
 import { BrowserRouter } from 'react-router-dom';
 
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
 import { gql } from '@apollo/client';
 
 import { ApolloProvider } from '@apollo/client';
