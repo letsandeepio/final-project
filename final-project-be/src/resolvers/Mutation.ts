@@ -11,43 +11,58 @@ const hashedPassword = (password: any) => {
 };
 
 async function signup(parent: any, args: any, context: any) {
-  console.log(args.name, args.password, args.email);
-  console.log(context.request.get('Client'));
+  console.log(`Signup recieved from ${context.request.get('Client')}`);
+
   const hashPw = hashedPassword(args.password);
-  const user = await context.prisma.users.create({
-    data: {
-      name: args.name,
-      password: hashPw,
-      email: args.email
-    }
-  });
+  let user;
+  let token;
+  let error = '';
 
-  const token = jwt.sign({ userId: user.id }, APP_SECRET);
-
+  try {
+    user = await context.prisma.users.create({
+      data: {
+        name: args.name,
+        password: hashPw,
+        email: args.email
+      }
+    });
+    token = jwt.sign({ userId: user.id }, APP_SECRET);
+  } catch (e) {
+    error = e.message;
+    console.log(error);
+  }
   return {
     token,
-    user
+    user,
+    error
   };
 }
 
-async function login(parent: any, args: any, context: Context) {
-  console.log(args);
+async function login(parent: any, args: any, context: any) {
+  console.log(`Login recieved from ${context.request.get('Client')}`);
+
+  let error = '';
+  let token = '';
+
   const user = await context.prisma.users.findOne({
     where: { email: args.email }
   });
-  if (!user) {
-    throw new Error('No such user found');
-  }
-  const valid = await bcrypt.compare(args.password, user.password);
 
-  if (!valid) {
-    throw new Error('Invalid password');
+  if (user) {
+    const valid = await bcrypt.compare(args.password, user.password);
+    if (valid) {
+      token = jwt.sign({ userId: user.id }, APP_SECRET);
+    } else {
+      error = 'Invalid Credentials.';
+    }
+  } else {
+    error = "User doesn't exist.";
   }
-  const token = jwt.sign({ userId: user.id }, APP_SECRET);
 
   return {
     token,
-    user
+    user,
+    error
   };
 }
 
