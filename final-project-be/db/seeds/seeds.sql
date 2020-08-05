@@ -15,7 +15,7 @@ INSERT INTO activity(user_id, title, category, duration, completed)
   (1, 'Lasagne', 'cook', '100', 0),
   (1, 'Chicken Fried Rice', 'cook', '45', 0),
   (1, 'Visit Niagara Falls', 'other', '300', 0),
-  (1, 'Back-To-School Shopping', 'other', '15', 0),
+  (1, 'Back-To-School Shopping', 'other', '300', 0),
   (1, 'Harry Potter Marathon', 'watch', '420', 0),
   (1, 'Rick and Morty Marathon', 'watch', '420', 0),
   (1, 'Top Ramen', 'eat', '120', 0),
