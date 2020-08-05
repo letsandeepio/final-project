@@ -1,13 +1,13 @@
-// import { getUserId } from "../helpers";
+import { getUserId } from "../helpers";
 
 function info() {
   return `Eileen, Keith and Sandeep are setting up Authentication!`;
 }
 
 async function activities(parent: any, args: any, context: any) {
-  // const userId = getUserId(context);
+  const userId = getUserId(context);
   const activities = await context.prisma.activity.findMany({
-    where: { user_id: args.userId}
+    where: { user_id: userId}
   })
   return activities;
 }
