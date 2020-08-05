@@ -37,7 +37,7 @@ async function signup(parent: any, args: any, context: any) {
 }
 
 async function login(parent: any, args: any, context: any) {
-  console.log(`Login recieved from ${context.request.get('Client')}`);
+  console.log(`Login received from ${context.request.get('Client')}`);
 
   let error = '';
   let token = '';
