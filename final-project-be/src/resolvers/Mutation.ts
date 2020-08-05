@@ -1,8 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { Context } from '../index';
-
 import { APP_SECRET, getUserId } from '../helpers';
 
 const hashedPassword = (password: any) => {
@@ -11,7 +9,7 @@ const hashedPassword = (password: any) => {
 };
 
 async function signup(parent: any, args: any, context: any) {
-  console.log(`Signup recieved from ${context.request.get('Client')}`);
+  console.log(`Signup received from ${context.request.get('Client')}`);
 
   const hashPw = hashedPassword(args.password);
   let user;
@@ -39,7 +37,7 @@ async function signup(parent: any, args: any, context: any) {
 }
 
 async function login(parent: any, args: any, context: any) {
-  console.log(`Login recieved from ${context.request.get('Client')}`);
+  console.log(`Login received from ${context.request.get('Client')}`);
 
   let error = '';
   let token = '';
