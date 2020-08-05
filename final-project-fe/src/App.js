@@ -17,7 +17,7 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 
 import { AUTH_TOKEN } from './constants';
 
-import { gql, useMutation } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 
 
 import './index.scss';
@@ -29,6 +29,16 @@ const categories = [
   { question: 'what should i cook?' },
   { question: 'what else could i do?' }
 ];
+
+const ACTIVITY_QUERY = gql`
+  query ActivityQuery {
+    activities {
+      title,
+      category,
+      duration
+    }
+  }
+`
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
