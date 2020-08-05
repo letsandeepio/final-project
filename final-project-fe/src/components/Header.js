@@ -57,7 +57,7 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
           ) : (
             <span>
               <Button color="inherit" component={Link} to="/signup">
-                Sign Up
+                Register
               </Button>
               <Button color="inherit" component={Link} to="/login">
                 Sign In
