@@ -66,7 +66,26 @@ async function login(parent: any, args: any, context: any) {
   };
 }
 
+async function addActivity(parent: any, args: any, context: Context) {
+  console.log(args)
+
+  const activity = await context.prisma.activity.create({
+    data: {
+      title: args.title,
+      category: args.category,
+      duration: args.duration
+    }
+  })
+
+  return {
+    title: args.title,
+    category: args.category,
+    duration: args.duration
+  };
+};
+
 export default {
   login,
-  signup
+  signup,
+  addActivity
 };
