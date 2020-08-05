@@ -9,6 +9,7 @@
     "prestart": "npm run build",
     "start": "node .",
     "dev": "nodemon",
+    "db:reset": "node bin/resetdb.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -23,6 +24,9 @@
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "chalk": "^2.4.2",
+    "dotenv": "^2.0.0",
+    "pg-native": "^3.0.0",
     "@prisma/cli": "^2.3.0",
     "@types/node": "^14.0.27",
     "ts-node": "^8.10.2",
