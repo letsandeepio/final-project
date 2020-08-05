@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { Router, Route, Switch } from 'react-router';
 import Signin from './components/Signin';
 import About from './components/About';
@@ -11,12 +11,14 @@ import SuccessPage from './pages/SuccessPage';
 import AddActivityPage from './pages/AddActivityPage';
 
 import Snackbar from '@material-ui/core/Snackbar';
-
 import MuiAlert from '@material-ui/lab/Alert';
 
 import { Route, Switch, useHistory } from 'react-router-dom';
 
 import { AUTH_TOKEN } from './constants';
+
+import { gql, useQuery } from '@apollo/client';
+
 
 import './index.scss';
 
@@ -27,6 +29,16 @@ const categories = [
   { question: 'what should i cook?' },
   { question: 'what else could i do?' }
 ];
+
+const ACTIVITY_QUERY = gql`
+  query ActivityQuery {
+    activities {
+      title,
+      category,
+      duration
+    }
+  }
+`
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -48,6 +60,11 @@ function App() {
   console.log('token:', localStorage.getItem(AUTH_TOKEN));
 
   let history = useHistory();
+
+  const { loading, error, data } = useQuery(ACTIVITY_QUERY);
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+  console.log(data);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
