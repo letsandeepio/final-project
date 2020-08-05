@@ -54,7 +54,7 @@ export default function Login({ setLoggedIn, showSnackBar }) {
       } else {
         setLoggedIn(true);
         _saveUserData(token);
-        showSnackBar({ message: 'Logged in succefully.', severity: 'success' });
+        showSnackBar({ message: 'Logged in successfully.', severity: 'success' });
         history.push('/categories');
       }
     },

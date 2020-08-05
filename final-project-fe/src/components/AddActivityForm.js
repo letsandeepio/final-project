@@ -18,27 +18,46 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddActivityForm(props) {
   const classes = useStyles();
-  const [question, setQuestion] = useState(props.categories[0].question);
   const menuItems= props.categories.map(obj=> <MenuItem value={obj.question}>{obj.question}</MenuItem>)
 
-  const handleChange = (event) => {
-    setQuestion(event.target.value);
-  };
+  const [category, setCategory] = useState(props.category || "");
+  const [title, setTitle] = useState(props.title || "");
+  const [hours, setHours] = useState(props.hours || 0);
+  const [minutes, setMinutes] = useState(props.minutes || 0);
 
   return (
     <section>
       <div>
         <FormControl>
-          <Select value={question}
-            onChange={props.onChange}>
+          <Select
+            value={category}
+            onChange={e => setCategory(e.target.value)}>
             {menuItems}
           </Select>
         </FormControl>
       </div>
-      <TextField id="standard-search" label="Activity Name" type="search" />
+      <TextField
+        id="standard-search"
+        label="Activity Name"
+        value={title}
+        onChange={e => setTitle(e.target.value)}
+        type="search"
+      />
       <p>Approximate Duration</p>
-      <TextField id="add-activity-hours" label="Hours" type="number" />
-      <TextField id="add-activity-minutes" label="Minutes" type="number" />
+      <TextField
+        id="add-activity-hours"
+        label="Hours"
+        value={hours}
+        onChange={e => setHours(e.target.value)}
+        type="number"
+      />
+      <TextField
+        id="add-activity-minutes"
+        label="Minutes"
+        value={minutes}
+        onChange={e => setMinutes(e.target.value)}
+        type="number"
+      />
       <br></br>
       <Button variant="contained" onClick={props.onClick} color="primary">
         Save
