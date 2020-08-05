@@ -14,6 +14,8 @@ import { onError } from '@apollo/client/link/error';
 import { createHttpLink } from '@apollo/client/link/http';
 import { setContext } from '@apollo/client/link/context';
 
+import { AUTH_TOKEN } from './constants';
+
 let client = '';
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000'
@@ -30,7 +32,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem(AUTH_TOKEN);
   return {
     headers: {
       ...headers,
