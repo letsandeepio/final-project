@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import { gql, useMutation } from '@apollo/client';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,6 +17,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const ADDACTIVITY_MUTATION = gql`
+mutation AddActivityMutation($title: String!, $category: String!, $duration: Int!) {
+  addActivity(
+    title: $title
+    category: $category
+    duration: $duration){
+    	id
+  }
+}
+`;
+
 export default function AddActivityForm(props) {
   const classes = useStyles();
   const menuItems= props.categories.map(obj=> <MenuItem value={obj.question}>{obj.question}</MenuItem>)
@@ -24,6 +36,22 @@ export default function AddActivityForm(props) {
   const [title, setTitle] = useState(props.title || "");
   const [hours, setHours] = useState(props.hours || 0);
   const [minutes, setMinutes] = useState(props.minutes || 0);
+
+  const [addActivity, { data }] = useMutation(ADDACTIVITY_MUTATION, {
+    onCompleted(response) {
+      console.log("activity added!", addActivity)
+    }
+  })
+
+  function addActivityHelper() {
+    addActivity({
+      variables: {
+        title,
+        category,
+        duration: (hours * 60) + minutes
+      }
+    })
+  }
 
   return (
     <section>
@@ -59,7 +87,7 @@ export default function AddActivityForm(props) {
         type="number"
       />
       <br></br>
-      <Button variant="contained" onClick={props.onClick} color="primary">
+      <Button variant="contained" onClick={addActivityHelper} color="primary">
         Save
       </Button>
     </section>
