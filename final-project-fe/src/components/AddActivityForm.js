@@ -56,7 +56,7 @@ export default function AddActivityForm(props) {
       } else {
         // setLoggedIn(true);
         // _saveUserData(token);
-        showSnackBar({ message: 'Logged in successfully.', severity: 'success' });
+        showSnackBar({ message: 'Successfully added activity!', severity: 'success' });
         // props.showSnackBar({ message: 'Logged in successfully.', severity: 'success' });
         // history.push('/categories');
       }
@@ -75,6 +75,24 @@ export default function AddActivityForm(props) {
 
     if (!title) {
       showSnackBar({ message: 'Title required.', severity: 'warning' });
+      // props.showSnackBar({ message: 'Title required.', severity: 'warning' });
+      return;
+    }
+
+    if (!category) {
+      showSnackBar({ message: 'Category required.', severity: 'warning' });
+      // props.showSnackBar({ message: 'Title required.', severity: 'warning' });
+      return;
+    }
+
+    if (!hours) {
+      showSnackBar({ message: 'Hours required.', severity: 'warning' });
+      // props.showSnackBar({ message: 'Title required.', severity: 'warning' });
+      return;
+    }
+
+    if (!minutes) {
+      showSnackBar({ message: 'Minutes required.', severity: 'warning' });
       // props.showSnackBar({ message: 'Title required.', severity: 'warning' });
       return;
     }
