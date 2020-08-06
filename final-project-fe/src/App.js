@@ -122,7 +122,7 @@ function App() {
           <SuccessPage />
         </Route>
         <Route exact path="/add-activity">
-          <AddActivityPage categories={categories} />
+          <AddActivityPage categories={categories} showSnackBar={showSnackBar} />
         </Route>
       </Switch>
 
