@@ -51,8 +51,7 @@ export default function SuggesterPage(props) {
         props.onCategoryChange(value);
       }}/>
       <TimePicker onChange={props.onTimeChange} timeAvailable={props.timeAvailable}/>
-      {/* {loading ? 'loading' : (activitySuggestions.length > 0 ? <SuggestionCard activity={activitySuggestions[suggestionIndex]}/> : "There's nothing")} */}
-      {loading ? 'loading' : (activitySuggestions.length > 0 ? <SuggestionCard activity={activitySuggestions[suggestionIndex]}/> : 'loading')}
+      {loading ? 'nothing yet' : (activitySuggestions.length > 0 ? <SuggestionCard activity={activitySuggestions[suggestionIndex]}/> : 'nothing yet')}
       <SuggesterButtonBox onAccept={()=>history.push('/success')} onReject={indexIncrementor}/>
     </div>
   )

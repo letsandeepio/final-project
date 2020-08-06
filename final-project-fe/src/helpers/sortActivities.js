@@ -21,14 +21,10 @@ export default function sortActivities(activitiesArray, category, time) {
 
   for (let activity of activitiesArray) {
     if (categoryFilter === "") {
-      // if (activity.duration <= minuteTimeConvert(time) && activity.status === "incomplete") {
       if (activity.duration <= minuteTimeConvert(time)){
-
         filteredActivities.push(activity);
       }
-    // } else if (activity.category === categoryFilter && activity.duration <= minuteTimeConvert(time) && activity.status === "incomplete") {
     } else if (activity.category === categoryFilter && activity.duration <= minuteTimeConvert(time)) {
-
       filteredActivities.push(activity);
     }
   }
