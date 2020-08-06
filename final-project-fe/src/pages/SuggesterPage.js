@@ -14,6 +14,7 @@ import { useMutation } from '@apollo/client';
 const ACTIVITY_QUERY = gql`
   query ActivityQuery {
     activities {
+      id
       title
       category
       duration
@@ -31,7 +32,8 @@ const CHANGESTATUS_MUTATION = gql`
 
 export default function SuggesterPage(props) {
   const [suggestionIndex, setSuggestionIndex] = useState(0);
-  const [activitySuggestions, setActivitySuggestions] = useState([]);
+  const [activitySuggestions, setActivitySuggestions] = useState(null);
+  console.log(activitySuggestions);
   const [category, setCategory] = useState(props.category);
   let history = useHistory();
 
@@ -47,12 +49,15 @@ export default function SuggesterPage(props) {
   });
 
   function handleNow() {
-    /*  changeStatus({
+    const id = activitySuggestions.activities[suggestionIndex].id;
+
+    console.log(`Marking activity in progrss ${id}`);
+    changeStatus({
       variables: {
-        id: id,
+        id: Number(id),
         status: 'progress'
       }
-    }); */
+    });
 
     history.push('/success');
   }
@@ -91,10 +96,14 @@ export default function SuggesterPage(props) {
         onChange={props.onTimeChange}
         timeAvailable={props.timeAvailable}
       />
-      {loading ? (
-        'nothing yet'
-      ) : activitySuggestions.length > 0 ? (
-        <SuggestionCard activity={activitySuggestions[suggestionIndex]} />
+      {loading || activitySuggestions === null ? (
+        'loading'
+      ) : activitySuggestions.activities.length > 0 ? (
+        <SuggestionCard
+          activity={activitySuggestions.activities[suggestionIndex]}
+        />
+      ) : activitySuggestions.hasActivities === true ? (
+        'nothing in this time frame'
       ) : (
         'nothing yet'
       )}

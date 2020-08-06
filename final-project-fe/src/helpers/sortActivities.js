@@ -1,9 +1,9 @@
 import minuteTimeConvert from "./minuteTimeConvert";
 
 export default function sortActivities(activitiesArray, category, time) {
-  console.log(activitiesArray);
   let filteredActivities = []
   let categoryFilter = "";
+  let hasActivities = false;
   switch (category) {
     case "what should i watch?":
       categoryFilter = "watch";
@@ -21,13 +21,19 @@ export default function sortActivities(activitiesArray, category, time) {
 
   for (let activity of activitiesArray) {
     if (categoryFilter === "") {
+      hasActivities = true;
       if (activity.duration <= minuteTimeConvert(time)){
         filteredActivities.push(activity);
       }
-    } else if (activity.category === categoryFilter && activity.duration <= minuteTimeConvert(time)) {
-      filteredActivities.push(activity);
+    } else {
+      if (activity.category === categoryFilter) {
+        hasActivities = true;
+        console.log(hasActivities);
+      }
+      if (activity.category === categoryFilter && activity.duration <= minuteTimeConvert(time)) {
+        filteredActivities.push(activity);
+      }
     }
   }
-
-  return filteredActivities;
+  return { activities: filteredActivities, hasActivities };
 }
