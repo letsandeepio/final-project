@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
@@ -8,13 +9,37 @@ import TimePicker from "../components/TimePicker";
 import SuggesterButtonBox from "../components/SuggesterButtonBox";
 
 import sortActivities from "../helpers/sortActivities";
+=======
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { gql, useQuery } from '@apollo/client';
+
+import CategoryDropdown from '../components/CategoryDropdown';
+import SuggestionCard from '../components/SuggestionCard';
+import TimePicker from '../components/TimePicker';
+import SuggesterButtonBox from '../components/SuggesterButtonBox';
+
+import sortActivities from '../helpers/sortActivities';
+>>>>>>> master
+
+import { useMutation } from '@apollo/client';
 
 const ACTIVITY_QUERY = gql`
   query ActivityQuery {
     activities {
+      id
       title
       category
       duration
+      status
+    }
+  }
+`;
+const CHANGESTATUS_MUTATION = gql`
+  mutation changeStatusMutation($id: Int!, $status: String!) {
+    changeStatus(id: $id, status: $status) {
+      id
+      status
     }
   }
 `;
@@ -27,6 +52,29 @@ export default function SuggesterPage(props) {
   let history = useHistory();
 
   const { loading, error, data } = useQuery(ACTIVITY_QUERY);
+
+  const [changeStatus, statusResponse] = useMutation(CHANGESTATUS_MUTATION, {
+    onCompleted(response) {
+      console.log(response);
+    },
+    onError(error) {
+      console.log(error);
+    }
+  });
+
+  function handleNow() {
+    const id = activitySuggestions.activities[suggestionIndex].id;
+
+    console.log(`Marking activity in progrss ${id}`);
+    changeStatus({
+      variables: {
+        id: Number(id),
+        status: 'progress'
+      }
+    });
+
+    history.push('/success');
+  }
 
   useEffect(() => {
     if (data) {
@@ -41,7 +89,7 @@ export default function SuggesterPage(props) {
 
   const indexIncrementor = function () {
     let i = suggestionIndex;
-    if (i >= activitySuggestions.length - 1) {
+    if (i >= activitySuggestions.activities.length - 1) {
       setSuggestionIndex(0);
     } else {
       setSuggestionIndex(i + 1);
@@ -63,7 +111,7 @@ export default function SuggesterPage(props) {
         timeAvailable={props.timeAvailable}
       />
       {loading || activitySuggestions === null ? (
-        "loading"
+        'loading'
       ) : activitySuggestions.activities.length > 0 ? (
         <>
           <SuggestionCard
@@ -75,9 +123,9 @@ export default function SuggesterPage(props) {
           />
         </>
       ) : activitySuggestions.hasActivities === true ? (
-        "nothing in this time frame"
+        'nothing in this time frame'
       ) : (
-        "nothing yet"
+        'nothing yet'
       )}
     </div>
   );
