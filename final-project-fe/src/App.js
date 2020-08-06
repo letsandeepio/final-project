@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { Router, Route, Switch } from 'react-router';
 import Signin from './components/Signin';
 import About from './components/About';
 import Signup from './components/Signup';
@@ -18,7 +17,6 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import { AUTH_TOKEN } from './constants';
 
 import { gql, useQuery } from '@apollo/client';
-
 
 import './index.scss';
 
@@ -57,14 +55,9 @@ function App() {
     severity: 'success'
   });
 
-  console.log('token:', localStorage.getItem(AUTH_TOKEN));
-
   let history = useHistory();
 
-  const { loading, error, data } = useQuery(ACTIVITY_QUERY);
-  if (loading) return 'Loading...';
-  if (error) return `Error! ${error.message}`;
-  console.log(data);
+  const { data } = useQuery(ACTIVITY_QUERY);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -116,6 +109,7 @@ function App() {
             category={category}
             onTimeChange={(time) => setTimeAvailable(time)}
             timeAvailable={timeAvailable}
+            activities={data}
           />
         </Route>
         <Route exact path="/success">

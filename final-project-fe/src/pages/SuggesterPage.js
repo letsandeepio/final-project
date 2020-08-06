@@ -4,6 +4,8 @@ import CategoryDropdown from '../components/CategoryDropdown'
 import SuggestionCard from '../components/SuggestionCard'
 import TimePicker from '../components/TimePicker'
 import SuggesterButtonBox from '../components/SuggesterButtonBox'
+import sortActivities from '../helpers/sortActivities';
+
 
 import {useHistory } from 'react-router-dom';
 
@@ -25,6 +27,7 @@ const activitySuggestions = [
 export default function SuggesterPage(props) {
   const [suggestionIndex, setSuggestionIndex] = useState(0)
   let history = useHistory();
+  console.log(props.activities);
 
   const indexIncrementor = function() {
     let i = suggestionIndex;
