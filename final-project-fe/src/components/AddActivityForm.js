@@ -9,8 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { gql, useMutation } from '@apollo/client';
 
-import Snackbar from '@material-ui/core/Snackbar';
-
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,16 +33,17 @@ const ADDACTIVITY_MUTATION = gql`
 `;
 
 export default function AddActivityForm(props) {
+  let history = useHistory();
   const classes = useStyles();
   const { showSnackBar } = props;
   const menuItems = props.categories.map((obj) => (
     <MenuItem value={obj.question}>{obj.question}</MenuItem>
   ));
 
-  const [category, setCategory] = useState(props.category || '');
-  const [title, setTitle] = useState(props.title || '');
-  const [hours, setHours] = useState(props.hours || 0);
-  const [minutes, setMinutes] = useState(props.minutes || 0);
+  const [category, setCategory] = useState('');
+  const [title, setTitle] = useState('');
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
 
   const [addActivity, { data }] = useMutation(ADDACTIVITY_MUTATION, {
     onCompleted(response) {
@@ -52,9 +52,11 @@ export default function AddActivityForm(props) {
       if (error) {
         showSnackBar({ message: error, severity: 'error' });
       } else {
-        showSnackBar({ message: 'Successfully added activity!', severity: 'success' });
+        showSnackBar({
+          message: 'Successfully added activity!',
+          severity: 'success'
+        });
       }
-
     },
     onError(e) {
       console.log(e);
@@ -63,7 +65,6 @@ export default function AddActivityForm(props) {
   });
 
   function addActivityHelper() {
-
     if (!title) {
       showSnackBar({ message: 'Title required.', severity: 'warning' });
       return;
@@ -74,13 +75,11 @@ export default function AddActivityForm(props) {
       return;
     }
 
-    if (!hours) {
-      showSnackBar({ message: 'Hours required.', severity: 'warning' });
-      return;
-    }
-
-    if (!minutes) {
-      showSnackBar({ message: 'Minutes required.', severity: 'warning' });
+    if (!hours && !minutes) {
+      showSnackBar({
+        message: 'Valid duration required.',
+        severity: 'warning'
+      });
       return;
     }
 
@@ -91,6 +90,8 @@ export default function AddActivityForm(props) {
         duration: Number(hours * 60) + Number(minutes)
       }
     });
+
+    history.push('/categories');
   }
 
   return (
