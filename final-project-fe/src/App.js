@@ -117,7 +117,7 @@ function App() {
               onCategoryChange={setCategory}
               onTimeChange={(time) => setTimeAvailable(time)}
               timeAvailable={timeAvailable}
-              activities={data.activities}
+              activities={data}
             />
           )}
         </Route>

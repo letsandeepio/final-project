@@ -15,7 +15,7 @@ export default function SuggesterPage(props) {
   let history = useHistory();
   
   useEffect(()=> {
-      const filteredActivities = sortActivities(props.activities, category, props.timeAvailable);
+      const filteredActivities = sortActivities(props.activities.activities, category, props.timeAvailable);
       setActivitySuggestions(filteredActivities);
   }, [props.activities, props.timeAvailable, category])
 
