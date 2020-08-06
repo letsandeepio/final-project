@@ -13,12 +13,13 @@ import AddActivityPage from './pages/AddActivityPage';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
+import Dictaphone from './components/Speech';
+
 import { Route, Switch, useHistory } from 'react-router-dom';
 
 import { AUTH_TOKEN } from './constants';
 
 import { gql, useQuery } from '@apollo/client';
-
 
 import './index.scss';
 
@@ -33,12 +34,12 @@ const categories = [
 const ACTIVITY_QUERY = gql`
   query ActivityQuery {
     activities {
-      title,
-      category,
+      title
+      category
       duration
     }
   }
-`
+`;
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -62,9 +63,6 @@ function App() {
   let history = useHistory();
 
   const { loading, error, data } = useQuery(ACTIVITY_QUERY);
-  if (loading) return 'Loading...';
-  if (error) return `Error! ${error.message}`;
-  console.log(data);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -137,6 +135,7 @@ function App() {
           {snackBar.message}
         </Alert>
       </Snackbar>
+      <Dictaphone />
     </div>
   );
 }
