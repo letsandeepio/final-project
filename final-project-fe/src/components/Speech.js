@@ -10,11 +10,11 @@ const Dictaphone = () => {
   const commands = [
     {
       command: "I've got *",
-      callback: (duration) => setMessage(`Your've got ${duration}`)
+      callback: (duration) => console.log(`User got ${duration}`)
     },
     {
       command: 'I have *',
-      callback: (duation) => setMessage(`You have ${duation}`)
+      callback: (duation) => console.log(`User got ${duation}`)
     }
   ];
 
