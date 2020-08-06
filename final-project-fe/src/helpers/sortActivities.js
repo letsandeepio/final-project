@@ -7,7 +7,7 @@ export default function sortActivities(activitiesArray, category, time) {
     case "what should i watch?":
       categoryFilter = "watch";
       break;
-    case "what should i eat?":
+    case "where should i eat?":
       categoryFilter = "eat";
       break;
     case "what should i cook?":

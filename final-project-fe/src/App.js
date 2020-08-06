@@ -48,6 +48,7 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(
     !!localStorage.getItem(AUTH_TOKEN)
   );
+  console.log(category);
 
   const [snackBar, setSnackBar] = useState({
     open: false,
@@ -108,6 +109,7 @@ function App() {
           {loading ? 'loading' : <SuggesterPage
             categories={categories}
             category={category}
+            onCategoryChange={setCategory}
             onTimeChange={(time) => setTimeAvailable(time)}
             timeAvailable={timeAvailable}
             activities={data.activities}

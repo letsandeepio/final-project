@@ -11,12 +11,13 @@ import sortActivities from '../helpers/sortActivities';
 export default function SuggesterPage(props) {
   const [suggestionIndex, setSuggestionIndex] = useState(0)
   const [activitySuggestions, setActivitySuggestions] = useState([]);
+  const [category, setCategory] = useState(props.category)
   let history = useHistory();
   
   useEffect(()=> {
-      const filteredActivities = sortActivities(props.activities, props.category, props.timeAvailable);
+      const filteredActivities = sortActivities(props.activities, category, props.timeAvailable);
       setActivitySuggestions(filteredActivities);
-  }, [props.activities, props.timeAvailable, props.category])
+  }, [props.activities, props.timeAvailable, category])
 
   const indexIncrementor = function() {
     let i = suggestionIndex;
@@ -29,7 +30,10 @@ export default function SuggesterPage(props) {
 
   return (
     <div className="suggestorPage">
-      <CategoryDropdown questions={props.categories} question={props.category}/>
+      <CategoryDropdown questions={props.categories} question={props.category} onChange={(value)=> {
+        setCategory(value);
+        props.onCategoryChange(value);
+      }}/>
       <TimePicker onChange={props.onTimeChange} timeAvailable={props.timeAvailable}/>
       {activitySuggestions.length > 0 ? <SuggestionCard activity={activitySuggestions[suggestionIndex]}/> : "There's nothing"}
       <SuggesterButtonBox onAccept={()=>history.push('/success')} onReject={indexIncrementor}/>
