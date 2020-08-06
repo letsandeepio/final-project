@@ -78,11 +78,11 @@ async function addActivity(parent: any, args: any, context: any) {
   return activity;
 }
 
-async function markInProgress(parent: any, args: any, context: Context) {
-  const { id } = args;
+async function changeStatus(parent: any, args: any, context: Context) {
+  const { id, status } = args;
   const activity = await context.prisma.activity.update({
     where: { id },
-    data: { status: 'inprogress' }
+    data: { status }
   });
   return activity;
 }
@@ -91,5 +91,5 @@ export default {
   login,
   signup,
   addActivity,
-  markInProgress
+  changeStatus
 };
