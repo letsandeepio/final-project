@@ -44,7 +44,6 @@ function Alert(props) {
 
 function App() {
   const [category, setCategory] = useState(categories[0].question);
-  // const [activities, setActivities] = useState([]);
   const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
   const [isLoggedIn, setLoggedIn] = useState(
     !!localStorage.getItem(AUTH_TOKEN)
@@ -59,7 +58,6 @@ function App() {
   let history = useHistory();
 
   const { loading, error, data } = useQuery(ACTIVITY_QUERY);
-  if (loading) return <p>loading</p>
   if (error) return <p>Error: `${error.message}`</p>
 
   const handleClose = (event, reason) => {
@@ -107,13 +105,13 @@ function App() {
           />
         </Route>
         <Route exact path="/suggestions">
-          <SuggesterPage
+          {loading? 'loading' : <SuggesterPage
             categories={categories}
             category={category}
             onTimeChange={(time) => setTimeAvailable(time)}
             timeAvailable={timeAvailable}
             activities={data.activities}
-          />
+          />}
         </Route>
         <Route exact path="/success">
           <SuccessPage />
@@ -122,7 +120,6 @@ function App() {
           <AddActivityPage categories={categories} />
         </Route>
       </Switch>
-
       <Snackbar
         autoHideDuration={6000}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
