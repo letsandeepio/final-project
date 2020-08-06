@@ -105,7 +105,7 @@ function App() {
           />
         </Route>
         <Route exact path="/suggestions">
-          {loading? 'loading' : <SuggesterPage
+          {loading ? 'loading' : <SuggesterPage
             categories={categories}
             category={category}
             onTimeChange={(time) => setTimeAvailable(time)}
