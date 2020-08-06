@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { Router, Route, Switch } from 'react-router';
 import Signin from './components/Signin';
 import About from './components/About';
 import Signup from './components/Signup';
@@ -51,6 +50,7 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(
     !!localStorage.getItem(AUTH_TOKEN)
   );
+  console.log(category);
 
   const [snackBar, setSnackBar] = useState({
     open: false,
@@ -109,21 +109,30 @@ function App() {
           />
         </Route>
         <Route exact path="/suggestions">
-          <SuggesterPage
-            categories={categories}
-            category={category}
-            onTimeChange={(time) => setTimeAvailable(time)}
-            timeAvailable={timeAvailable}
-          />
+          {error && <p>Error: {error.message}</p>}
+          {loading ? (
+            'loading'
+          ) : (
+            <SuggesterPage
+              categories={categories}
+              category={category}
+              onCategoryChange={setCategory}
+              onTimeChange={(time) => setTimeAvailable(time)}
+              timeAvailable={timeAvailable}
+              activities={data.activities}
+            />
+          )}
         </Route>
         <Route exact path="/success">
           <SuccessPage />
         </Route>
         <Route exact path="/add-activity">
-          <AddActivityPage categories={categories} />
+          <AddActivityPage
+            categories={categories}
+            showSnackBar={showSnackBar}
+          />
         </Route>
       </Switch>
-
       <Snackbar
         autoHideDuration={6000}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}

@@ -15,13 +15,7 @@ type Activity {
   title: String!
   category: String!
   duration: Int!
-  completed: Boolean
-}
-
-type tempActivity {
-  title: String!
-  category: String!
-  duration: Int!
+  status: String!
 }
 
 type Mutation {

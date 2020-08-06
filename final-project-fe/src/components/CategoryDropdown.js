@@ -6,6 +6,7 @@ import Select from '@material-ui/core/Select';
 
 export default function(props) {
   const [question, setQuestion] = useState(props.question);
+  console.log(question);
 
   const menuItems= props.questions.map(obj=> <MenuItem value={obj.question}>{obj.question}</MenuItem>)
 
@@ -13,7 +14,10 @@ export default function(props) {
     <div>
       <FormControl>
         <Select value={question}
-          onChange={e=>setQuestion(e.target.value)}>
+          onChange={e=>{
+            setQuestion(e.target.value);
+            props.onChange(e.target.value);
+            }}>
           {menuItems}
         </Select>
       </FormControl>

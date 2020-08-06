@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { gql, useMutation } from '@apollo/client';
+
+import Snackbar from '@material-ui/core/Snackbar';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +35,7 @@ const ADDACTIVITY_MUTATION = gql`
 
 export default function AddActivityForm(props) {
   const classes = useStyles();
+  const { showSnackBar } = props;
   const menuItems = props.categories.map((obj) => (
     <MenuItem value={obj.question}>{obj.question}</MenuItem>
   ));
@@ -43,13 +48,42 @@ export default function AddActivityForm(props) {
   const [addActivity, { data }] = useMutation(ADDACTIVITY_MUTATION, {
     onCompleted(response) {
       console.log('activity added!', addActivity);
+      const { token, error } = response;
+      if (error) {
+        showSnackBar({ message: error, severity: 'error' });
+      } else {
+        showSnackBar({ message: 'Successfully added activity!', severity: 'success' });
+      }
+
     },
     onError(e) {
       console.log(e);
+      showSnackBar({ message: 'Something went wrong.', severity: 'error' });
     }
   });
 
   function addActivityHelper() {
+
+    if (!title) {
+      showSnackBar({ message: 'Title required.', severity: 'warning' });
+      return;
+    }
+
+    if (!category) {
+      showSnackBar({ message: 'Category required.', severity: 'warning' });
+      return;
+    }
+
+    if (!hours) {
+      showSnackBar({ message: 'Hours required.', severity: 'warning' });
+      return;
+    }
+
+    if (!minutes) {
+      showSnackBar({ message: 'Minutes required.', severity: 'warning' });
+      return;
+    }
+
     addActivity({
       variables: {
         title,
@@ -61,6 +95,8 @@ export default function AddActivityForm(props) {
 
   return (
     <section>
+      <CssBaseline />
+
       <div>
         <FormControl>
           <Select

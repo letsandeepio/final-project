@@ -31,7 +31,6 @@ async function createActivity() {
       title: 'superstar',
       category: 'watch',
       duration: 120,
-      completed: 0,
       owner: { connect: { id: 2 } }
     } as any
   });
