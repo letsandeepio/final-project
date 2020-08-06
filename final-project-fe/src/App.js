@@ -61,7 +61,7 @@ function App() {
   let history = useHistory();
 
   const { loading, error, data } = useQuery(ACTIVITY_QUERY);
-  if (error) return <p>Error: `${error.message}`</p>
+  if (error) return <p>Error: {error.message}</p>
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
