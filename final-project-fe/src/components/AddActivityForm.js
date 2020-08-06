@@ -49,58 +49,40 @@ export default function AddActivityForm(props) {
     onCompleted(response) {
       console.log('activity added!', addActivity);
       const { token, error } = response;
-      // const { token, error } = response.login;
       if (error) {
         showSnackBar({ message: error, severity: 'error' });
-        // props.showSnackBar({ message: error, severity: 'error' });
       } else {
-        // setLoggedIn(true);
-        // _saveUserData(token);
         showSnackBar({ message: 'Successfully added activity!', severity: 'success' });
-        // props.showSnackBar({ message: 'Logged in successfully.', severity: 'success' });
-        // history.push('/categories');
       }
 
     },
     onError(e) {
       console.log(e);
       showSnackBar({ message: 'Something went wrong.', severity: 'error' });
-      // props.showSnackBar({ message: 'Something went wrong.', severity: 'error' });
     }
   });
 
   function addActivityHelper() {
 
-    // console.log("!!!!!!!!!!!!!! ", state)
-
     if (!title) {
       showSnackBar({ message: 'Title required.', severity: 'warning' });
-      // props.showSnackBar({ message: 'Title required.', severity: 'warning' });
       return;
     }
 
     if (!category) {
       showSnackBar({ message: 'Category required.', severity: 'warning' });
-      // props.showSnackBar({ message: 'Title required.', severity: 'warning' });
       return;
     }
 
     if (!hours) {
       showSnackBar({ message: 'Hours required.', severity: 'warning' });
-      // props.showSnackBar({ message: 'Title required.', severity: 'warning' });
       return;
     }
 
     if (!minutes) {
       showSnackBar({ message: 'Minutes required.', severity: 'warning' });
-      // props.showSnackBar({ message: 'Title required.', severity: 'warning' });
       return;
     }
-
-    // if (!state.password) {
-    //   showSnackBar({ message: 'Password required.', severity: 'warning' });
-    //   return;
-    // }
 
     addActivity({
       variables: {
