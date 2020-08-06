@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {useHistory } from 'react-router-dom';
+import { gql, useQuery } from '@apollo/client';
+
 
 import CategoryDropdown from '../components/CategoryDropdown'
 import SuggestionCard from '../components/SuggestionCard'
@@ -8,16 +10,30 @@ import SuggesterButtonBox from '../components/SuggesterButtonBox'
 
 import sortActivities from '../helpers/sortActivities';
 
+const ACTIVITY_QUERY = gql`
+  query ActivityQuery {
+    activities {
+      title
+      category
+      duration
+    }
+  }
+`;
+
 export default function SuggesterPage(props) {
   const [suggestionIndex, setSuggestionIndex] = useState(0)
   const [activitySuggestions, setActivitySuggestions] = useState([]);
   const [category, setCategory] = useState(props.category)
   let history = useHistory();
-  
+
+  const { loading, error, data } = useQuery(ACTIVITY_QUERY);
+
   useEffect(()=> {
-      const filteredActivities = sortActivities(props.activities.activities, category, props.timeAvailable);
+    if (data) {
+      const filteredActivities = sortActivities(data.activities, category, props.timeAvailable);
       setActivitySuggestions(filteredActivities);
-  }, [props.activities, props.timeAvailable, category])
+    }
+  }, [data, props.timeAvailable, category])
 
   const indexIncrementor = function() {
     let i = suggestionIndex;
@@ -35,7 +51,7 @@ export default function SuggesterPage(props) {
         props.onCategoryChange(value);
       }}/>
       <TimePicker onChange={props.onTimeChange} timeAvailable={props.timeAvailable}/>
-      {activitySuggestions.length > 0 ? <SuggestionCard activity={activitySuggestions[suggestionIndex]}/> : "There's nothing"}
+      {loading ? 'nothing yet' : (activitySuggestions.length > 0 ? <SuggestionCard activity={activitySuggestions[suggestionIndex]}/> : 'nothing yet')}
       <SuggesterButtonBox onAccept={()=>history.push('/success')} onReject={indexIncrementor}/>
     </div>
   )

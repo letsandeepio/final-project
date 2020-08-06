@@ -1,6 +1,7 @@
 import minuteTimeConvert from "./minuteTimeConvert";
 
 export default function sortActivities(activitiesArray, category, time) {
+  console.log(activitiesArray);
   let filteredActivities = []
   let categoryFilter = "";
   switch (category) {
@@ -20,7 +21,7 @@ export default function sortActivities(activitiesArray, category, time) {
 
   for (let activity of activitiesArray) {
     if (categoryFilter === "") {
-      if (activity.duration <= minuteTimeConvert(time)) {
+      if (activity.duration <= minuteTimeConvert(time)){
         filteredActivities.push(activity);
       }
     } else if (activity.category === categoryFilter && activity.duration <= minuteTimeConvert(time)) {

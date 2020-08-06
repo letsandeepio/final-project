@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Typography, TextField } from "@material-ui/core";
 import "../index.scss";
-import Pluralize from "react-pluralize";
+import pluralize from 'pluralize';
 import timeInputFormat from "../helpers/timeInputFormat";
 
 export default function TimePicker(props) {
@@ -23,7 +23,7 @@ export default function TimePicker(props) {
         />
         <Typography variant="h2">
           &nbsp;
-          <Pluralize singular={"hour"} count={timeAvailable.hours} showCount={false} />{" "}
+          {pluralize('hour', timeAvailable.hours)}&nbsp;
           and&nbsp;
         </Typography>
         <TextField
@@ -32,7 +32,7 @@ export default function TimePicker(props) {
         />
         <Typography variant="h2">
           &nbsp;
-          <Pluralize singular={"minute"} count={timeAvailable.minutes} showCount={false} />
+          {pluralize('minute', timeAvailable.minutes)}
         </Typography>
       </form>
     </div>
