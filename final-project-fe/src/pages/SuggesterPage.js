@@ -23,6 +23,7 @@ const ACTIVITY_QUERY = gql`
 export default function SuggesterPage(props) {
   const [suggestionIndex, setSuggestionIndex] = useState(0)
   const [activitySuggestions, setActivitySuggestions] = useState(null);
+  console.log(activitySuggestions);
   const [category, setCategory] = useState(props.category)
   let history = useHistory();
 
@@ -30,7 +31,7 @@ export default function SuggesterPage(props) {
 
   useEffect(()=> {
     if (data) {
-      const filteredActivities = sortActivities(data.activities, category, props.timeAvailable);
+      const filteredActivities = sortActivities(data.activities, category, props.timeAvailable)
       setActivitySuggestions(filteredActivities);
     }
   }, [data, props.timeAvailable, category])
@@ -51,7 +52,7 @@ export default function SuggesterPage(props) {
         props.onCategoryChange(value);
       }}/>
       <TimePicker onChange={props.onTimeChange} timeAvailable={props.timeAvailable}/>
-      {loading || activitySuggestions === null? 'loading' : (activitySuggestions.length > 0 ? <SuggestionCard activity={activitySuggestions[suggestionIndex]}/> : 'nothing yet')}
+      {loading || activitySuggestions === null? 'loading' : (activitySuggestions.activities.length > 0 ? <SuggestionCard activity={activitySuggestions.activities[suggestionIndex]}/> : (activitySuggestions.hasActivities === true ? 'nothing in this time frame' : 'nothing yet'))}
       <SuggesterButtonBox onAccept={()=>history.push('/success')} onReject={indexIncrementor}/>
     </div>
   )
