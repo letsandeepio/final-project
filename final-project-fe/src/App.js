@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { Router, Route, Switch } from 'react-router';
 import Signin from './components/Signin';
 import About from './components/About';
 import Signup from './components/Signup';
@@ -18,7 +17,6 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import { AUTH_TOKEN } from './constants';
 
 import { gql, useQuery } from '@apollo/client';
-
 
 import './index.scss';
 
@@ -50,6 +48,7 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(
     !!localStorage.getItem(AUTH_TOKEN)
   );
+  console.log(category);
 
   const [snackBar, setSnackBar] = useState({
     open: false,
@@ -62,9 +61,7 @@ function App() {
   let history = useHistory();
 
   const { loading, error, data } = useQuery(ACTIVITY_QUERY);
-  if (loading) return 'Loading...';
-  if (error) return `Error! ${error.message}`;
-  console.log(data);
+  if (error) return <p>Error: {error.message}</p>
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -111,12 +108,14 @@ function App() {
           />
         </Route>
         <Route exact path="/suggestions">
-          <SuggesterPage
+          {loading ? 'loading' : <SuggesterPage
             categories={categories}
             category={category}
+            onCategoryChange={setCategory}
             onTimeChange={(time) => setTimeAvailable(time)}
             timeAvailable={timeAvailable}
-          />
+            activities={data.activities}
+          />}
         </Route>
         <Route exact path="/success">
           <SuccessPage />
@@ -125,7 +124,6 @@ function App() {
           <AddActivityPage categories={categories} />
         </Route>
       </Switch>
-
       <Snackbar
         autoHideDuration={6000}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
