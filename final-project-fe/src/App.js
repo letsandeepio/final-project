@@ -14,7 +14,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 import Dictaphone from './components/Speech';
 
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 
 import { AUTH_TOKEN } from './constants';
 
@@ -69,6 +69,14 @@ function App() {
     setLoggedIn(false);
   }
 
+  const RequireAuth = ({ children }) => {
+    if (!isLoggedIn) {
+      return <Redirect to="/login" />
+    }
+  
+    return children;
+  };
+
   return (
     <div>
       <Header loggedIn={isLoggedIn} logout={logOut} />
@@ -83,32 +91,36 @@ function App() {
         <Route exact path="/">
           <HomePage />
         </Route>
-        <Route exact path="/categories">
-          <CategoryPage
-            categories={categories}
-            onTimeChange={(time) => setTimeAvailable(time)}
-            onSelect={selectCategory}
-            timeAvailable={timeAvailable}
-          />
-        </Route>
-        <Route exact path="/suggestions">
-          <SuggesterPage
-            categories={categories}
-            category={category}
-            onCategoryChange={setCategory}
-            onTimeChange={(time) => setTimeAvailable(time)}
-            timeAvailable={timeAvailable}
-          />
-        </Route>
-        <Route exact path="/success">
-          <SuccessPage />
-        </Route>
-        <Route exact path="/add-activity">
-          <AddActivityPage
-            categories={categories}
-            showSnackBar={showSnackBar}
-          />
-        </Route>
+
+        <RequireAuth>
+
+          <Route exact path="/categories">
+            <CategoryPage
+              categories={categories}
+              onTimeChange={(time) => setTimeAvailable(time)}
+              onSelect={selectCategory}
+              timeAvailable={timeAvailable}
+            />
+          </Route>
+          <Route exact path="/suggestions">
+              <SuggesterPage
+                categories={categories}
+                category={category}
+                onCategoryChange={setCategory}
+                onTimeChange={(time) => setTimeAvailable(time)}
+                timeAvailable={timeAvailable}
+              />
+          </Route>
+          <Route exact path="/success">
+            <SuccessPage />
+          </Route>
+          <Route exact path="/add-activity">
+            <AddActivityPage
+              categories={categories}
+              showSnackBar={showSnackBar}
+            />
+          </Route>
+        </RequireAuth>
       </Switch>
       <Snackbar
         autoHideDuration={6000}
