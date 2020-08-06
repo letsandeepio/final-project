@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { gql, useQuery } from "@apollo/client";
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { gql, useQuery } from '@apollo/client';
 
-import CategoryDropdown from "../components/CategoryDropdown";
-import SuggestionCard from "../components/SuggestionCard";
-import TimePicker from "../components/TimePicker";
-import SuggesterButtonBox from "../components/SuggesterButtonBox";
+import CategoryDropdown from '../components/CategoryDropdown';
+import SuggestionCard from '../components/SuggestionCard';
+import TimePicker from '../components/TimePicker';
+import SuggesterButtonBox from '../components/SuggesterButtonBox';
 
-import sortActivities from "../helpers/sortActivities";
+import sortActivities from '../helpers/sortActivities';
 
 import { useMutation } from '@apollo/client';
 
@@ -105,7 +105,7 @@ export default function SuggesterPage(props) {
             activity={activitySuggestions.activities[suggestionIndex]}
           />
           <SuggesterButtonBox
-            onAccept={() => history.push("/success")}
+            onAccept={handleNow}
             onReject={indexIncrementor}
           />
         </>
