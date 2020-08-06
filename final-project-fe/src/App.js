@@ -58,8 +58,6 @@ function App() {
     severity: 'success'
   });
 
-  console.log('token:', localStorage.getItem(AUTH_TOKEN));
-
   let history = useHistory();
 
   const { loading, error, data } = useQuery(ACTIVITY_QUERY);
