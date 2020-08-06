@@ -28,6 +28,9 @@ export default function SuggesterPage(props) {
   const [suggestionIndex, setSuggestionIndex] = useState(0)
   let history = useHistory();
   console.log(props.activities);
+  console.log(props.timeAvailable);
+  console.log(props.categories);
+  console.log(sortActivities(props.activities, props.category, props.timeAvailable));
 
   const indexIncrementor = function() {
     let i = suggestionIndex;
