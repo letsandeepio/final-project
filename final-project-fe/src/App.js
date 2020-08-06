@@ -12,6 +12,8 @@ import AddActivityPage from './pages/AddActivityPage';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
+import Dictaphone from './components/Speech';
+
 import { Route, Switch, useHistory } from 'react-router-dom';
 
 import { AUTH_TOKEN } from './constants';
@@ -31,12 +33,12 @@ const categories = [
 const ACTIVITY_QUERY = gql`
   query ActivityQuery {
     activities {
-      title,
-      category,
+      title
+      category
       duration
     }
   }
-`
+`;
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -56,12 +58,9 @@ function App() {
     severity: 'success'
   });
 
-  console.log('token:', localStorage.getItem(AUTH_TOKEN));
-
   let history = useHistory();
 
   const { loading, error, data } = useQuery(ACTIVITY_QUERY);
-  if (error) return <p>Error: {error.message}</p>
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -108,20 +107,28 @@ function App() {
           />
         </Route>
         <Route exact path="/suggestions">
-          {loading ? 'loading' : <SuggesterPage
-            categories={categories}
-            category={category}
-            onCategoryChange={setCategory}
-            onTimeChange={(time) => setTimeAvailable(time)}
-            timeAvailable={timeAvailable}
-            activities={data.activities}
-          />}
+          {error && <p>Error: {error.message}</p>}
+          {loading ? (
+            'loading'
+          ) : (
+            <SuggesterPage
+              categories={categories}
+              category={category}
+              onCategoryChange={setCategory}
+              onTimeChange={(time) => setTimeAvailable(time)}
+              timeAvailable={timeAvailable}
+              activities={data.activities}
+            />
+          )}
         </Route>
         <Route exact path="/success">
           <SuccessPage />
         </Route>
         <Route exact path="/add-activity">
-          <AddActivityPage categories={categories} showSnackBar={showSnackBar} />
+          <AddActivityPage
+            categories={categories}
+            showSnackBar={showSnackBar}
+          />
         </Route>
       </Switch>
       <Snackbar
@@ -135,6 +142,7 @@ function App() {
           {snackBar.message}
         </Alert>
       </Snackbar>
+      <Dictaphone />
     </div>
   );
 }

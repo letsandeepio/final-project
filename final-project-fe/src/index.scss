@@ -2,7 +2,9 @@ body {
   margin: 0px;
 }
 
-.categoryPage, .suggestorPage, .homePage {
+.categoryPage,
+.suggestorPage,
+.homePage {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,13 +18,12 @@ body {
     font-size: 1.5rem;
   }
   .timePicker {
-    margin: 2em;;
+    margin: 2em;
   }
   .categoryButton {
     margin: 0.5em;
   }
 }
-
 
 .time-picker-form {
   display: flex;
@@ -34,5 +35,54 @@ body {
     width: 2.3rem;
     padding: 0.2rem;
     font-size: 1.5rem;
+  }
+}
+
+.pulse-button {
+  display: block;
+  width: 100px;
+  height: 100px;
+  font-size: 1.3em;
+  font-weight: light;
+  font-family: 'Trebuchet MS', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 100px;
+  letter-spacing: -1px;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  background: #e91e63;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.5);
+  animation: none;
+  -webkit-animation: none;
+}
+
+.listening {
+  -webkit-animation: pulse 1.5s infinite;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+  70% {
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    box-shadow: 0 0 0 50px rgba(90, 153, 212, 0);
+  }
+  100% {
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
   }
 }
