@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client';
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { gql, useQuery } from "@apollo/client";
 
-import CategoryDropdown from '../components/CategoryDropdown';
-import SuggestionCard from '../components/SuggestionCard';
-import TimePicker from '../components/TimePicker';
-import SuggesterButtonBox from '../components/SuggesterButtonBox';
+import CategoryDropdown from "../components/CategoryDropdown";
+import SuggestionCard from "../components/SuggestionCard";
+import TimePicker from "../components/TimePicker";
+import SuggesterButtonBox from "../components/SuggesterButtonBox";
 
-import sortActivities from '../helpers/sortActivities';
+import sortActivities from "../helpers/sortActivities";
 
 import { useMutation } from '@apollo/client';
 
@@ -100,15 +100,20 @@ export default function SuggesterPage(props) {
       {loading || activitySuggestions === null ? (
         'loading'
       ) : activitySuggestions.activities.length > 0 ? (
-        <SuggestionCard
-          activity={activitySuggestions.activities[suggestionIndex]}
-        />
+        <>
+          <SuggestionCard
+            activity={activitySuggestions.activities[suggestionIndex]}
+          />
+          <SuggesterButtonBox
+            onAccept={() => history.push("/success")}
+            onReject={indexIncrementor}
+          />
+        </>
       ) : activitySuggestions.hasActivities === true ? (
         'nothing in this time frame'
       ) : (
         'nothing yet'
       )}
-      <SuggesterButtonBox onAccept={handleNow} onReject={indexIncrementor} />
     </div>
   );
 }
