@@ -9,9 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { gql, useMutation } from '@apollo/client';
 
-import Snackbar from '@material-ui/core/Snackbar';
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -52,9 +49,11 @@ export default function AddActivityForm(props) {
       if (error) {
         showSnackBar({ message: error, severity: 'error' });
       } else {
-        showSnackBar({ message: 'Successfully added activity!', severity: 'success' });
+        showSnackBar({
+          message: 'Successfully added activity!',
+          severity: 'success'
+        });
       }
-
     },
     onError(e) {
       console.log(e);
@@ -63,7 +62,6 @@ export default function AddActivityForm(props) {
   });
 
   function addActivityHelper() {
-
     if (!title) {
       showSnackBar({ message: 'Title required.', severity: 'warning' });
       return;
