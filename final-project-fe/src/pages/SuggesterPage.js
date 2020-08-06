@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import CategoryDropdown from '../components/CategoryDropdown'
 import SuggestionCard from '../components/SuggestionCard'
@@ -9,28 +9,36 @@ import sortActivities from '../helpers/sortActivities';
 
 import {useHistory } from 'react-router-dom';
 
-const activitySuggestions = [
-  {title: "Korean BBQ", duration: 120},
-  {title: "Enchiladas", duration: 90},
-  {title: "Pizza Pizza", duration: 30},
-  {title: "Chocolate Bar", duration: 5},
-  {title: "Tacos", duration: 50},
-  {title: "Grilled Cheese", duration: 15},
-  {title: "Chicken Pot Pie", duration: 45},
-  {title: "BBQ", duration: 60},
-  {title: "Vegan Chicken", duration: 60},
-  {title: "A&W", duration: 60},
-  {title: "Tostitos", duration: 60},
-  {title: "Boiled Food", duration: 60},
-  {title: "7 Layer Dip", duration: 60}]
+// const activitySuggestions = [
+//   {title: "Korean BBQ", duration: 120},
+//   {title: "Enchiladas", duration: 90},
+//   {title: "Pizza Pizza", duration: 30},
+//   {title: "Chocolate Bar", duration: 5},
+//   {title: "Tacos", duration: 50},
+//   {title: "Grilled Cheese", duration: 15},
+//   {title: "Chicken Pot Pie", duration: 45},
+//   {title: "BBQ", duration: 60},
+//   {title: "Vegan Chicken", duration: 60},
+//   {title: "A&W", duration: 60},
+//   {title: "Tostitos", duration: 60},
+//   {title: "Boiled Food", duration: 60},
+//   {title: "7 Layer Dip", duration: 60}]
 
 export default function SuggesterPage(props) {
   const [suggestionIndex, setSuggestionIndex] = useState(0)
+  const [activitySuggestions, setActivitySuggestions] = useState([]);
   let history = useHistory();
   console.log(props.activities);
   console.log(props.timeAvailable);
   console.log(props.categories);
-  console.log(sortActivities(props.activities, props.category, props.timeAvailable));
+  
+  useEffect(()=> {
+    if (props.activities) {
+      const filteredActivities = sortActivities(props.activities, props.category, props.timeAvailable);
+      console.log(filteredActivities);
+      setActivitySuggestions(filteredActivities);
+    }
+  }, [props.activities])
 
   const indexIncrementor = function() {
     let i = suggestionIndex;
@@ -45,7 +53,7 @@ export default function SuggesterPage(props) {
     <div className="suggestorPage">
       <CategoryDropdown questions={props.categories} question={props.category}/>
       <TimePicker onChange={props.onTimeChange} timeAvailable={props.timeAvailable}/>
-      <SuggestionCard activity={activitySuggestions[suggestionIndex]}/>
+      {activitySuggestions.length > 0 ? <SuggestionCard activity={activitySuggestions[suggestionIndex]}/> : "There's nothing"}
       <SuggesterButtonBox onAccept={()=>history.push('/success')} onReject={indexIncrementor}/>
     </div>
   )
