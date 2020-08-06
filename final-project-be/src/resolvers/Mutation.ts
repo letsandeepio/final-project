@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 import { APP_SECRET, getUserId } from '../helpers';
+import { Context } from 'graphql-yoga/dist/types';
 
 const hashedPassword = (password: any) => {
   const saltRounds = 10;
@@ -77,8 +78,18 @@ async function addActivity(parent: any, args: any, context: any) {
   return activity;
 }
 
+async function markInProgress(parent: any, args: any, context: Context) {
+  const { id } = args;
+  const activity = await context.prisma.activity.update({
+    where: { id },
+    data: { status: 'inprogress' }
+  });
+  return activity;
+}
+
 export default {
   login,
   signup,
-  addActivity
+  addActivity,
+  markInProgress
 };
