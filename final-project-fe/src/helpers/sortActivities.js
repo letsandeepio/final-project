@@ -1,37 +1,42 @@
-import minuteTimeConvert from "./minuteTimeConvert";
+import minuteTimeConvert from './minuteTimeConvert';
 
 export default function sortActivities(activitiesArray, category, time) {
-  let filteredActivities = []
-  let categoryFilter = "";
+  let filteredActivities = [];
+  let categoryFilter = '';
   let hasActivities = false;
   switch (category) {
-    case "what should i watch?":
-      categoryFilter = "watch";
+    case 'what should i watch?':
+      categoryFilter = 'watch';
       break;
-    case "where should i eat?":
-      categoryFilter = "eat";
+    case 'where should i eat?':
+      categoryFilter = 'eat';
       break;
-    case "what should i cook?":
-      categoryFilter = "cook";
-      break;  
-    case "what else could i do?":
-      categoryFilter = "other";
+    case 'what should i cook?':
+      categoryFilter = 'cook';
+      break;
+    case 'what else could i do?':
+      categoryFilter = 'other';
       break;
   }
 
   for (let activity of activitiesArray) {
-    if (categoryFilter === "") {
-      hasActivities = true;
-      if (activity.duration <= minuteTimeConvert(time)){
-        filteredActivities.push(activity);
-      }
-    } else {
-      if (activity.category === categoryFilter) {
+    if (activity.status === 'incomplete') {
+      if (categoryFilter === '') {
         hasActivities = true;
-        console.log(hasActivities);
-      }
-      if (activity.category === categoryFilter && activity.duration <= minuteTimeConvert(time)) {
-        filteredActivities.push(activity);
+        if (activity.duration <= minuteTimeConvert(time)) {
+          filteredActivities.push(activity);
+        }
+      } else {
+        if (activity.category === categoryFilter) {
+          hasActivities = true;
+          console.log(hasActivities);
+        }
+        if (
+          activity.category === categoryFilter &&
+          activity.duration <= minuteTimeConvert(time)
+        ) {
+          filteredActivities.push(activity);
+        }
       }
     }
   }

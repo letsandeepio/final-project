@@ -18,6 +18,7 @@ const ACTIVITY_QUERY = gql`
       title
       category
       duration
+      status
     }
   }
 `;
@@ -75,7 +76,7 @@ export default function SuggesterPage(props) {
 
   const indexIncrementor = function () {
     let i = suggestionIndex;
-    if (i >= activitySuggestions.length - 1) {
+    if (i >= activitySuggestions.activities.length - 1) {
       setSuggestionIndex(0);
     } else {
       setSuggestionIndex(i + 1);
