@@ -16,5 +16,5 @@ CREATE TABLE activity (
   category VARCHAR(255) NOT NULL,
   duration INTEGER NOT NULL,
   status VARCHAR(255) DEFAULT 'incomplete',
-  url VARCHAR(255)
+  image_url VARCHAR(255)
 );

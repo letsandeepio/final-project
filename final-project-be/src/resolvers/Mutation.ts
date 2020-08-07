@@ -72,7 +72,7 @@ async function addActivity(parent: any, args: any, context: any) {
       title: args.title,
       category: args.category,
       duration: args.duration,
-      url: args.url,
+      image_url: args.image_url,
       users: { connect: { id: userID } }
     }
   });

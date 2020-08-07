@@ -25,9 +25,9 @@ const ADDACTIVITY_MUTATION = gql`
     $title: String!
     $category: String!
     $duration: Int!
-    $url: String
+    $image_url: String
   ) {
-    addActivity(title: $title, category: $category, duration: $duration, url: $url) {
+    addActivity(title: $title, category: $category, duration: $duration, image_url: $image_url) {
       id
     }
   }
@@ -43,7 +43,7 @@ export default function AddActivityForm(props) {
 
   const [category, setCategory] = useState("watch");
   const [title, setTitle] = useState('');
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState(null);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
@@ -90,7 +90,7 @@ export default function AddActivityForm(props) {
         title,
         category,
         duration: Number(hours * 60) + Number(minutes),
-        url: url
+        image_url: url
       }
     });
 

@@ -16,7 +16,7 @@ type Activity {
   category: String!
   duration: Int!
   status: String!
-  url: String
+  image_url: String
 }
 
 type Mutation {

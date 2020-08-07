@@ -2,7 +2,7 @@ INSERT INTO users(name, email, password)
   VALUES ('Sandeep', 'sandeepchopra7@gmail.com', '$2b$10$iHW8ZG4X2jJmg/AMNR4G/.3xJQUQtvFH65Dbahxq7J39/vyMW3CV2'),
   ('Iva Harrison', 'allisonjackson@mail.com', '$2b$10$iHW8ZG4X2jJmg/AMNR4G/.3xJQUQtvFH65Dbahxq7J39/vyMW3CV2');
 
-INSERT INTO activity (user_id, title, category, duration, url)
+INSERT INTO activity (user_id, title, category, duration, image_url)
   VALUES (1, 'Shark', 'watch', '120', 'https://www.mvtimes.com/mvt/uploads/2014/07/jaws-horizontal-poster.jpg'), (1, 'Superman', 'watch', '130', 'https://i.pinimg.com/originals/31/66/3e/31663e9580a8e3dbd72a1295dcc471d3.jpg');
 
 INSERT INTO activity (user_id, title, category, duration)
