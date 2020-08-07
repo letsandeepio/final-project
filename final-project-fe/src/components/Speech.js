@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Mic from './mic';
 import { Typography } from '@material-ui/core';
 import SpeechRecognition, {
@@ -6,7 +6,6 @@ import SpeechRecognition, {
 } from 'react-speech-recognition';
 
 const Dictaphone = () => {
-  const [message, setMessage] = useState('');
   const commands = [
     {
       command: "I've got *",
