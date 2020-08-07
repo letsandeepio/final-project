@@ -1,19 +1,20 @@
 import React from 'react';
 import Mic from './mic';
+
 import { Typography } from '@material-ui/core';
 import SpeechRecognition, {
   useSpeechRecognition
 } from 'react-speech-recognition';
 
-const Dictaphone = () => {
+const Dictaphone = ({ onCommand }) => {
   const commands = [
     {
       command: "I've got *",
-      callback: (duration) => console.log(`User got ${duration}`)
+      callback: (duration) => onCommand(duration)
     },
     {
       command: 'I have *',
-      callback: (duation) => console.log(`User got ${duation}`)
+      callback: (duration) => onCommand(duration)
     }
   ];
 

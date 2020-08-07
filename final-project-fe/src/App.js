@@ -12,6 +12,8 @@ import AddActivityPage from './pages/AddActivityPage';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
+import getHoursAndMinutes from './helpers/getHoursAndMinutes';
+
 import Dictaphone from './components/Speech';
 
 import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
@@ -35,6 +37,12 @@ function Alert(props) {
 function App() {
   const [category, setCategory] = useState(categories[0].question);
   const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
+
+  function updateTimeAvailable(command) {
+    const timeAvailable = getHoursAndMinutes(command);
+    setTimeAvailable(timeAvailable);
+  }
+
   const [isLoggedIn, setLoggedIn] = useState(
     !!localStorage.getItem(AUTH_TOKEN)
   );
@@ -71,9 +79,9 @@ function App() {
 
   const RequireAuth = ({ children }) => {
     if (!isLoggedIn) {
-      return <Redirect to="/login" />
+      return <Redirect to="/login" />;
     }
-  
+
     return children;
   };
 
@@ -93,7 +101,6 @@ function App() {
         </Route>
 
         <RequireAuth>
-
           <Route exact path="/categories">
             <CategoryPage
               categories={categories}
@@ -103,13 +110,13 @@ function App() {
             />
           </Route>
           <Route exact path="/suggestions">
-              <SuggesterPage
-                categories={categories}
-                category={category}
-                onCategoryChange={setCategory}
-                onTimeChange={(time) => setTimeAvailable(time)}
-                timeAvailable={timeAvailable}
-              />
+            <SuggesterPage
+              categories={categories}
+              category={category}
+              onCategoryChange={setCategory}
+              onTimeChange={(time) => setTimeAvailable(time)}
+              timeAvailable={timeAvailable}
+            />
           </Route>
           <Route exact path="/success">
             <SuccessPage />
@@ -133,7 +140,7 @@ function App() {
           {snackBar.message}
         </Alert>
       </Snackbar>
-      <Dictaphone />
+      <Dictaphone onCommand={updateTimeAvailable} />
     </div>
   );
 }
