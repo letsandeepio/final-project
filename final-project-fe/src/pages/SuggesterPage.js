@@ -19,6 +19,7 @@ const ACTIVITY_QUERY = gql`
       category
       duration
       status
+      image_url
     }
   }
 `;
