@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
 import Signin from './components/Signin';
 import About from './components/About';
 import Signup from './components/Signup';
@@ -8,34 +12,19 @@ import SuggesterPage from './pages/SuggesterPage';
 import HomePage from './pages/HomePage';
 import SuccessPage from './pages/SuccessPage';
 import AddActivityPage from './pages/AddActivityPage';
-
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Dictaphone from './components/Speech';
 
 import getHoursAndMinutes from './helpers/getHoursAndMinutes';
 
-import Dictaphone from './components/Speech';
-
-import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
-
-import { AUTH_TOKEN } from './constants';
-
+import { AUTH_TOKEN, questions } from './constants';
 import './index.scss';
-
-const categories = [
-  { question: 'what should i do?' },
-  { question: 'what should i watch?' },
-  { question: 'where should i eat?' },
-  { question: 'what should i cook?' },
-  { question: 'what else could i do?' }
-];
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 function App() {
-  const [category, setCategory] = useState(categories[0].question);
+  const [category, setCategory] = useState(questions[0].question);
   const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
 
   function updateTimeAvailable(command) {
@@ -102,7 +91,7 @@ function App() {
         <RequireAuth>
           <Route exact path="/categories">
             <CategoryPage
-              categories={categories}
+              categories={questions}
               onTimeChange={(time) => setTimeAvailable(time)}
               onSelect={selectCategory}
               timeAvailable={timeAvailable}
@@ -110,7 +99,7 @@ function App() {
           </Route>
           <Route exact path="/suggestions">
             <SuggesterPage
-              categories={categories}
+              categories={questions}
               category={category}
               onCategoryChange={setCategory}
               onTimeChange={(time) => setTimeAvailable(time)}
@@ -122,7 +111,7 @@ function App() {
           </Route>
           <Route exact path="/add-activity">
             <AddActivityPage
-              categories={categories}
+              categories={questions}
               showSnackBar={showSnackBar}
             />
           </Route>
