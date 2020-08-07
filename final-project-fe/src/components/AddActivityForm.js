@@ -25,9 +25,9 @@ const ADDACTIVITY_MUTATION = gql`
     $title: String!
     $category: String!
     $duration: Int!
-    $image_url: String
+    $imageUrl: String
   ) {
-    addActivity(title: $title, category: $category, duration: $duration, image_url: $image_url) {
+    addActivity(title: $title, category: $category, duration: $duration, image_url: $imageUrl) {
       id
     }
   }
