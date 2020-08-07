@@ -46,7 +46,6 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(
     !!localStorage.getItem(AUTH_TOKEN)
   );
-  console.log(category);
 
   const [snackBar, setSnackBar] = useState({
     open: false,

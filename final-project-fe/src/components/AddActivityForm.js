@@ -37,7 +37,7 @@ export default function AddActivityForm(props) {
   let history = useHistory();
   const classes = useStyles();
   const { showSnackBar } = props;
-  const menuItems = ["watch","eat", "cook","other"].map((category) => (
+  const menuItems = ["watch","eat out", "cook","other"].map((category) => (
     <MenuItem value={category}>{category}</MenuItem>
   ));
 
@@ -84,11 +84,13 @@ export default function AddActivityForm(props) {
       });
       return;
     }
+    const categoryy = category === 'eat out' ? 'eat' : category;
+    console.log(categoryy);
 
     addActivity({
       variables: {
         title,
-        category,
+        category: category === 'eat out' ? 'eat' : category,
         duration: Number(hours * 60) + Number(minutes),
         image_url: url
       }
