@@ -14,6 +14,7 @@ model activity {
   category String
   duration Int
   status   String? @default("incomplete")
+  url      String?
   users    users?  @relation(fields: [user_id], references: [id])
 }
 

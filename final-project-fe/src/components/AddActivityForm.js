@@ -36,12 +36,13 @@ export default function AddActivityForm(props) {
   let history = useHistory();
   const classes = useStyles();
   const { showSnackBar } = props;
-  const menuItems = props.categories.map((obj) => (
-    <MenuItem value={obj.question}>{obj.question}</MenuItem>
+  const menuItems = ["watch","eat", "cook","other"].map((category) => (
+    <MenuItem value={category}>{category}</MenuItem>
   ));
 
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState("watch");
   const [title, setTitle] = useState('');
+  const [url, setUrl] = useState('');
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
@@ -87,7 +88,8 @@ export default function AddActivityForm(props) {
       variables: {
         title,
         category,
-        duration: Number(hours * 60) + Number(minutes)
+        duration: Number(hours * 60) + Number(minutes),
+        url: url
       }
     });
 
@@ -115,6 +117,13 @@ export default function AddActivityForm(props) {
         onChange={(e) => setTitle(e.target.value)}
         type="search"
       />
+      <p>Image URL</p>
+      <TextField
+        id="add-activity-url"
+        label="URL"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        />
       <p>Approximate Duration</p>
       <TextField
         id="add-activity-hours"
