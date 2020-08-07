@@ -4,8 +4,9 @@ body {
 
 //added this to ensure card images fit to card
 img {
+  height: 17rem;
   max-width: 100%;
-  max-height: 17rem;
+  margin: auto;
 }
 
 .categoryPage,
