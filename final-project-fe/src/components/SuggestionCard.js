@@ -28,7 +28,7 @@ export default function SuggestionCard(props) {
         <Typography color="textSecondary" className={classes.pos}>
         {hourTimeConvert(props.activity.duration)}
         </Typography>
-        <img src={props.activity.image_url}/>
+        {props.activity.image_url ? <img src={props.activity.image_url}/> : <img src="https://images.unsplash.com/photo-1544954412-78da2cfa1a0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1502&q=80"/>}
       </CardContent>
     </Card>
   );
