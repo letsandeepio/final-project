@@ -2,6 +2,11 @@ body {
   margin: 0px;
 }
 
+//added this to ensure card images fit to card
+img {
+  max-width: 100%;
+}
+
 .categoryPage,
 .suggestorPage,
 .homePage {

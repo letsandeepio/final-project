@@ -66,7 +66,7 @@ async function login(parent: any, args: any, context: any) {
 }
 
 async function addActivity(parent: any, args: any, context: any) {
-  console.log('add activity', args);
+  console.log('An activity-add attempt has been made. Arguments:', args);
   const userID = getUserId(context);
   const activity = await context.prisma.activity.create({
     data: {
