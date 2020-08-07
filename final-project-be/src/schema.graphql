@@ -23,6 +23,7 @@ type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
   addActivity(title: String!, category: String!, duration: Int!, image_url: String): Activity
+  deleteActivity(id: Int!): Activity
   changeStatus(id: Int!, status: String!): Activity
 }
 
