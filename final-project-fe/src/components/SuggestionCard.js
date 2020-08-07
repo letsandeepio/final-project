@@ -32,9 +32,7 @@ export default function SuggestionCard(props) {
     <Card className={classes.root}>
       <CardContent>
       <Typography variant="h5" component="h2" className={classes.title}>
-        <ReactFitText>
           {props.activity.title}
-        </ReactFitText>
       </Typography>
         <Typography color="textSecondary" className={classes.pos}>
         {hourTimeConvert(props.activity.duration)}
