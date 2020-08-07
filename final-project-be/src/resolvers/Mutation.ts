@@ -66,12 +66,14 @@ async function login(parent: any, args: any, context: any) {
 }
 
 async function addActivity(parent: any, args: any, context: any) {
+  console.log('An activity-add attempt has been made. Arguments:', args);
   const userID = getUserId(context);
   const activity = await context.prisma.activity.create({
     data: {
       title: args.title,
       category: args.category,
       duration: args.duration,
+      image_url: args.image_url,
       users: { connect: { id: userID } }
     }
   });
