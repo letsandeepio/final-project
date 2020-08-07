@@ -8,13 +8,21 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    // minWidth: 150,
-    // maxWidth: 280,
-    width: 500
+    height: 400,
+    width: 400
+  },
+  title: {
+    minSize: '0.1em'
   },
   pos: {
     marginBottom: 12,
   },
+  img: {
+    maxHeight: 300,
+    maxWidth: '100%',
+    margin: 'auto',
+    display: 'block'
+  }
 });
 
 export default function SuggestionCard(props) {
@@ -23,13 +31,15 @@ export default function SuggestionCard(props) {
   return (
     <Card className={classes.root}>
       <CardContent>
-      <Typography variant="h5" component="h2">
-        {props.activity.title}
+      <Typography variant="h5" component="h2" className={classes.title}>
+        <ReactFitText>
+          {props.activity.title}
+        </ReactFitText>
       </Typography>
         <Typography color="textSecondary" className={classes.pos}>
         {hourTimeConvert(props.activity.duration)}
         </Typography>
-        {props.activity.image_url ? <img src={props.activity.image_url}/> : <img src="https://images.unsplash.com/photo-1544954412-78da2cfa1a0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1502&q=80"/>}
+        <img className={classes.img} src={props.activity.image_url ? props.activity.image_url : "https://images.unsplash.com/photo-1544954412-78da2cfa1a0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1502&q=80"}/>
       </CardContent>
     </Card>
   );
