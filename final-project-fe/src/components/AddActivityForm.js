@@ -84,8 +84,6 @@ export default function AddActivityForm(props) {
       });
       return;
     }
-    const categoryy = category === 'eat out' ? 'eat' : category;
-    console.log(categoryy);
 
     addActivity({
       variables: {

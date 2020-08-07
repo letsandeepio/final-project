@@ -96,7 +96,7 @@ function App() {
         </Route>
         <Route path="/about" component={About} exact />
         <Route exact path="/">
-          <HomePage />
+          {isLoggedIn ? <Redirect to="/categories" /> : <HomePage />}
         </Route>
 
         <RequireAuth>
