@@ -1,6 +1,7 @@
 import https from 'https';
 
-const subscriptionKey = process.env.BING_API_KEY;
+// const subscriptionKey = process.env.BING_API_KEY;
+
 
 export default function getThreeImagesFromBing(term: any) {
   return new Promise((resolve, reject) => {
