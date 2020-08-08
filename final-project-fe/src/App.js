@@ -32,6 +32,10 @@ function App() {
     setTimeAvailable(timeAvailable);
   }
 
+  function onAsk(index) {
+    setCategory(categories[index].question);
+  }
+
   const [isLoggedIn, setLoggedIn] = useState(
     !!localStorage.getItem(AUTH_TOKEN)
   );
@@ -128,7 +132,7 @@ function App() {
           {snackBar.message}
         </Alert>
       </Snackbar>
-      <Dictaphone onCommand={updateTimeAvailable} />
+      <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
     </div>
   );
 }
