@@ -71,6 +71,7 @@ body {
   align-items: center;
   font-size: 2rem;
   color: $light-text-colour;
+  width: 80%;
   // font-family: $accent-font;
   // font-family: $body-font;
 
@@ -79,6 +80,11 @@ body {
     font-size: $small-font;
   }
 
+  .time-picker-text-group {
+    display: flex;
+    align-items: center;
+    // width: 200px;
+  }
 
   input {
     width: 3rem;
@@ -88,6 +94,13 @@ body {
     color: $accent-color;
     text-align: center;
   }
+}
+
+.addActivityButton {
+  // position: ;
+  position: fixed;
+  bottom: 0;
+  right: 400;
 }
 
 .pulse-button {

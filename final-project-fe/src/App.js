@@ -8,6 +8,10 @@ import SuggesterPage from './pages/SuggesterPage';
 import HomePage from './pages/HomePage';
 import SuccessPage from './pages/SuccessPage';
 import AddActivityPage from './pages/AddActivityPage';
+// import AddActivityButton from './components/AddActivityButton';
+// import { Link } from 'react-router-dom';
+
+
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -104,6 +108,10 @@ function App() {
               onSelect={selectCategory}
               timeAvailable={timeAvailable}
             />
+            {/* <AddActivityButton
+              className="addActivityButton"
+              component={Link} to="/add-activity">
+            </AddActivityButton> */}
           </Route>
           <Route exact path="/suggestions">
               <SuggesterPage
