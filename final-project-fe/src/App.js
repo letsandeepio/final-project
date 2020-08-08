@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
 import Signin from './components/Signin';
 import About from './components/About';
 import Signup from './components/Signup';
@@ -8,36 +12,40 @@ import SuggesterPage from './pages/SuggesterPage';
 import HomePage from './pages/HomePage';
 import SuccessPage from './pages/SuccessPage';
 import AddActivityPage from './pages/AddActivityPage';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-
 import Dictaphone from './components/Speech';
+import { useLocation } from 'react-router-dom';
 
-import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
+import getHoursAndMinutes from './helpers/getHoursAndMinutes';
 
-import { AUTH_TOKEN } from './constants';
-
+import { AUTH_TOKEN, questions } from './constants';
 import './index.scss';
-
-const categories = [
-  { question: 'what should i do?' },
-  { question: 'what should i watch?' },
-  { question: 'where should i eat?' },
-  { question: 'what should i cook?' },
-  { question: 'what else could i do?' }
-];
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 function App() {
-  const [category, setCategory] = useState(categories[0].question);
+  const [category, setCategory] = useState(questions[0].question);
   const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
+  const location = useLocation();
+
+  function updateTimeAvailable(command) {
+    const timeAvailable = getHoursAndMinutes(command);
+    setTimeAvailable(timeAvailable);
+  }
+
+  function onAsk(index) {
+    const category = questions[index].question;
+    if (location.pathname.includes('categories')) {
+      selectCategory(category);
+    } else {
+      setCategory(category);
+    }
+  }
+
   const [isLoggedIn, setLoggedIn] = useState(
     !!localStorage.getItem(AUTH_TOKEN)
   );
-  console.log(category);
 
   const [snackBar, setSnackBar] = useState({
     open: false,
@@ -70,9 +78,9 @@ function App() {
 
   const RequireAuth = ({ children }) => {
     if (!isLoggedIn) {
-      return <Redirect to="/login" />
+      return <Redirect to="/login" />;
     }
-  
+
     return children;
   };
 
@@ -88,34 +96,33 @@ function App() {
         </Route>
         <Route path="/about" component={About} exact />
         <Route exact path="/">
-          <HomePage />
+          {isLoggedIn ? <Redirect to="/categories" /> : <HomePage />}
         </Route>
 
         <RequireAuth>
-
           <Route exact path="/categories">
             <CategoryPage
-              categories={categories}
+              categories={questions}
               onTimeChange={(time) => setTimeAvailable(time)}
               onSelect={selectCategory}
               timeAvailable={timeAvailable}
             />
           </Route>
           <Route exact path="/suggestions">
-              <SuggesterPage
-                categories={categories}
-                category={category}
-                onCategoryChange={setCategory}
-                onTimeChange={(time) => setTimeAvailable(time)}
-                timeAvailable={timeAvailable}
-              />
+            <SuggesterPage
+              categories={questions}
+              category={category}
+              onCategoryChange={setCategory}
+              onTimeChange={(time) => setTimeAvailable(time)}
+              timeAvailable={timeAvailable}
+            />
           </Route>
           <Route exact path="/success">
             <SuccessPage />
           </Route>
           <Route exact path="/add-activity">
             <AddActivityPage
-              categories={categories}
+              categories={questions}
               showSnackBar={showSnackBar}
             />
           </Route>
@@ -132,7 +139,7 @@ function App() {
           {snackBar.message}
         </Alert>
       </Snackbar>
-      <Dictaphone />
+      <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
     </div>
   );
 }

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Typography, TextField } from "@material-ui/core";
-import "../index.scss";
+import React, { useState, useEffect } from 'react';
+import { Typography, TextField } from '@material-ui/core';
+import '../index.scss';
 import pluralize from 'pluralize';
-import timeInputFormat from "../helpers/timeInputFormat";
+import timeInputFormat from '../helpers/timeInputFormat';
 
 export default function TimePicker(props) {
-  const [timeAvailable, setTimeAvailable] = useState(props.timeAvailable)
+  const [timeAvailable, setTimeAvailable] = useState(props.timeAvailable);
 
-  const handleTimeChange = function(value) {
+  const handleTimeChange = function (value) {
     setTimeAvailable(value);
     props.onChange(value);
-  }
+  };
 
   return (
     <div className="timePicker">

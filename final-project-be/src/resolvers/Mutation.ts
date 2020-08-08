@@ -66,19 +66,21 @@ async function login(parent: any, args: any, context: any) {
 }
 
 async function addActivity(parent: any, args: any, context: any) {
+  console.log('An activity-add attempt has been made. Arguments:', args);
   const userID = getUserId(context);
   const activity = await context.prisma.activity.create({
     data: {
       title: args.title,
       category: args.category,
       duration: args.duration,
+      image_url: args.image_url,
       users: { connect: { id: userID } }
     }
   });
   return activity;
 }
 
-async function changeStatus(parent: any, args: any, context: Context) {
+async function changeStatus(parent: any, args: any, context: any) {
   const { id, status } = args;
   const activity = await context.prisma.activity.update({
     where: { id },
@@ -87,9 +89,26 @@ async function changeStatus(parent: any, args: any, context: Context) {
   return activity;
 }
 
+async function deleteActivity(parent: any, args: any, context: any) {
+  const { id } = args;
+  let activity = {
+    id
+  };
+
+  try {
+    activity = await context.prisma.activity.delete({
+      where: { id }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  return activity;
+}
+
 export default {
   login,
   signup,
   addActivity,
-  changeStatus
+  changeStatus,
+  deleteActivity
 };
