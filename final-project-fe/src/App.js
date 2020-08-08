@@ -13,6 +13,7 @@ import HomePage from './pages/HomePage';
 import SuccessPage from './pages/SuccessPage';
 import AddActivityPage from './pages/AddActivityPage';
 import Dictaphone from './components/Speech';
+import { useLocation } from 'react-router-dom';
 
 import getHoursAndMinutes from './helpers/getHoursAndMinutes';
 
@@ -26,6 +27,7 @@ function Alert(props) {
 function App() {
   const [category, setCategory] = useState(questions[0].question);
   const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
+  const location = useLocation();
 
   function updateTimeAvailable(command) {
     const timeAvailable = getHoursAndMinutes(command);
@@ -33,7 +35,12 @@ function App() {
   }
 
   function onAsk(index) {
-    setCategory(questions[index].question);
+    const category = questions[index].question;
+    if (location.pathname.includes('categories')) {
+      selectCategory(category);
+    } else {
+      setCategory(category);
+    }
   }
 
   const [isLoggedIn, setLoggedIn] = useState(
