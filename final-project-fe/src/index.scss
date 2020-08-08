@@ -1,7 +1,3 @@
-
-// @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
-// @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
-
 $accent-color: #e91e63;
 $light-text-colour: #afafaf;
 
@@ -32,29 +28,23 @@ body {
   h2 {
     font-size: 1.5rem;
     font-family: $accent-font;
-
   }
   h3 {
     font-size: 1rem;
     font-family: $accent-font;
     color: $light-text-colour;
-
   }
   .timePicker {
     margin: 2em;
-    // font-family: $accent-font;
-
   }
   .categoryButton {
     margin: 0.5em;
     width: 23em;
     color: $body-font;
-    // font-size: '1.2em';
-    // font-family: $accent-font;
 
-    .button-dot {
-      // font-size: 2em;
-    }
+    // .button-dot {
+    //   font-size: 2em;
+    // }
 
   }
 
@@ -72,8 +62,6 @@ body {
   font-size: 2rem;
   color: $light-text-colour;
   width: 80%;
-  // font-family: $accent-font;
-  // font-family: $body-font;
 
   .time-picker-text {
     font-family: $accent-font;
@@ -83,7 +71,6 @@ body {
   .time-picker-text-group {
     display: flex;
     align-items: center;
-    // width: 200px;
   }
 
   input {
@@ -97,7 +84,6 @@ body {
 }
 
 .addActivityButton {
-  // position: ;
   position: fixed;
   bottom: 0;
   right: 400;

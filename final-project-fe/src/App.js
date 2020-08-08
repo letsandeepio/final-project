@@ -8,11 +8,6 @@ import SuggesterPage from './pages/SuggesterPage';
 import HomePage from './pages/HomePage';
 import SuccessPage from './pages/SuccessPage';
 import AddActivityPage from './pages/AddActivityPage';
-// import AddActivityButton from './components/AddActivityButton';
-// import { Link } from 'react-router-dom';
-
-
-
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
@@ -83,9 +78,6 @@ function App() {
 
   return (
     <div>
-      {/* <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-      </head> */}
       <Header loggedIn={isLoggedIn} logout={logOut} />
       <Switch>
         <Route exact path="/login">
@@ -108,10 +100,6 @@ function App() {
               onSelect={selectCategory}
               timeAvailable={timeAvailable}
             />
-            {/* <AddActivityButton
-              className="addActivityButton"
-              component={Link} to="/add-activity">
-            </AddActivityButton> */}
           </Route>
           <Route exact path="/suggestions">
               <SuggesterPage

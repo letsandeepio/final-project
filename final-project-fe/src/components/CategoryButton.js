@@ -19,21 +19,3 @@ export default function CategoryButton(props) {
     </MuiThemeProvider>
   )
 }
-
-
-{/* <MuiThemeProvider theme={theme}>
-<Button variant="contained" onClick={props.onClick} color="primary" fullWidth="true" style={{ fontFamily: 'Fredoka One', fontSize: '1.2em', color: '#afafaf', justifyContent: 'left', textTransform: 'lowercase' }}>
-  🟡  <a style={{color: '#e91e63'}}>●</a> &nbsp;&nbsp;&nbsp;&nbsp; {props.children}
-</Button>
-</MuiThemeProvider> */}
-
-
-// <MuiThemeProvider theme={theme}>
-// <Button variant="contained" onClick={props.onClick} color={primary} fullWidth="true">
-//   {props.children}
-// </Button>
-// </MuiThemeProvider>
-
-{/* <Button variant="contained" onClick={props.onClick} color="primary" fullWidth="true">
-{props.children}
-</Button> */}
