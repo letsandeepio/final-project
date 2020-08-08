@@ -139,7 +139,7 @@ function App() {
           {snackBar.message}
         </Alert>
       </Snackbar>
-      <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
+      {/* <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} /> */}
     </div>
   );
 }
