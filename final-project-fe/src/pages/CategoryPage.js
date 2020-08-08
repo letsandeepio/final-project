@@ -10,7 +10,7 @@ export default function CategoryPage(props) {
   return (
     <>
       <div className="categoryPage">
-        <Typography class="top-text" variant="h3">
+        <Typography className="top-text" variant="h3">
           Don't know what to do?
         </Typography>
         <Typography variant="h1">Just ask!</Typography>
