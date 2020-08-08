@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useLazyQuery } from '@apollo/client';
 
 import { useHistory } from 'react-router-dom';
 
@@ -33,6 +33,12 @@ const ADDACTIVITY_MUTATION = gql`
   }
 `;
 
+const IMAGES_QUERY = gql`
+  query ImagesBing($searchTerm: String!) {
+    images(searchTerm: $searchTerm)
+  }
+`
+
 export default function AddActivityForm(props) {
   let history = useHistory();
   const classes = useStyles();
@@ -43,9 +49,17 @@ export default function AddActivityForm(props) {
 
   const [category, setCategory] = useState("watch");
   const [title, setTitle] = useState('');
-  const [url, setUrl] = useState(null);
+  const [url, setUrl] = useState('');
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
+
+  const [fetchImages, { loading: loading1, error: error1, data: data1}] = useLazyQuery(IMAGES_QUERY, {
+    variables: { searchTerm: title },
+  });
+
+  useEffect(()=> {
+    console.log(data1);
+  },[data1])
 
   const [addActivity, { data }] = useMutation(ADDACTIVITY_MUTATION, {
     onCompleted(response) {
@@ -65,6 +79,12 @@ export default function AddActivityForm(props) {
       showSnackBar({ message: 'Something went wrong.', severity: 'error' });
     }
   });
+  function titleChange(e) {
+    setTitle(e.target.value);
+    if (e.target.value !== '') {
+      fetchImages();
+    }
+  }
 
   function addActivityHelper() {
     if (!title) {
@@ -90,7 +110,7 @@ export default function AddActivityForm(props) {
         title,
         category: category === 'eat out' ? 'eat' : category,
         duration: Number(hours * 60) + Number(minutes),
-        image_url: url
+        image_url: url.trim() === '' ? null : url
       }
     });
 
@@ -115,7 +135,7 @@ export default function AddActivityForm(props) {
         id="standard-search"
         label="Activity Name"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={titleChange}
         type="search"
       />
       <p>Image URL</p>
