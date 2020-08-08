@@ -15,13 +15,13 @@ export default function TimePicker(props) {
   return (
     <div className="timePicker">
       <form noValidate autoComplete="off" className="time-picker-form">
-        <Typography variant="h2">I have&nbsp;</Typography>
+        <Typography>I have&nbsp;</Typography>
         <TextField
           value={timeAvailable.hours}
           onChange={(e)=>handleTimeChange({hours: timeInputFormat(e.target.value, 'hours'), minutes: timeAvailable.minutes})}
           autoFocus
         />
-        <Typography variant="h2">
+        <Typography>
           &nbsp;
           {pluralize('hour', timeAvailable.hours)}&nbsp;
           and&nbsp;
@@ -30,7 +30,7 @@ export default function TimePicker(props) {
           value={timeAvailable.minutes}
           onChange={(e)=>handleTimeChange({hours: timeAvailable.hours, minutes: timeInputFormat(e.target.value, 'minutes')})}
         />
-        <Typography variant="h2">
+        <Typography>
           &nbsp;
           {pluralize('minute', timeAvailable.minutes)}
         </Typography>
