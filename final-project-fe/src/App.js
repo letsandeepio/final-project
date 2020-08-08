@@ -33,7 +33,7 @@ function App() {
   }
 
   function onAsk(index) {
-    setCategory(categories[index].question);
+    setCategory(questions[index].question);
   }
 
   const [isLoggedIn, setLoggedIn] = useState(
