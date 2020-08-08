@@ -7,6 +7,8 @@ $light-text-colour: #afafaf;
 
 $accent-font: 'Fredoka One';
 $body-font: 'Roboto Condensed', sans-serif;
+
+$small-font: .6em;
 // $body-font: 'Arial';
 
 body {
@@ -62,13 +64,18 @@ body {
   font-size: 2rem;
   color: $light-text-colour;
   // font-family: $accent-font;
-  font-family: $body-font;
+  // font-family: $body-font;
+
+  .time-picker-text {
+    font-family: $accent-font;
+    font-size: $small-font;
+  }
 
 
   input {
-    width: 2.3rem;
+    width: 3rem;
     padding: 0.2rem;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-family: $accent-font;
     color: $accent-color;
     text-align: center;
