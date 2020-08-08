@@ -1,10 +1,8 @@
 import https from 'https';
-import * as dotenv from 'dotenv';
-dotenv.config();
 
 const subscriptionKey = process.env.BING_API_KEY;
 
-function getThreeImagesFromBing(term: any) {
+export default function getThreeImagesFromBing(term: any) {
   return new Promise((resolve, reject) => {
     const host = 'api.cognitive.microsoft.com';
     const path = '/bing/v7.0/images/search';
@@ -47,9 +45,3 @@ function getThreeImagesFromBing(term: any) {
     }
   });
 }
-
-async function main() {
-  console.log(await getThreeImagesFromBing('mcdonalds'));
-}
-
-main();
