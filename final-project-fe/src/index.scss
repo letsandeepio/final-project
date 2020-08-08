@@ -1,3 +1,12 @@
+$accent-color: #e91e63;
+$light-text-colour: #afafaf;
+
+$accent-font: 'Fredoka One';
+$body-font: 'Roboto Condensed', sans-serif;
+
+$small-font: .6em;
+// $body-font: 'Arial';
+
 body {
   margin: 0px;
 }
@@ -9,19 +18,40 @@ body {
   flex-direction: column;
   align-items: center;
   h1 {
-    margin-top: 1em;
-    font-size: 3rem;
+    // margin-top: 1em;
+    font-size: 4rem;
     text-align: center;
     margin-bottom: 0.2em;
+    font-family: $accent-font;
+    color: $accent-color;
   }
   h2 {
     font-size: 1.5rem;
+    font-family: $accent-font;
+  }
+  h3 {
+    font-size: 1rem;
+    font-family: $accent-font;
+    color: $light-text-colour;
   }
   .timePicker {
     margin: 2em;
   }
   .categoryButton {
     margin: 0.5em;
+    width: 23em;
+    color: $body-font;
+
+    // .button-dot {
+    //   font-size: 2em;
+    // }
+
+  }
+
+  .top-text {
+    margin-top: 4em;
+    margin-bottom: 0em;
+    font-style: to-lower-case($string: "");
   }
 }
 
@@ -30,12 +60,33 @@ body {
   flex-direction: row;
   align-items: center;
   font-size: 2rem;
+  color: $light-text-colour;
+  width: 80%;
+
+  .time-picker-text {
+    font-family: $accent-font;
+    font-size: $small-font;
+  }
+
+  .time-picker-text-group {
+    display: flex;
+    align-items: center;
+  }
 
   input {
-    width: 2.3rem;
+    width: 3rem;
     padding: 0.2rem;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-family: $accent-font;
+    color: $accent-color;
+    text-align: center;
   }
+}
+
+.addActivityButton {
+  position: fixed;
+  bottom: 0;
+  right: 400;
 }
 
 .pulse-button {
