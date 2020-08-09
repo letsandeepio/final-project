@@ -19,8 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   img: {
-    maxHeight: 300,
-    maxWidth: 300,
+    height: 200,
     display: 'block'
   }
 }));
@@ -65,11 +64,6 @@ export default function AddActivityForm(props) {
   const [firstImage, setFirstImage] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const [
-    fetchImages,
-    { loading: loading1, error: error1, data: data1 },
-  ] = useLazyQuery(IMAGES_QUERY);
-
   const [addActivity] = useMutation(ADDACTIVITY_MUTATION, {
     onCompleted(response) {
       const { error } = response;
@@ -86,6 +80,11 @@ export default function AddActivityForm(props) {
       showSnackBar({ message: 'Something went wrong.', severity: 'error' });
     },
   });
+  
+  const [
+    fetchImages,
+    { loading: loading1, error: error1, data: data1 },
+  ] = useLazyQuery(IMAGES_QUERY);
 
   useEffect(() => {
     if (data1 && data1.images) {
@@ -94,11 +93,10 @@ export default function AddActivityForm(props) {
   }, [data1]);
 
   function getImage() {
-    if (data1) {
+    if (data1 && data1.images) {
       setUrl(data1.images[0]);
       setCurrentImageIndex(1);
-    }
-    if (title.trim() !== '') {
+    } else if (title.trim() !== '') {
       fetchImages({ variables: { searchTerm: title } });
       setFirstImage(false);
     }
@@ -173,7 +171,7 @@ export default function AddActivityForm(props) {
         onChange={changeTitle}
         type='search'
       />
-      {title !== '' && (!firstImage && data1 && data1.images && url !== '' ? (
+      {title.trim() !== '' && (!firstImage && data1 && data1.images && url !== '' ? (
         <Button onClick={getNextImage}>Find Me A Different Image</Button>
         ) : (
         <Button onClick={getImage}>Find Me An Image!</Button>
@@ -183,8 +181,12 @@ export default function AddActivityForm(props) {
         id='add-activity-url'
         label='URL'
         value={url}
-        onChange={(e) => setUrl(e.target.value)}
+        onChange={(e) => {
+          setUrl(e.target.value);
+          setFirstImage(true);
+        }}
       />
+      <Button onClick={()=>setUrl('')}>Clear URL</Button>
       {loading1 && <p>loading...</p>}
       {error1 && <p>{error1.message}</p>}
       {url.trim() !== '' && (
