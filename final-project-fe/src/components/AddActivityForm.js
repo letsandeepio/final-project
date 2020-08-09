@@ -20,8 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     maxHeight: 300,
-    maxWidth: '100%',
-    margin: 'auto',
+    maxWidth: 300,
     display: 'block'
   }
 }));
@@ -185,6 +184,7 @@ export default function AddActivityForm(props) {
         onChange={(e) => setUrl(e.target.value)}
       />
       {loading1 && <p>loading...</p>}
+      {error1 && <p>{error1.message}</p>}
       {url.trim() !== '' && (
         <img className={classes.img} src={url} />
       )}
