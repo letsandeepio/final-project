@@ -88,7 +88,7 @@ export default function SuggesterPage(props) {
 
   return (
     <>
-      <div className="suggestorPage">
+      <div className="suggestorPage move-down">
         <CategoryDropdown
           questions={props.categories}
           question={props.category}
