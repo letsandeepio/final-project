@@ -10,6 +10,12 @@ import { Link } from 'react-router-dom';
 
 import { USER_NAME } from '../constants';
 
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import Divider from '@material-ui/core/Divider';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -49,6 +55,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header({ loggedIn, logout, showSnackBar }) {
   const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className={classes.root}>
@@ -94,9 +111,36 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
             <span>
               Welcome, {localStorage.getItem(USER_NAME)}
               <NotifyBell />
-              <Button color="inherit" onClick={() => logout()}>
-                Sign out
-              </Button>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <AccountCircle onClick={handleMenu} />
+              </IconButton>
+              <Menu
+                style={{
+                  width: '220px'
+                }}
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left'
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem>Account Settings</MenuItem>
+                <Divider light />
+
+                <MenuItem onClick={() => logout()}>Logout</MenuItem>
+              </Menu>
             </span>
           ) : (
             <span>
