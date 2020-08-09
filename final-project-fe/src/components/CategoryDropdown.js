@@ -14,6 +14,7 @@ export default function (props) {
     <div>
       <FormControl>
         <Select
+          className='category-dropdown'
           value={question}
           onChange={(e) => {
             setQuestion(e.target.value);
