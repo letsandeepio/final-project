@@ -63,7 +63,7 @@ export default function SuggesterPage(props) {
         data.activities,
         category,
         props.timeAvailable,
-        'random',
+        'keith',
       );
       setActivitySuggestions(filteredActivities);
     }
