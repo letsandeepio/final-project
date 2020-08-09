@@ -3,12 +3,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+
+import NotifyBell from './NotifyBell';
 
 import { Link } from 'react-router-dom';
 
 import { USER_NAME } from '../constants';
+
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,8 +54,20 @@ const useStyles = makeStyles((theme) => ({
   // }
 }));
 
-export default function Header({ loggedIn, logout, showSnackBar }) {
+export default function Header({ loggedIn, logout }) {
   const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const open = Boolean(anchorEl);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className={classes.root}>
@@ -76,7 +95,6 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
                 alt="logo"
               />
             </a>
-
           </div>
           {/* </div> */}
           {/* </img> */}
@@ -93,10 +111,40 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
           </Button> */}
           {loggedIn ? (
             <span>
-              Welcome, {localStorage.getItem(USER_NAME)}
-              <Button color="inherit" onClick={() => logout()}>
-                Sign out
-              </Button>
+              <Typography style={{ display: 'inline' }}>
+                Welcome, {localStorage.getItem(USER_NAME)}
+              </Typography>
+              <NotifyBell />
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+                onClick={handleMenu}
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                style={{
+                  width: '220px'
+                }}
+                anchorEl={anchorEl}
+                keepMounted
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem>Profile</MenuItem>
+                <MenuItem>Account Settings</MenuItem>
+                <Divider light />
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    logout();
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              </Menu>
             </span>
           ) : (
             <span>

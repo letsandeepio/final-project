@@ -39,7 +39,6 @@ export default function SuggesterPage(props) {
   const { loading, data, refetch } = useQuery(ACTIVITY_QUERY);
 
   const [changeStatus] = useMutation(CHANGESTATUS_MUTATION, {
-    onCompleted(response) {},
     onError(error) {
       console.error(error);
     }
