@@ -32,7 +32,14 @@ export default function getThreeImagesFromBing(term: any) {
         resolve(body.value ? [
           body.value[0].thumbnailUrl,
           body.value[1].thumbnailUrl,
-          body.value[2].thumbnailUrl
+          body.value[2].thumbnailUrl,
+          body.value[3].thumbnailUrl,
+          body.value[4].thumbnailUrl,
+          body.value[5].thumbnailUrl,
+          body.value[6].thumbnailUrl,
+          body.value[7].thumbnailUrl,
+          body.value[8].thumbnailUrl,
+          body.value[9].thumbnailUrl
         ] : null);
       });
     };

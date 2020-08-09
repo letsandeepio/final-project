@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,8 +15,14 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: '25ch'
-    }
+      width: '25ch',
+    },
+  },
+  img: {
+    maxHeight: 300,
+    maxWidth: '100%',
+    margin: 'auto',
+    display: 'block'
   }
 }));
 
@@ -29,7 +33,12 @@ const ADDACTIVITY_MUTATION = gql`
     $duration: Int!
     $image_url: String
   ) {
-    addActivity(title: $title, category: $category, duration: $duration, image_url: $image_url) {
+    addActivity(
+      title: $title
+      category: $category
+      duration: $duration
+      image_url: $image_url
+    ) {
       id
     }
   }
@@ -39,32 +48,28 @@ const IMAGES_QUERY = gql`
   query ImagesBing($searchTerm: String!) {
     images(searchTerm: $searchTerm)
   }
-`
+`;
 
 export default function AddActivityForm(props) {
   let history = useHistory();
   const classes = useStyles();
   const { showSnackBar } = props;
-  const menuItems = ["watch","eat out", "cook","other"].map((category) => (
+  const menuItems = ['watch', 'eat out', 'cook', 'other'].map((category) => (
     <MenuItem value={category}>{category}</MenuItem>
   ));
 
-  const [category, setCategory] = useState("watch");
+  const [category, setCategory] = useState('watch');
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
+  const [firstImage, setFirstImage] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const [fetchImages, { loading: loading1, error: error1, data: data1}] = useLazyQuery(IMAGES_QUERY, {
-    variables: { searchTerm: title },
-  });
-
-  useEffect(()=> {
-    console.log(data1);
-    if (data1) {
-      setUrl(data1[0])
-    }
-  },[data1])
+  const [
+    fetchImages,
+    { loading: loading1, error: error1, data: data1 },
+  ] = useLazyQuery(IMAGES_QUERY);
 
   const [addActivity, { data }] = useMutation(ADDACTIVITY_MUTATION, {
     onCompleted(response) {
@@ -75,25 +80,44 @@ export default function AddActivityForm(props) {
       } else {
         showSnackBar({
           message: 'Successfully added activity!',
-          severity: 'success'
+          severity: 'success',
         });
       }
     },
     onError(e) {
       console.log(e);
       showSnackBar({ message: 'Something went wrong.', severity: 'error' });
-    }
+    },
   });
 
-  function titleChange(e) {
-    setTitle(e.target.value);
-    if (e.target.value !== '') {
-      fetchImages();
-      if (data1) {
-        console.log('yes, oh yes')
-        setUrl(data1[0]);
-      }
+  useEffect(() => {
+    if (data1 && data1.images) {
+      setUrl(data1.images[0]);
     }
+  }, [data1]);
+
+  function getImage() {
+    if (title.trim() !== '') {
+      fetchImages({ variables: { searchTerm: title } });
+      setFirstImage(false);
+    }
+  }
+
+  function getNextImage() {
+    if (data1 && data1.images) {
+      if (currentImageIndex !== 9) {
+        setCurrentImageIndex(prev => prev+1);
+      } else {
+        setCurrentImageIndex(0);
+      }
+      setUrl(data1.images[currentImageIndex]);
+    }
+  }
+
+  function changeTitle(e) {
+    setFirstImage(true);
+    setCurrentImageIndex(1);
+    setTitle(e.target.value);
   }
 
   function addActivityHelper() {
@@ -110,7 +134,7 @@ export default function AddActivityForm(props) {
     if (!hours && !minutes) {
       showSnackBar({
         message: 'Valid duration required.',
-        severity: 'warning'
+        severity: 'warning',
       });
       return;
     }
@@ -120,8 +144,8 @@ export default function AddActivityForm(props) {
         title,
         category: category === 'eat out' ? 'eat' : category,
         duration: Number(hours * 60) + Number(minutes),
-        image_url: url.trim() === '' ? null : url
-      }
+        image_url: url.trim() === '' ? null : url,
+      },
     });
 
     history.push('/categories');
@@ -142,41 +166,45 @@ export default function AddActivityForm(props) {
         </FormControl>
       </div>
       <TextField
-        id="standard-search"
-        label="Activity Name"
+        id='standard-search'
+        label='Activity Name'
         value={title}
-        onChange={titleChange}
-        type="search"
+        onChange={changeTitle}
+        type='search'
       />
+      {!firstImage && data1 && data1.images ? (
+        <Button onClick={getNextImage}>Find Me A Different Image</Button>
+        ) : (
+        <Button onClick={getImage}>Find Me An Image!</Button>
+      )}
       <p>Image URL</p>
       <TextField
-        id="add-activity-url"
-        label="URL"
+        id='add-activity-url'
+        label='URL'
         value={url}
         onChange={(e) => setUrl(e.target.value)}
-        />
-        <Card style={{maxWidth: '300px'}}>
-          <CardContent>
-            <img src={url}/>
-          </CardContent>
-        </Card>
+      />
+      {loading1 && <p>loading...</p>}
+      {url.trim() !== '' && (
+        <img className={classes.img} src={url} />
+      )}
       <p>Approximate Duration</p>
       <TextField
-        id="add-activity-hours"
-        label="Hours"
+        id='add-activity-hours'
+        label='Hours'
         value={hours}
         onChange={(e) => setHours(e.target.value)}
-        type="number"
+        type='number'
       />
       <TextField
-        id="add-activity-minutes"
-        label="Minutes"
+        id='add-activity-minutes'
+        label='Minutes'
         value={minutes}
         onChange={(e) => setMinutes(e.target.value)}
-        type="number"
+        type='number'
       />
       <br></br>
-      <Button variant="contained" onClick={addActivityHelper} color="primary">
+      <Button variant='contained' onClick={addActivityHelper} color='primary'>
         Save
       </Button>
     </section>
