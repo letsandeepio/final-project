@@ -1,6 +1,7 @@
 import minuteTimeConvert from './minuteTimeConvert';
 
 export default function sortActivities(activitiesArray, category, time) {
+  console.log(activitiesArray);
   let filteredActivities = [];
   let categoryFilter = '';
   let hasActivities = false;
