@@ -14,6 +14,14 @@ async function activities(parent: any, args: any, context: any) {
   return iActivities;
 }
 
+async function inProgress(parent: any, args: any, context: any) {
+  const userId = getUserId(context);
+  const iActivities = await context.prisma.activity.findMany({
+    where: { user_id: userId, status: 'progress' }
+  });
+  return iActivities;
+}
+
 async function images(parent: any, args: any, context: any) {
   console.log('Querying bing for: ' + args.searchTerm);
   return await getThreeImagesFromBing(args.searchTerm);
@@ -22,5 +30,6 @@ async function images(parent: any, args: any, context: any) {
 export default {
   info,
   activities,
-  images
+  images,
+  inProgress
 };
