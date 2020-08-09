@@ -15,7 +15,6 @@ import _saveUserData from '../helpers/saveUserData';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -49,7 +48,7 @@ export default function Login({ setLoggedIn, showSnackBar }) {
     email: ''
   });
 
-  const [userSignIn, { data }] = useMutation(SIGNIN_MUTATION, {
+  const [userSignIn] = useMutation(SIGNIN_MUTATION, {
     onCompleted(response) {
       const { token, error } = response.login;
       if (error) {

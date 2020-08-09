@@ -52,9 +52,9 @@ export default function AddActivityForm(props) {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
-  const [addActivity, { data }] = useMutation(ADDACTIVITY_MUTATION, {
+  const [addActivity] = useMutation(ADDACTIVITY_MUTATION, {
     onCompleted(response) {
-      const { token, error } = response;
+      const { error } = response;
       if (error) {
         showSnackBar({ message: error, severity: 'error' });
       } else {

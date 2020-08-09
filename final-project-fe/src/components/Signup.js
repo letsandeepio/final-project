@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: '0em',
     paddingTop: '10em'
   },
   signup: {
@@ -56,7 +55,7 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
     email: ''
   });
 
-  const [userSignup, { data }] = useMutation(SIGNUP_MUTATION, {
+  const [userSignup] = useMutation(SIGNUP_MUTATION, {
     onCompleted(response) {
       const { token, error } = response.signup;
       if (error) {

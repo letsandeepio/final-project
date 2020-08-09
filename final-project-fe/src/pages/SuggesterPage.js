@@ -36,9 +36,9 @@ export default function SuggesterPage(props) {
   const [category, setCategory] = useState(props.category);
   let history = useHistory();
 
-  const { loading, error, data, refetch } = useQuery(ACTIVITY_QUERY);
+  const { loading, data, refetch } = useQuery(ACTIVITY_QUERY);
 
-  const [changeStatus, statusResponse] = useMutation(CHANGESTATUS_MUTATION, {
+  const [changeStatus] = useMutation(CHANGESTATUS_MUTATION, {
     onCompleted(response) {},
     onError(error) {
       console.error(error);
@@ -70,6 +70,7 @@ export default function SuggesterPage(props) {
 
   useEffect(() => {
     refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.timeAvailable, category]);
 
   const indexIncrementor = function () {

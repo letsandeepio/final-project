@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -31,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     alignItems: 'right',
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
   // hamburgerLogoPair: {
   //   alignItems: 'center'
   // }
@@ -43,27 +42,28 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">    
+      <AppBar position="static">
         <Toolbar className={classes.toolbar}>
           {/* <div classname={classes.hamburgerLogoPair}> */}
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-            >
-              <MenuIcon />
-            </IconButton>
-            
-            <a href="/">
-              <img
-                // variant="h6"
-                className={classes.title}
-                component={Link}
-                // href="/"
-                src="DoSomethingLogo192.png">
-              </img>
-            </a>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <a href="/">
+            <img
+              // variant="h6"
+              className={classes.title}
+              component={Link}
+              // href="/"
+              src="DoSomethingLogo192.png"
+              alt="logo"
+            ></img>
+          </a>
           {/* </div> */}
           {/* </img> */}
           {/* <Typography
