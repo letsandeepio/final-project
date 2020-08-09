@@ -5,6 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Badge from '@material-ui/core/Badge';
 
 import { Link } from 'react-router-dom';
 
@@ -82,6 +84,11 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
           {loggedIn ? (
             <span>
               Welcome, {localStorage.getItem(USER_NAME)}
+              <IconButton aria-label="show new notifications" color="inherit">
+                <Badge badgeContent={2} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
               <Button color="inherit" onClick={() => logout()}>
                 Sign out
               </Button>
