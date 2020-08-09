@@ -1,6 +1,7 @@
 import minuteTimeConvert from './minuteTimeConvert';
+import shuffleArray from './shuffleArray';
 
-export default function sortActivities(activitiesArray, category, time) {
+export default function sortActivities(activitiesArray, category, time, sortStyle) {
   console.log(activitiesArray);
   let filteredActivities = [];
   let categoryFilter = '';
@@ -40,6 +41,20 @@ export default function sortActivities(activitiesArray, category, time) {
           filteredActivities.push(activity);
         }
       }
+    }
+  }
+  if (sortStyle === 'keith') {
+    let filteredActivitiesCopy = [...filteredActivities];
+    filteredActivities = [];
+    filteredActivitiesCopy.sort((a,b) => (a.duration < b.duration) ? 1 : ((b.duration < a.duration) ? -1 : 0));
+    const twentyEighty = Math.round(filteredActivitiesCopy.length * 0.2);
+    const twentyArray = shuffleArray(filteredActivitiesCopy.slice(0, twentyEighty + 1));
+    const eightyArray = shuffleArray(filteredActivitiesCopy.slice(twentyEighty + 1, filteredActivitiesCopy.length));
+    for (let i = 0; i < eightyArray.length; i++) {
+      if (twentyArray[i]) {
+        filteredActivities.push(twentyArray[i]);
+      }
+      filteredActivities.push(eightyArray[i]);
     }
   }
   return { activities: filteredActivities, hasActivities };
