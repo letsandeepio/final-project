@@ -38,7 +38,7 @@ const Dictaphone = ({ onCommand, onAsk }) => {
     }
   ];
 
-  const { transcript, resetTranscript, listening } = useSpeechRecognition({
+  const { transcript, listening } = useSpeechRecognition({
     commands
   });
 

@@ -17,6 +17,8 @@ export default function sortActivities(activitiesArray, category, time) {
     case 'what else could i do?':
       categoryFilter = 'other';
       break;
+    default:
+      console.error('Unkown category type');
   }
 
   for (let activity of activitiesArray) {
@@ -29,7 +31,6 @@ export default function sortActivities(activitiesArray, category, time) {
       } else {
         if (activity.category === categoryFilter) {
           hasActivities = true;
-          console.log(hasActivities);
         }
         if (
           activity.category === categoryFilter &&

@@ -27,7 +27,12 @@ const ADDACTIVITY_MUTATION = gql`
     $duration: Int!
     $image_url: String
   ) {
-    addActivity(title: $title, category: $category, duration: $duration, image_url: $image_url) {
+    addActivity(
+      title: $title
+      category: $category
+      duration: $duration
+      image_url: $image_url
+    ) {
       id
     }
   }
@@ -37,20 +42,19 @@ export default function AddActivityForm(props) {
   let history = useHistory();
   const classes = useStyles();
   const { showSnackBar } = props;
-  const menuItems = ["watch","eat out", "cook","other"].map((category) => (
+  const menuItems = ['watch', 'eat out', 'cook', 'other'].map((category) => (
     <MenuItem value={category}>{category}</MenuItem>
   ));
 
-  const [category, setCategory] = useState("watch");
+  const [category, setCategory] = useState('watch');
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState(null);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
-  const [addActivity, { data }] = useMutation(ADDACTIVITY_MUTATION, {
+  const [addActivity] = useMutation(ADDACTIVITY_MUTATION, {
     onCompleted(response) {
-      console.log('activity added!', addActivity);
-      const { token, error } = response;
+      const { error } = response;
       if (error) {
         showSnackBar({ message: error, severity: 'error' });
       } else {
@@ -61,7 +65,6 @@ export default function AddActivityForm(props) {
       }
     },
     onError(e) {
-      console.log(e);
       showSnackBar({ message: 'Something went wrong.', severity: 'error' });
     }
   });
@@ -124,7 +127,7 @@ export default function AddActivityForm(props) {
         label="URL"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
-        />
+      />
       <p>Approximate Duration</p>
       <TextField
         id="add-activity-hours"

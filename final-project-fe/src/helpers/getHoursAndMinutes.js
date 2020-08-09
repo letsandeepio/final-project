@@ -10,7 +10,6 @@ function getHoursAndMinutes(command) {
   command.forEach((item, index) => {
     if (item.includes('hour')) {
       let exHours = Number(command[index - 1]);
-      console.log(exHours);
       if (isNaN(exHours)) {
         hours = hourArray.findIndex((item) => item === command[index - 1]) + 1;
       } else {
