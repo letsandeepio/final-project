@@ -95,11 +95,12 @@ export default function AddActivityForm(props) {
   function getImage() {
     if (data1 && data1.images) {
       setUrl(data1.images[0]);
-      setCurrentImageIndex(1);
-    } else if (title.trim() !== '') {
+    }
+    if (title.trim() !== '') {
       fetchImages({ variables: { searchTerm: title } });
       setFirstImage(false);
     }
+    setCurrentImageIndex(1);
   }
 
   function getNextImage() {
