@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
   },
   leftButtons: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   title: {
     // flexGrow: 1,
@@ -54,8 +55,8 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
           <div className={classes.leftButtons}>
-            <div>
-              {/* <div classname={classes.hamburgerLogoPair}> */}
+            {/* <div>
+              <div classname={classes.hamburgerLogoPair}>
               <IconButton
                 edge="start"
                 className={classes.menuButton}
@@ -64,7 +65,7 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
               >
                 <MenuIcon />
               </IconButton>
-            </div>
+            </div> */}
             <a href="/">
               <img
                 // variant="h6"
