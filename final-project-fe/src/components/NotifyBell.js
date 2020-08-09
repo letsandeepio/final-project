@@ -32,10 +32,13 @@ const CHANGESTATUS_MUTATION = gql`
 
 export default function NotifyBell() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { loading, data, refetch } = useQuery(ACTIVITY_QUERY);
+  const { loading, data, refetch } = useQuery(ACTIVITY_QUERY, {
+    pollInterval: 500
+  });
 
   const [changeStatus] = useMutation(CHANGESTATUS_MUTATION, {
     onCompleted() {
+      console.log('refetching');
       setAnchorEl(null);
       refetch();
     },
@@ -90,7 +93,12 @@ export default function NotifyBell() {
           horizontal: 'right'
         }}
       >
-        <List dense={false}>
+        <List
+          dense={false}
+          style={{
+            width: '220px'
+          }}
+        >
           {data ? (
             data.inProgress.length > 0 ? (
               data.inProgress.map((item) => {
