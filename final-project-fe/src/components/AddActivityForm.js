@@ -96,6 +96,10 @@ export default function AddActivityForm(props) {
   }, [data1]);
 
   function getImage() {
+    if (data1) {
+      setUrl(data1.images[0]);
+      setCurrentImageIndex(1);
+    }
     if (title.trim() !== '') {
       fetchImages({ variables: { searchTerm: title } });
       setFirstImage(false);
@@ -171,11 +175,11 @@ export default function AddActivityForm(props) {
         onChange={changeTitle}
         type='search'
       />
-      {!firstImage && data1 && data1.images ? (
+      {title !== '' && (!firstImage && data1 && data1.images && url !== '' ? (
         <Button onClick={getNextImage}>Find Me A Different Image</Button>
         ) : (
         <Button onClick={getImage}>Find Me An Image!</Button>
-      )}
+      ))}
       <p>Image URL</p>
       <TextField
         id='add-activity-url'
