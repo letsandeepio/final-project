@@ -18,7 +18,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: '0px'
+  },
+  welcome: {
+    marginTop: '6em'
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -91,7 +95,7 @@ export default function Login({ setLoggedIn, showSnackBar }) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
+        <Typography className={classes.welcome} component="h1" variant="h5">
           Welcome back!
         </Typography>
         <form className={classes.form} noValidate>
