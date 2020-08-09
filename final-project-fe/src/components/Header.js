@@ -28,7 +28,10 @@ const useStyles = makeStyles((theme) => ({
     // flexGrow: 1,
     textDecoration: 'none',
     color: 'white',
-    width: '65px'
+    width: '65px',
+    margin: 'auto',
+    display: 'block',
+    position: 'relative'
   },
   button: {
     alignItems: 'right',
