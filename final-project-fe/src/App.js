@@ -27,6 +27,7 @@ function Alert(props) {
 function App() {
   const [category, setCategory] = useState(questions[0].question);
   const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
+
   const location = useLocation();
 
   function updateTimeAvailable(command) {

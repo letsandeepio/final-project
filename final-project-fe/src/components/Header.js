@@ -8,6 +8,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import { Link } from 'react-router-dom';
 
+import { USER_NAME } from '../constants';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -78,9 +80,12 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
             About
           </Button> */}
           {loggedIn ? (
-            <Button color="inherit" onClick={() => logout()}>
-              Sign out
-            </Button>
+            <span>
+              Welcome, {localStorage.getItem(USER_NAME)}
+              <Button color="inherit" onClick={() => logout()}>
+                Sign out
+              </Button>
+            </span>
           ) : (
             <span>
               <Button color="inherit" component={Link} to="/signup">

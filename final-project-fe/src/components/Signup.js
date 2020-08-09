@@ -43,6 +43,9 @@ const SIGNUP_MUTATION = gql`
     signup(email: $email, password: $password, name: $name) {
       token
       error
+      user {
+        name
+      }
     }
   }
 `;
@@ -57,7 +60,7 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
 
   const [userSignup] = useMutation(SIGNUP_MUTATION, {
     onCompleted(response) {
-      const { token, error } = response.signup;
+      const { token, error, user } = response.signup;
       if (error) {
         let message = 'Something went wrong. Please try again later.';
         if (error.includes('Unique constraint'))
@@ -65,7 +68,7 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
         showSnackBar({ message, severity: 'error' });
       } else {
         setLoggedIn(true);
-        _saveUserData(token);
+        _saveUserData(token, user.name);
         history.push('/categories');
       }
     }

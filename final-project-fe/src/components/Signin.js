@@ -36,6 +36,9 @@ const SIGNIN_MUTATION = gql`
   mutation SigninMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
+      user {
+        name
+      }
       error
     }
   }
@@ -50,12 +53,12 @@ export default function Login({ setLoggedIn, showSnackBar }) {
 
   const [userSignIn] = useMutation(SIGNIN_MUTATION, {
     onCompleted(response) {
-      const { token, error } = response.login;
+      const { token, user, error } = response.login;
       if (error) {
         showSnackBar({ message: error, severity: 'error' });
       } else {
         setLoggedIn(true);
-        _saveUserData(token);
+        _saveUserData(token, user.name);
         showSnackBar({
           message: 'Logged in successfully.',
           severity: 'success'
