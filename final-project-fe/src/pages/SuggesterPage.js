@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
-
 import CategoryDropdown from '../components/CategoryDropdown';
 import SuggestionCard from '../components/SuggestionCard';
 import TimePicker from '../components/TimePicker';
 import SuggesterButtonBox from '../components/SuggesterButtonBox';
-
 import sortActivities from '../helpers/sortActivities';
-
 import { useMutation } from '@apollo/client';
+import AddActivityButton from '../components/AddActivityButton';
 
 const ACTIVITY_QUERY = gql`
   query ActivityQuery {
@@ -89,36 +87,39 @@ export default function SuggesterPage(props) {
   };
 
   return (
-    <div className="suggestorPage">
-      <CategoryDropdown
-        questions={props.categories}
-        question={props.category}
-        onChange={(value) => {
-          setCategory(value);
-          props.onCategoryChange(value);
-        }}
-      />
-      <TimePicker
-        onChange={props.onTimeChange}
-        timeAvailable={props.timeAvailable}
-      />
-      {loading || activitySuggestions === null ? (
-        'loading'
-      ) : activitySuggestions.activities.length > 0 ? (
-        <>
-          <SuggestionCard
-            activity={activitySuggestions.activities[suggestionIndex]}
-          />
-          <SuggesterButtonBox
-            onAccept={handleNow}
-            onReject={indexIncrementor}
-          />
-        </>
-      ) : activitySuggestions.hasActivities === true ? (
-        'nothing in this time frame'
-      ) : (
-        'nothing yet'
-      )}
-    </div>
+    <>
+      <div className="suggestorPage">
+        <CategoryDropdown
+          questions={props.categories}
+          question={props.category}
+          onChange={(value) => {
+            setCategory(value);
+            props.onCategoryChange(value);
+          }}
+        />
+        <TimePicker
+          onChange={props.onTimeChange}
+          timeAvailable={props.timeAvailable}
+        />
+        {loading || activitySuggestions === null ? (
+          'loading'
+        ) : activitySuggestions.activities.length > 0 ? (
+          <>
+            <SuggestionCard
+              activity={activitySuggestions.activities[suggestionIndex]}
+            />
+            <SuggesterButtonBox
+              onAccept={handleNow}
+              onReject={indexIncrementor}
+            />
+          </>
+        ) : activitySuggestions.hasActivities === true ? (
+          'nothing in this time frame'
+        ) : (
+          'nothing yet'
+        )}
+      </div>
+      <AddActivityButton className="addActivityButton" component={Link} to="/add-activity"></AddActivityButton>
+    </>
   );
 }
