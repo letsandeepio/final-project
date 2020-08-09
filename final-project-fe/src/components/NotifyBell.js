@@ -9,12 +9,22 @@ import Badge from '@material-ui/core/Badge';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 import { gql, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 const ACTIVITY_QUERY = gql`
   query ActivityQuery {
-    activities {
+    inProgress {
       id
       title
+      status
+    }
+  }
+`;
+
+const CHANGESTATUS_MUTATION = gql`
+  mutation changeStatusMutation($id: Int!, $status: String!) {
+    changeStatus(id: $id, status: $status) {
+      id
       status
     }
   }
@@ -24,6 +34,16 @@ export default function NotifyBell() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { loading, data, refetch } = useQuery(ACTIVITY_QUERY);
 
+  const [changeStatus] = useMutation(CHANGESTATUS_MUTATION, {
+    onCompleted() {
+      setAnchorEl(null);
+      refetch();
+    },
+    onError(error) {
+      console.error(error);
+    }
+  });
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -32,8 +52,18 @@ export default function NotifyBell() {
     setAnchorEl(null);
   };
 
+  function markComplete(id) {
+    changeStatus({
+      variables: {
+        id: Number(id),
+        status: 'complete'
+      }
+    });
+  }
+
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
+  const count = data ? data.inProgress.length : null;
 
   return (
     <>
@@ -42,7 +72,7 @@ export default function NotifyBell() {
         color="inherit"
         onClick={handleClick}
       >
-        <Badge badgeContent={2} color="secondary">
+        <Badge badgeContent={count} color="secondary">
           <NotificationsIcon />
         </Badge>
       </IconButton>
@@ -61,16 +91,17 @@ export default function NotifyBell() {
         }}
       >
         <List dense={false}>
-          {data
-            ? data.activities.map((item) => {
+          {data ? (
+            data.inProgress.length > 0 ? (
+              data.inProgress.map((item) => {
                 return (
-                  <ListItem>
-                    <ListItemText primary={item.title} key={item.id} />
+                  <ListItem key={item.id}>
+                    <ListItemText primary={item.title} />
                     <ListItemSecondaryAction>
                       <IconButton
                         edge="end"
                         aria-label="delete"
-                        onClick={() => alert('yahoo')}
+                        onClick={() => markComplete(item.id)}
                       >
                         <AlarmOnIcon />
                       </IconButton>
@@ -78,7 +109,12 @@ export default function NotifyBell() {
                   </ListItem>
                 );
               })
-            : ''}
+            ) : (
+              <ListItem>Nothing pending</ListItem>
+            )
+          ) : (
+            'In Progress Activities will appear here.'
+          )}
         </List>
       </Popover>
     </>
