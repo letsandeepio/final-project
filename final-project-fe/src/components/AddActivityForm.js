@@ -61,7 +61,9 @@ export default function AddActivityForm(props) {
 
   useEffect(()=> {
     console.log(data1);
-    setUrl(data1[0])
+    if (data1) {
+      setUrl(data1[0])
+    }
   },[data1])
 
   const [addActivity, { data }] = useMutation(ADDACTIVITY_MUTATION, {
