@@ -2,11 +2,13 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { dark } from '@material-ui/core/styles/createPalette';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#fff"
+      main: "#fff",
+      dark: "#f1f1f1"
   },
 }});
 
