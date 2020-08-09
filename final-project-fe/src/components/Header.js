@@ -53,10 +53,11 @@ const useStyles = makeStyles((theme) => ({
   // }
 }));
 
-export default function Header({ loggedIn, logout, showSnackBar }) {
+export default function Header({ loggedIn, logout }) {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
 
   const handleMenu = (event) => {
@@ -116,30 +117,30 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 color="inherit"
+                onClick={handleMenu}
               >
-                <AccountCircle onClick={handleMenu} />
+                <AccountCircle />
               </IconButton>
               <Menu
                 style={{
                   width: '220px'
                 }}
                 anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left'
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
+                keepMounted
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem>Profile</MenuItem>
                 <MenuItem>Account Settings</MenuItem>
                 <Divider light />
-
-                <MenuItem onClick={() => logout()}>Logout</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    logout();
+                  }}
+                >
+                  Logout
+                </MenuItem>
               </Menu>
             </span>
           ) : (
