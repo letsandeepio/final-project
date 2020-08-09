@@ -2,7 +2,6 @@ import https from 'https';
 
 // const subscriptionKey = process.env.BING_API_KEY;
 
-
 export default function getThreeImagesFromBing(term: any) {
   return new Promise((resolve, reject) => {
     const host = 'api.cognitive.microsoft.com';
@@ -30,11 +29,11 @@ export default function getThreeImagesFromBing(term: any) {
       response.on('end', () => {
         body = JSON.parse(body);
 
-        resolve([
+        resolve(body.value ? [
           body.value[0].thumbnailUrl,
           body.value[1].thumbnailUrl,
           body.value[2].thumbnailUrl
-        ]);
+        ] : null);
       });
     };
 

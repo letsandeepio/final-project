@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -59,6 +61,7 @@ export default function AddActivityForm(props) {
 
   useEffect(()=> {
     console.log(data1);
+    setUrl(data1[0])
   },[data1])
 
   const [addActivity, { data }] = useMutation(ADDACTIVITY_MUTATION, {
@@ -79,10 +82,15 @@ export default function AddActivityForm(props) {
       showSnackBar({ message: 'Something went wrong.', severity: 'error' });
     }
   });
+
   function titleChange(e) {
     setTitle(e.target.value);
     if (e.target.value !== '') {
       fetchImages();
+      if (data1) {
+        console.log('yes, oh yes')
+        setUrl(data1[0]);
+      }
     }
   }
 
@@ -145,6 +153,11 @@ export default function AddActivityForm(props) {
         value={url}
         onChange={(e) => setUrl(e.target.value)}
         />
+        <Card style={{maxWidth: '300px'}}>
+          <CardContent>
+            <img src={url}/>
+          </CardContent>
+        </Card>
       <p>Approximate Duration</p>
       <TextField
         id="add-activity-hours"
