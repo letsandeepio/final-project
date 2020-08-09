@@ -7,6 +7,8 @@ import { PrismaClient } from '@prisma/client';
 import Query from './resolvers/Query';
 import Mutation from './resolvers/Mutation';
 
+import morgan from 'morgan';
+
 const prisma = new PrismaClient();
 
 export interface Context {
@@ -38,6 +40,9 @@ const server = new GraphQLServer({
     };
   }
 });
+
+server.express.use(morgan('tiny'));
+
 server.start(options, () =>
   console.log(`Server  is running on http://localhost:4000`)
 );
