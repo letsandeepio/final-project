@@ -2,7 +2,6 @@ import minuteTimeConvert from './minuteTimeConvert';
 import shuffleArray from './shuffleArray';
 
 export default function sortActivities(activitiesArray, category, time, sortStyle) {
-  console.log(activitiesArray);
   let filteredActivities = [];
   let categoryFilter = '';
   let hasActivities = false;
@@ -56,6 +55,12 @@ export default function sortActivities(activitiesArray, category, time, sortStyl
       }
       filteredActivities.push(eightyArray[i]);
     }
+  }
+  if (sortStyle === 'duration') {
+    filteredActivities.sort((a,b) => (a.duration < b.duration) ? 1 : ((b.duration < a.duration) ? -1 : 0));
+  }
+  if (sortStyle === 'random') {
+    filteredActivities = shuffleArray(filteredActivities);
   }
   return { activities: filteredActivities, hasActivities };
 }
