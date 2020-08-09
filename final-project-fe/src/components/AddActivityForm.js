@@ -70,10 +70,9 @@ export default function AddActivityForm(props) {
     { loading: loading1, error: error1, data: data1 },
   ] = useLazyQuery(IMAGES_QUERY);
 
-  const [addActivity, { data }] = useMutation(ADDACTIVITY_MUTATION, {
+  const [addActivity] = useMutation(ADDACTIVITY_MUTATION, {
     onCompleted(response) {
-      console.log('activity added!', addActivity);
-      const { token, error } = response;
+      const { error } = response;
       if (error) {
         showSnackBar({ message: error, severity: 'error' });
       } else {
@@ -84,7 +83,6 @@ export default function AddActivityForm(props) {
       }
     },
     onError(e) {
-      console.log(e);
       showSnackBar({ message: 'Something went wrong.', severity: 'error' });
     },
   });

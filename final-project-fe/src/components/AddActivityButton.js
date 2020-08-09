@@ -28,14 +28,14 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
 };
 
 const useStyles = makeStyles((theme) => ({
   fab: {
     position: 'fixed',
     bottom: theme.spacing(2),
-    right: theme.spacing(2),
+    right: theme.spacing(2)
   }
 }));
 
@@ -46,7 +46,7 @@ export default function FloatingActionButtonZoom() {
 
   const transitionDuration = {
     enter: theme.transitions.duration.enteringScreen,
-    exit: theme.transitions.duration.leavingScreen,
+    exit: theme.transitions.duration.leavingScreen
   };
 
   const fabs = [
@@ -54,7 +54,7 @@ export default function FloatingActionButtonZoom() {
       color: 'primary',
       className: classes.fab,
       icon: <AddIcon />,
-      label: 'Add',
+      label: 'Add'
     }
   ];
 
@@ -66,11 +66,19 @@ export default function FloatingActionButtonZoom() {
           in={value === index}
           timeout={transitionDuration}
           style={{
-            transitionDelay: `${value === index ? transitionDuration.exit : 0}ms`,
+            transitionDelay: `${
+              value === index ? transitionDuration.exit : 0
+            }ms`
           }}
           unmountOnExit
         >
-          <Fab aria-label={fab.label} className={fab.className} color={fab.color} component={Link} to="/add-activity">
+          <Fab
+            aria-label={fab.label}
+            className={fab.className}
+            color={fab.color}
+            component={Link}
+            to="/add-activity"
+          >
             {fab.icon}
           </Fab>
         </Zoom>

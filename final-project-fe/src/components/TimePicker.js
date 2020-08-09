@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Typography, TextField } from '@material-ui/core';
 import '../index.scss';
 import pluralize from 'pluralize';
@@ -19,7 +19,12 @@ export default function TimePicker(props) {
           <Typography class="time-picker-text">I&nbsp;have&nbsp;</Typography>
           <TextField
             value={timeAvailable.hours}
-            onChange={(e)=>handleTimeChange({hours: timeInputFormat(e.target.value, 'hours'), minutes: timeAvailable.minutes})}
+            onChange={(e) =>
+              handleTimeChange({
+                hours: timeInputFormat(e.target.value, 'hours'),
+                minutes: timeAvailable.minutes
+              })
+            }
             autoFocus
           />
           <Typography class="time-picker-text">
@@ -27,12 +32,15 @@ export default function TimePicker(props) {
           </Typography>
         </div>
         <div class="time-picker-text-group">
-        <Typography class="time-picker-text">
-          &#160;and&nbsp;
-          </Typography>
+          <Typography class="time-picker-text">&#160;and&nbsp;</Typography>
           <TextField
             value={timeAvailable.minutes}
-            onChange={(e)=>handleTimeChange({hours: timeAvailable.hours, minutes: timeInputFormat(e.target.value, 'minutes')})}
+            onChange={(e) =>
+              handleTimeChange({
+                hours: timeAvailable.hours,
+                minutes: timeInputFormat(e.target.value, 'minutes')
+              })
+            }
           />
           <Typography class="time-picker-text">
             &nbsp;

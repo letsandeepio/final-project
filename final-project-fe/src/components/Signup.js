@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: '0em',
     paddingTop: '10em'
   },
   signup: {
@@ -44,6 +43,9 @@ const SIGNUP_MUTATION = gql`
     signup(email: $email, password: $password, name: $name) {
       token
       error
+      user {
+        name
+      }
     }
   }
 `;
@@ -56,9 +58,9 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
     email: ''
   });
 
-  const [userSignup, { data }] = useMutation(SIGNUP_MUTATION, {
+  const [userSignup] = useMutation(SIGNUP_MUTATION, {
     onCompleted(response) {
-      const { token, error } = response.signup;
+      const { token, error, user } = response.signup;
       if (error) {
         let message = 'Something went wrong. Please try again later.';
         if (error.includes('Unique constraint'))
@@ -66,7 +68,7 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
         showSnackBar({ message, severity: 'error' });
       } else {
         setLoggedIn(true);
-        _saveUserData(token);
+        _saveUserData(token, user.name);
         history.push('/categories');
       }
     }
@@ -97,10 +99,6 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
       return;
     }
 
-    console.log(
-      `Signing up with ${state.name}, ${state.password} & ${state.email}`
-    );
-
     userSignup({
       variables: {
         name: state.name,
@@ -111,11 +109,11 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
   }
 
   return (
-    <Container className='containsall' component="main" maxWidth="xs">
+    <Container className="containsall" component="main" maxWidth="xs">
       <CssBaseline />
       {/* <div className={classes.paper} style={{ marginTop: '4rem' }}> */}
       <div className={classes.paper}>
-        <Typography className='signup' component="h1" variant="h5">
+        <Typography className="signup" component="h1" variant="h5">
           Sign up for DoSomething
         </Typography>
         <form className={classes.form} noValidate>
