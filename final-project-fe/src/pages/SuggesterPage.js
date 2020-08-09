@@ -113,7 +113,7 @@ export default function SuggesterPage(props) {
         ) : activitySuggestions.hasActivities === true ? (
           'nothing in this time frame'
         ) : (
-          'nothing yet'
+          'nothing in this category'
         )}
       </div>
       <AddActivityButton
