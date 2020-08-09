@@ -1,7 +1,7 @@
 type Query {
   info: String!
   activities: [Activity!]!
-  images(searchTerm: String!): [String!]!
+  images(searchTerm: String!): [String!]
 }
 
 type User {
