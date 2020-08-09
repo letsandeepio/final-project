@@ -41,7 +41,7 @@ const server = new GraphQLServer({
   }
 });
 
-server.express.use(morgan('tiny'));
+server.express.use(morgan('dev'));
 
 server.start(options, () =>
   console.log(`Server  is running on http://localhost:4000`)
