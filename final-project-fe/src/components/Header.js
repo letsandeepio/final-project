@@ -12,16 +12,30 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    margin: 0
+    margin: 0,
+    position: 'fixed',
+    width: '100%'
   },
   menuButton: {
     marginRight: theme.spacing(2)
   },
+  toolbar: {
+    // flexGrow: 1,
+    justifyContent: 'space-between'
+  },
   title: {
-    flexGrow: 1,
+    // flexGrow: 1,
     textDecoration: 'none',
-    color: 'white'
-  }
+    color: 'white',
+    width: '65px'
+  },
+  button: {
+    alignItems: 'right',
+    flexGrow: 1,
+  },
+  // hamburgerLogoPair: {
+  //   alignItems: 'center'
+  // }
 }));
 
 export default function Header({ loggedIn, logout, showSnackBar }) {
@@ -29,27 +43,40 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
+      <AppBar position="static">    
+        <Toolbar className={classes.toolbar}>
+          {/* <div classname={classes.hamburgerLogoPair}> */}
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            
+            <a href="/">
+              <img
+                // variant="h6"
+                className={classes.title}
+                component={Link}
+                // href="/"
+                src="DoSomethingLogo192.png">
+              </img>
+            </a>
+          {/* </div> */}
+          {/* </img> */}
+          {/* <Typography
             variant="h6"
             className={classes.title}
             component={Link}
             to="/"
           >
             do.i.do
-          </Typography>
-          <Button color="inherit" component={Link} to="/about">
+          </Typography> */}
+          {/* <Button color="inherit" component={Link} to="/about">
             About
-          </Button>
+          </Button> */}
           {loggedIn ? (
             <Button color="inherit" onClick={() => logout()}>
               Sign out

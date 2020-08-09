@@ -15,15 +15,24 @@ import _saveUserData from '../helpers/saveUserData';
 import validate from '../helpers/emailValidator';
 
 const useStyles = makeStyles((theme) => ({
+  // containsall: {
+  //   marginTop: '0px'
+  // },
   paper: {
     marginTop: theme.spacing(10),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: '0em',
+    paddingTop: '10em'
+  },
+  signup: {
+    // marginTop: '6em'
+    // paddingTop: 'px'
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing()
+    marginTop: theme.spacing(1)
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
@@ -102,11 +111,12 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container className='containsall' component="main" maxWidth="xs">
       <CssBaseline />
-      <div classemail={classes.paper} style={{ marginTop: '4rem' }}>
-        <Typography component="h1" variant="h5">
-          Sign up for do.i.do
+      {/* <div className={classes.paper} style={{ marginTop: '4rem' }}> */}
+      <div className={classes.paper}>
+        <Typography className='signup' component="h1" variant="h5">
+          Sign up for DoSomething
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
