@@ -10,6 +10,7 @@ import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 import { gql, useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
+import { green } from '@material-ui/core/colors';
 
 const ACTIVITY_QUERY = gql`
   query ActivityQuery {
@@ -33,7 +34,7 @@ const CHANGESTATUS_MUTATION = gql`
 export default function NotifyBell() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { loading, data, refetch } = useQuery(ACTIVITY_QUERY, {
-    pollInterval: 500
+    pollInterval: 10000
   });
 
   const [changeStatus] = useMutation(CHANGESTATUS_MUTATION, {
@@ -111,17 +112,17 @@ export default function NotifyBell() {
                         aria-label="delete"
                         onClick={() => markComplete(item.id)}
                       >
-                        <AlarmOnIcon />
+                        <AlarmOnIcon style={{ color: green[500] }} />
                       </IconButton>
                     </ListItemSecondaryAction>
                   </ListItem>
                 );
               })
             ) : (
-              <ListItem>Nothing pending</ListItem>
+              <ListItem>Nothing in progress.</ListItem>
             )
           ) : (
-            'In Progress Activities will appear here.'
+            'Fetching'
           )}
         </List>
       </Popover>
