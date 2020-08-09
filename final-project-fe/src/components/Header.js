@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
     // flexGrow: 1,
     justifyContent: 'space-between'
   },
+  leftButtons: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
   title: {
     // flexGrow: 1,
     textDecoration: 'none',
@@ -49,26 +53,30 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          {/* <div classname={classes.hamburgerLogoPair}> */}
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
+          <div className={classes.leftButtons}>
+            <div>
+              {/* <div classname={classes.hamburgerLogoPair}> */}
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+              >
+                <MenuIcon />
+              </IconButton>
+            </div>
+            <a href="/">
+              <img
+                // variant="h6"
+                className={classes.title}
+                component={Link}
+                // href="/"
+                src="DoSomethingLogo192.png"
+                alt="logo"
+              />
+            </a>
 
-          <a href="/">
-            <img
-              // variant="h6"
-              className={classes.title}
-              component={Link}
-              // href="/"
-              src="DoSomethingLogo192.png"
-              alt="logo"
-            ></img>
-          </a>
+          </div>
           {/* </div> */}
           {/* </img> */}
           {/* <Typography
