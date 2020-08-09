@@ -1,6 +1,7 @@
 type Query {
   info: String!
   activities: [Activity!]!
+  inProgress: [Activity!]!
   images(searchTerm: String!): [String!]
 }
 
