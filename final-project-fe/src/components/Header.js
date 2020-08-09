@@ -1,5 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -44,6 +46,19 @@ const useStyles = makeStyles((theme) => ({
 export default function Header({ loggedIn, logout, showSnackBar }) {
   const classes = useStyles();
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -84,7 +99,11 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
           {loggedIn ? (
             <span>
               Welcome, {localStorage.getItem(USER_NAME)}
-              <IconButton aria-label="show new notifications" color="inherit">
+              <IconButton
+                aria-label="show new notifications"
+                color="inherit"
+                onClick={handleClick}
+              >
                 <Badge badgeContent={2} color="secondary">
                   <NotificationsIcon />
                 </Badge>
@@ -92,6 +111,22 @@ export default function Header({ loggedIn, logout, showSnackBar }) {
               <Button color="inherit" onClick={() => logout()}>
                 Sign out
               </Button>
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center'
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center'
+                }}
+              >
+                Test
+              </Popover>
             </span>
           ) : (
             <span>
