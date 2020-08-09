@@ -4,6 +4,12 @@ import { Button } from '@material-ui/core';
 
 export default function NavButton(props) {
   return (
-  <Button variant="contained" onClick={props.onClick}>{props.children}</Button>
+  <Button 
+    className='suggester-button'
+    variant='contained'
+    onClick={props.onClick}
+    style={props.style}>
+      {props.children}
+  </Button>
   )
 }

@@ -1,5 +1,6 @@
 $accent-color: #e91e63;
 $light-text-colour: #afafaf;
+$main-text-colour: #868686;
 
 $accent-font: 'Fredoka One';
 $body-font: 'Roboto Condensed', sans-serif;
@@ -54,11 +55,29 @@ body {
     // font-style: to-lower-case($string: "");
   }
 
-  
   .center-text {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .category-dropdown {
+    font-family: $accent-font;
+    // color: $light-text-colour;
+    color: $accent-color;
+  }
+
+  .suggester-button {
+    margin-top: 1em;
+    margin-left: .5em;
+    margin-right: .5em;
+  }
+
+}
+
+.suggestorPage {
+  .timePicker {
+    margin: 0em;
   }
 }
 
@@ -67,8 +86,7 @@ body {
 }
 
 .move-down {
-  padding-top: 6em;
-
+  padding-top: 7em;
 }
 
 .time-picker-form {
