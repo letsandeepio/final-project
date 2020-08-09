@@ -24,11 +24,11 @@ const httpLink = createHttpLink({
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) =>
-      console.log(
+      console.error(
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
       )
     );
-  if (networkError) console.log(`[Network error]: ${networkError}`);
+  if (networkError) console.error(`[Network error]: ${networkError}`);
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -48,7 +48,7 @@ try {
     cache: new InMemoryCache()
   });
 } catch (error) {
-  console.log(`Error setting up server:${error.message}`);
+  console.error(`Error setting up server:${error.message}`);
 }
 
 ReactDOM.render(

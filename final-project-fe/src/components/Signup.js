@@ -97,10 +97,6 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
       return;
     }
 
-    console.log(
-      `Signing up with ${state.name}, ${state.password} & ${state.email}`
-    );
-
     userSignup({
       variables: {
         name: state.name,
@@ -111,11 +107,11 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
   }
 
   return (
-    <Container className='containsall' component="main" maxWidth="xs">
+    <Container className="containsall" component="main" maxWidth="xs">
       <CssBaseline />
       {/* <div className={classes.paper} style={{ marginTop: '4rem' }}> */}
       <div className={classes.paper}>
-        <Typography className='signup' component="h1" variant="h5">
+        <Typography className="signup" component="h1" variant="h5">
           Sign up for DoSomething
         </Typography>
         <form className={classes.form} noValidate>

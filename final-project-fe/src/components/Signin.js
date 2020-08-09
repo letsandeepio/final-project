@@ -51,14 +51,16 @@ export default function Login({ setLoggedIn, showSnackBar }) {
 
   const [userSignIn, { data }] = useMutation(SIGNIN_MUTATION, {
     onCompleted(response) {
-      console.log(data);
       const { token, error } = response.login;
       if (error) {
         showSnackBar({ message: error, severity: 'error' });
       } else {
         setLoggedIn(true);
         _saveUserData(token);
-        showSnackBar({ message: 'Logged in successfully.', severity: 'success' });
+        showSnackBar({
+          message: 'Logged in successfully.',
+          severity: 'success'
+        });
         history.push('/categories');
       }
     },
@@ -69,7 +71,6 @@ export default function Login({ setLoggedIn, showSnackBar }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(`Signing in with ${state.email} & ${state.password} `);
 
     if (!state.email) {
       showSnackBar({ message: 'Email required.', severity: 'warning' });

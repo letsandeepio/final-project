@@ -29,7 +29,6 @@ export default function sortActivities(activitiesArray, category, time) {
       } else {
         if (activity.category === categoryFilter) {
           hasActivities = true;
-          console.log(hasActivities);
         }
         if (
           activity.category === categoryFilter &&

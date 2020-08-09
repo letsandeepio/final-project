@@ -71,7 +71,6 @@ function App() {
   };
 
   function logOut() {
-    console.log('working ');
     localStorage.setItem(AUTH_TOKEN, '');
     setLoggedIn(false);
   }
