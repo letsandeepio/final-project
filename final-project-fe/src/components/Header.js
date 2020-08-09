@@ -15,6 +15,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -110,7 +111,9 @@ export default function Header({ loggedIn, logout }) {
           </Button> */}
           {loggedIn ? (
             <span>
-              Welcome, {localStorage.getItem(USER_NAME)}
+              <Typography style={{ display: 'inline' }}>
+                Welcome, {localStorage.getItem(USER_NAME)}
+              </Typography>
               <NotifyBell />
               <IconButton
                 aria-label="account of current user"
