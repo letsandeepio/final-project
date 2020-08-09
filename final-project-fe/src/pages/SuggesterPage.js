@@ -61,7 +61,8 @@ export default function SuggesterPage(props) {
       const filteredActivities = sortActivities(
         data.activities,
         category,
-        props.timeAvailable
+        props.timeAvailable,
+        'keith',
       );
       setActivitySuggestions(filteredActivities);
     }
@@ -111,7 +112,7 @@ export default function SuggesterPage(props) {
         ) : activitySuggestions.hasActivities === true ? (
           'nothing in this time frame'
         ) : (
-          'nothing yet'
+          'nothing in this category'
         )}
       </div>
       <AddActivityButton
