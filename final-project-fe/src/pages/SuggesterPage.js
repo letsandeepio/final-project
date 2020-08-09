@@ -33,25 +33,20 @@ const CHANGESTATUS_MUTATION = gql`
 export default function SuggesterPage(props) {
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [activitySuggestions, setActivitySuggestions] = useState(null);
-  console.log(activitySuggestions);
   const [category, setCategory] = useState(props.category);
   let history = useHistory();
 
-  const { loading, error, data, refetch } = useQuery(ACTIVITY_QUERY);
+  const { loading, data, refetch } = useQuery(ACTIVITY_QUERY);
 
-  const [changeStatus, statusResponse] = useMutation(CHANGESTATUS_MUTATION, {
-    onCompleted(response) {
-      console.log(response);
-    },
+  const [changeStatus] = useMutation(CHANGESTATUS_MUTATION, {
+    onCompleted(response) {},
     onError(error) {
-      console.log(error);
+      console.error(error);
     }
   });
 
   function handleNow() {
     const id = activitySuggestions.activities[suggestionIndex].id;
-
-    console.log(`Marking activity in progress ${id}`);
     changeStatus({
       variables: {
         id: Number(id),
@@ -72,10 +67,11 @@ export default function SuggesterPage(props) {
       setActivitySuggestions(filteredActivities);
     }
   }, [data, props.timeAvailable, category]);
-  
-  useEffect(()=> {
+
+  useEffect(() => {
     refetch();
-  }, [props.timeAvailable, category])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.timeAvailable, category]);
 
   const indexIncrementor = function () {
     let i = suggestionIndex;
@@ -119,7 +115,11 @@ export default function SuggesterPage(props) {
           'nothing yet'
         )}
       </div>
-      <AddActivityButton className="addActivityButton" component={Link} to="/add-activity"></AddActivityButton>
+      <AddActivityButton
+        className="addActivityButton"
+        component={Link}
+        to="/add-activity"
+      ></AddActivityButton>
     </>
   );
 }

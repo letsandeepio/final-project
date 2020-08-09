@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -27,6 +27,7 @@ function Alert(props) {
 function App() {
   const [category, setCategory] = useState(questions[0].question);
   const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
+
   const location = useLocation();
 
   function updateTimeAvailable(command) {
@@ -71,7 +72,6 @@ function App() {
   };
 
   function logOut() {
-    console.log('working ');
     localStorage.setItem(AUTH_TOKEN, '');
     setLoggedIn(false);
   }

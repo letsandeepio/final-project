@@ -15,7 +15,6 @@ import _saveUserData from '../helpers/saveUserData';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -37,6 +36,9 @@ const SIGNIN_MUTATION = gql`
   mutation SigninMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
+      user {
+        name
+      }
       error
     }
   }
@@ -49,16 +51,18 @@ export default function Login({ setLoggedIn, showSnackBar }) {
     email: ''
   });
 
-  const [userSignIn, { data }] = useMutation(SIGNIN_MUTATION, {
+  const [userSignIn] = useMutation(SIGNIN_MUTATION, {
     onCompleted(response) {
-      console.log(data);
-      const { token, error } = response.login;
+      const { token, user, error } = response.login;
       if (error) {
         showSnackBar({ message: error, severity: 'error' });
       } else {
         setLoggedIn(true);
-        _saveUserData(token);
-        showSnackBar({ message: 'Logged in successfully.', severity: 'success' });
+        _saveUserData(token, user.name);
+        showSnackBar({
+          message: 'Logged in successfully.',
+          severity: 'success'
+        });
         history.push('/categories');
       }
     },
@@ -69,7 +73,6 @@ export default function Login({ setLoggedIn, showSnackBar }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(`Signing in with ${state.email} & ${state.password} `);
 
     if (!state.email) {
       showSnackBar({ message: 'Email required.', severity: 'warning' });
