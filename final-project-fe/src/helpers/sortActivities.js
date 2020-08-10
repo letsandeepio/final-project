@@ -1,7 +1,12 @@
 import minuteTimeConvert from './minuteTimeConvert';
 import shuffleArray from './shuffleArray';
 
-export default function sortActivities(activitiesArray, category, time, sortStyle) {
+export default function sortActivities(
+  activitiesArray,
+  category,
+  time,
+  sortStyle
+) {
   let filteredActivities = [];
   let categoryFilter = '';
   let hasActivities = false;
@@ -18,8 +23,6 @@ export default function sortActivities(activitiesArray, category, time, sortStyl
     case 'what else could i do?':
       categoryFilter = 'other';
       break;
-    default:
-      console.error('Unkown category type');
   }
 
   for (let activity of activitiesArray) {
@@ -45,10 +48,19 @@ export default function sortActivities(activitiesArray, category, time, sortStyl
   if (sortStyle === 'keith') {
     let filteredActivitiesCopy = [...filteredActivities];
     filteredActivities = [];
-    filteredActivitiesCopy.sort((a,b) => (a.duration < b.duration) ? 1 : ((b.duration < a.duration) ? -1 : 0));
+    filteredActivitiesCopy.sort((a, b) =>
+      a.duration < b.duration ? 1 : b.duration < a.duration ? -1 : 0
+    );
     const twentyEighty = Math.round(filteredActivitiesCopy.length * 0.2);
-    const twentyArray = shuffleArray(filteredActivitiesCopy.slice(0, twentyEighty + 1));
-    const eightyArray = shuffleArray(filteredActivitiesCopy.slice(twentyEighty + 1, filteredActivitiesCopy.length));
+    const twentyArray = shuffleArray(
+      filteredActivitiesCopy.slice(0, twentyEighty + 1)
+    );
+    const eightyArray = shuffleArray(
+      filteredActivitiesCopy.slice(
+        twentyEighty + 1,
+        filteredActivitiesCopy.length
+      )
+    );
     for (let i = 0; i < eightyArray.length; i++) {
       if (twentyArray[i]) {
         filteredActivities.push(twentyArray[i]);
@@ -57,7 +69,9 @@ export default function sortActivities(activitiesArray, category, time, sortStyl
     }
   }
   if (sortStyle === 'duration') {
-    filteredActivities.sort((a,b) => (a.duration < b.duration) ? 1 : ((b.duration < a.duration) ? -1 : 0));
+    filteredActivities.sort((a, b) =>
+      a.duration < b.duration ? 1 : b.duration < a.duration ? -1 : 0
+    );
   }
   if (sortStyle === 'random') {
     filteredActivities = shuffleArray(filteredActivities);

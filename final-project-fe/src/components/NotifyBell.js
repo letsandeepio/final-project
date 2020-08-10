@@ -3,7 +3,6 @@ import Popover from '@material-ui/core/Popover';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Badge from '@material-ui/core/Badge';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { gql, useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { green } from '@material-ui/core/colors';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 const ACTIVITY_QUERY = gql`
   query ActivityQuery {
@@ -112,7 +112,7 @@ export default function NotifyBell() {
                         aria-label="delete"
                         onClick={() => markComplete(item.id)}
                       >
-                        <AlarmOnIcon style={{ color: green[500] }} />
+                        <CheckCircleOutlineIcon style={{ color: green[500] }} />
                       </IconButton>
                     </ListItemSecondaryAction>
                   </ListItem>
