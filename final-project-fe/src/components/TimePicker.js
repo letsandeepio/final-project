@@ -5,11 +5,6 @@ import pluralize from 'pluralize';
 import timeInputFormat from '../helpers/timeInputFormat';
 
 export default function TimePicker(props) {
-  const inputRef=useRef();
-
-  useEffect(()=> {
-    inputRef.current.focus()
-  })
 
   return (
     <div className="timePicker">
@@ -17,7 +12,6 @@ export default function TimePicker(props) {
         <div class="time-picker-text-group">
           <Typography class="time-picker-text">I&nbsp;have&nbsp;</Typography>
           <TextField
-            ref={inputRef}
             value={props.timeAvailable.hours}
             onClick={e=>e.target.select()}
             onChange={(e) =>

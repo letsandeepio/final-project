@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 
 
 export default function CategoryPage(props) {
-  const []
+  const [timeAvailable, setTimeAvailable] = useState(props.timeAvailable)
+
   return (
     <>
       <div className="categoryPage">
@@ -15,8 +16,8 @@ export default function CategoryPage(props) {
           Don't know what to do?
         </Typography>
         <Typography variant="h1">Just ask!</Typography>
-        <TimePicker className="timePicker" onChange={props.onTimeChange} timeAvailable={props.timeAvailable}/>
-        <CategoryButtonList className="CategoryButtonList" categories={props.categories} onSelect={props.onSelect}/>
+        <TimePicker className="timePicker" onChange={setTimeAvailable} timeAvailable={timeAvailable}/>
+        <CategoryButtonList className="CategoryButtonList" categories={props.categories} onSelect={(category)=>props.onSelect(category, timeAvailable)}/>
         <div className='spacer' ></div>
       </div>
         <AddActivityButton className="addActivityButton" component={Link} to="/add-activity"></AddActivityButton>

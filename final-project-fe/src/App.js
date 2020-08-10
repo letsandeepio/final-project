@@ -104,8 +104,10 @@ function App() {
           <Route exact path="/categories">
             <CategoryPage
               categories={questions}
-              onTimeChange={setTimeAvailable}
-              onSelect={selectCategory}
+              onSelect={(value, time)=> {
+                selectCategory(value);
+                setTimeAvailable(time);
+              }}
               timeAvailable={timeAvailable}
             />
           </Route>
