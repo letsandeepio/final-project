@@ -17,6 +17,8 @@ import Menu from '@material-ui/core/Menu';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 
+import { useHistory } from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -56,6 +58,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header({ loggedIn, logout }) {
+  const history = useHistory();
+
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -112,7 +116,10 @@ export default function Header({ loggedIn, logout }) {
           </Button> */}
           {loggedIn ? (
             <span>
-              <Typography className='nav-welcome-name' style={{ display: 'inline' }}>
+              <Typography
+                className="nav-welcome-name"
+                style={{ display: 'inline' }}
+              >
                 Welcome, {localStorage.getItem(USER_NAME)}
               </Typography>
               <NotifyBell />
@@ -135,7 +142,14 @@ export default function Header({ loggedIn, logout }) {
                 onClose={handleClose}
               >
                 <MenuItem>Profile</MenuItem>
-                <MenuItem>Account Settings</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setAnchorEl(null);
+                    history.push('/timeline');
+                  }}
+                >
+                  Timeline
+                </MenuItem>
                 <Divider light />
                 <MenuItem
                   onClick={() => {
