@@ -32,7 +32,7 @@ function App() {
 
   function updateTimeAvailable(command) {
     const timeAvailable = getHoursAndMinutes(command);
-    setTimeAvailable(timeAvailable);
+    setTimeAvailable(prev=>({...prev, ...timeAvailable}));
   }
 
   function onAsk(index) {
@@ -103,7 +103,7 @@ function App() {
           <Route exact path="/categories">
             <CategoryPage
               categories={questions}
-              onTimeChange={(time) => setTimeAvailable(time)}
+              onTimeChange={(time) => setTimeAvailable(prev=>({...prev, ...time}))}
               onSelect={selectCategory}
               timeAvailable={timeAvailable}
             />
@@ -113,7 +113,7 @@ function App() {
               categories={questions}
               category={category}
               onCategoryChange={setCategory}
-              onTimeChange={(time) => setTimeAvailable(time)}
+              onTimeChange={(time) => setTimeAvailable(prev=>({...prev, ...time}))}
               timeAvailable={timeAvailable}
             />
           </Route>
