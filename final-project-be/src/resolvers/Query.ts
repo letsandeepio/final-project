@@ -27,7 +27,9 @@ async function completeActivities(parent: any, args: any, context: any) {
   const iActivities = await context.prisma.activity.findMany({
     where: { user_id: userId, status: 'complete' }
   });
-  return iActivities;
+  return iActivities.sort(
+    (a: any, b: any) => Number(b.completed_on) - Number(a.completed_on)
+  );
 }
 
 async function images(parent: any, args: any, context: any) {

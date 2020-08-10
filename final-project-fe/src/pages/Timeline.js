@@ -26,11 +26,7 @@ const ACTIVITY_QUERY = gql`
 `;
 
 export default function Timeline() {
-  const { data } = useQuery(ACTIVITY_QUERY, {
-    onCompleted(response) {
-      console.log(response);
-    }
-  });
+  const { data } = useQuery(ACTIVITY_QUERY);
 
   const classes = useStyles();
   return (

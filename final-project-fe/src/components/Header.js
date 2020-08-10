@@ -141,7 +141,14 @@ export default function Header({ loggedIn, logout }) {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem>Profile</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setAnchorEl(null);
+                    history.push('/dashboard');
+                  }}
+                >
+                  Dashboard
+                </MenuItem>
                 <MenuItem
                   onClick={() => {
                     setAnchorEl(null);
@@ -149,6 +156,14 @@ export default function Header({ loggedIn, logout }) {
                   }}
                 >
                   Timeline
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setAnchorEl(null);
+                    history.push('/add-activity');
+                  }}
+                >
+                  Add Activity
                 </MenuItem>
                 <Divider light />
                 <MenuItem
