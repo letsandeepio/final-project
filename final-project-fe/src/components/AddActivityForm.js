@@ -179,6 +179,9 @@ export default function AddActivityForm(props) {
             value={title}
             onChange={changeTitle}
             type='search'
+            style={{ 
+              width: '100%'
+            }}
           />
           {title.trim() !== '' && (!firstImage && data1 && data1.images && url !== '' ? (
             <Button onClick={getNextImage} style={{
@@ -188,8 +191,10 @@ export default function AddActivityForm(props) {
               textTransform: 'lowercase',
               height: '2em',
               margin: '0.5em',
+              paddingRight: '2.6em',
               backgroundColor: '#868686',
-              color: '#fff' }}>Find New Image</Button>
+              width: 'fit-content',
+              color: '#fff' }}>Find&nbsp;New&nbsp;Image</Button>
             ) : (
             <Button onClick={getImage} style={{
               fontFamily: 'Fredoka One',
@@ -198,12 +203,14 @@ export default function AddActivityForm(props) {
               textTransform: 'lowercase',
               height: '2em',
               margin: '0.5em',
+              paddingRight: '2.2em',
               backgroundColor: '#e91e63',
-              color: '#fff' }} >Find An Image!</Button>
+              width: 'fit-content',
+              color: '#fff' }} >Find&nbsp;An&nbsp;Image!</Button>
           ))}
         </div>
         <br></br>
-        <div className='add-activity-title'>
+        <div className='add-activity-title' style={{ marginTop: '0.5em' }}>
           <TextField
             id='add-activity-url'
             label='Image URL'
@@ -212,9 +219,20 @@ export default function AddActivityForm(props) {
               setUrl(e.target.value);
               setFirstImage(true);
             }}
-            style={{ }}
+            style={{ 
+              width: '100%'
+            }}
           />
-          <Button onClick={()=>setUrl('')} style={{
+          {url.trim() !== '' && <Button onClick={()=>setUrl('')} style={{
+              fontFamily: 'Fredoka One',
+              fontSize: '0.7em',
+              justifyContent: 'left',
+              textTransform: 'lowercase',
+              height: '2em',
+              margin: '0.5em',
+              backgroundColor: '#e91e63',
+              color: '#fff' }}>Clear URL</Button> }
+          {/* <Button onClick={()=>setUrl('')} style={{
                 fontFamily: 'Fredoka One',
                 fontSize: '0.7em',
                 justifyContent: 'left',
@@ -222,7 +240,7 @@ export default function AddActivityForm(props) {
                 height: '2em',
                 margin: '0.5em',
                 backgroundColor: '#e91e63',
-                color: '#fff' }} >Clear URL</Button>
+                color: '#fff' }} >Clear URL</Button> */}
           {loading1 && <p>loading...</p>}
           {error1 && <p>{error1.message}</p>}
 
@@ -232,7 +250,7 @@ export default function AddActivityForm(props) {
             <img className={classes.img} src={url} />
           )}
         </div>
-        <div className='duration-div'>
+        <div className='duration-div' style={{ marginTop: '2.4em' }} >
           <div>
             <p style={{ marginRight: '1em'}}>Duration</p>
           </div>
@@ -264,7 +282,7 @@ export default function AddActivityForm(props) {
                 justifyContent: 'left',
                 textTransform: 'lowercase',
                 height: '2em',
-                margin: '0.5em',
+                marginTop: '2em',
                 backgroundColor: '#e91e63',
                 color: '#fff' }}>
           Save
