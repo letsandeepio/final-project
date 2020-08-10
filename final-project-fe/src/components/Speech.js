@@ -47,18 +47,33 @@ const Dictaphone = ({ onCommand, onAsk }) => {
   }
 
   return (
-    <div>
-      <Typography variant="h6">
-        {transcript ? transcript : 'Try saying, I have got 30 minutes.'}
-      </Typography>
-      <Mic
-        listening={listening}
-        onClick={() =>
-          listening
-            ? SpeechRecognition.stopListening()
-            : SpeechRecognition.startListening()
-        }
-      />
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      <div
+        style={{
+          marginTop: '5em',
+          display: 'flex',
+          alignItems: 'center',
+          width: '400px'
+        }}
+      >
+        <div className="speech">
+          {transcript ? transcript : 'Try saying, I have 30 minutes.'}
+        </div>
+        <Mic
+          listening={listening}
+          onClick={() =>
+            listening
+              ? SpeechRecognition.stopListening()
+              : SpeechRecognition.startListening()
+          }
+        />
+      </div>
     </div>
   );
 };
