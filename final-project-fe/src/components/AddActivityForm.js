@@ -58,7 +58,7 @@ export default function AddActivityForm(props) {
     <MenuItem value={category}>{category}</MenuItem>
   ));
 
-  const [category, setCategory] = useState('watch');
+  const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
   const [hours, setHours] = useState(0);
@@ -165,7 +165,9 @@ export default function AddActivityForm(props) {
             <Select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
+              displayEmpty
             >
+              <MenuItem value=""><em>Choose:</em></MenuItem>
               {menuItems}
             </Select>
           </FormControl>

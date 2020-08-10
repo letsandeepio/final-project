@@ -11,6 +11,7 @@ import CategoryPage from './pages/CategoryPage';
 import SuggesterPage from './pages/SuggesterPage';
 import HomePage from './pages/HomePage';
 import SuccessPage from './pages/SuccessPage';
+import Timeline from './pages/Timeline';
 import AddActivityPage from './pages/AddActivityPage';
 import Dictaphone from './components/Speech';
 import { useLocation } from 'react-router-dom';
@@ -32,7 +33,7 @@ function App() {
 
   function updateTimeAvailable(command) {
     const timeAvailable = getHoursAndMinutes(command);
-    setTimeAvailable(prev=>({...prev, ...timeAvailable}));
+    setTimeAvailable((prev) => ({ ...prev, ...timeAvailable }));
   }
 
   function onAsk(index) {
@@ -87,8 +88,7 @@ function App() {
   return (
     <div>
       <Header className="header" loggedIn={isLoggedIn} logout={logOut} />
-      {location.pathname.includes('categories') ||
-      location.pathname.includes('suggestions') ? (
+      {location.pathname.includes('categories') ? (
         <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
       ) : (
         ''
@@ -110,7 +110,7 @@ function App() {
           <Route exact path="/categories">
             <CategoryPage
               categories={questions}
-              onSelect={(value, time)=> {
+              onSelect={(value, time) => {
                 selectCategory(value);
                 setTimeAvailable(time);
               }}
@@ -128,6 +128,9 @@ function App() {
           </Route>
           <Route exact path="/success">
             <SuccessPage />
+          </Route>
+          <Route exact path="/timeline">
+            <Timeline />
           </Route>
           <Route exact path="/add-activity">
             <AddActivityPage
