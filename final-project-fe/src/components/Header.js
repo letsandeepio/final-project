@@ -144,6 +144,7 @@ export default function Header({ loggedIn, logout }) {
                 <MenuItem>Profile</MenuItem>
                 <MenuItem
                   onClick={() => {
+                    setAnchorEl(null);
                     history.push('/timeline');
                   }}
                 >
