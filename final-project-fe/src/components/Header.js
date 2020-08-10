@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     margin: 0,
     position: 'fixed',
+    top: 0,
     width: '100%'
   },
   menuButton: {

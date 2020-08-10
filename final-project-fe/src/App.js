@@ -86,7 +86,7 @@ function App() {
 
   return (
     <div>
-      <Header loggedIn={isLoggedIn} logout={logOut} />
+      <Header className='header' loggedIn={isLoggedIn} logout={logOut} />
       <Switch>
         <Route exact path="/login">
           <Signin setLoggedIn={setLoggedIn} showSnackBar={showSnackBar} />
