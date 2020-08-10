@@ -158,8 +158,9 @@ export default function AddActivityForm(props) {
       <CssBaseline />
       <div></div>
       <Card className='add-activity-card'>
-        <div>
-          <text>Category</text>
+        <div className='category-div'>
+          <text className='category-label' >Category</text>
+          {/* <text style={{ marginRight: '2em', alignItems: 'center' }} >Category</text> */}
           <FormControl>
             <Select
               value={category}
@@ -169,49 +170,91 @@ export default function AddActivityForm(props) {
             </Select>
           </FormControl>
         </div>
-        <TextField
-          id='standard-search'
-          label='Activity Name'
-          value={title}
-          onChange={changeTitle}
-          type='search'
-        />
-        {title.trim() !== '' && (!firstImage && data1 && data1.images && url !== '' ? (
-          <Button onClick={getNextImage}>Find Me A Different Image</Button>
-          ) : (
-          <Button onClick={getImage}>Find Me An Image!</Button>
-        ))}
+        <div className='add-activity-title'>
+          <TextField
+            id='standard-search'
+            label='Activity Name'
+            value={title}
+            onChange={changeTitle}
+            type='search'
+          />
+          {title.trim() !== '' && (!firstImage && data1 && data1.images && url !== '' ? (
+            <Button onClick={getNextImage} style={{
+              fontFamily: 'Fredoka One',
+              fontSize: '0.7em',
+              justifyContent: 'left',
+              textTransform: 'lowercase',
+              height: '2em',
+              margin: '0.5em',
+              backgroundColor: '#868686',
+              color: '#fff' }}>Find New Image</Button>
+            ) : (
+            <Button onClick={getImage} style={{
+              fontFamily: 'Fredoka One',
+              fontSize: '0.7em',
+              justifyContent: 'left',
+              textTransform: 'lowercase',
+              height: '2em',
+              margin: '0.5em',
+              backgroundColor: '#e91e63',
+              color: '#fff' }} >Find An Image!</Button>
+          ))}
+        </div>
         <br></br>
-        <TextField
-          id='add-activity-url'
-          label='Image URL'
-          value={url}
-          onChange={(e) => {
-            setUrl(e.target.value);
-            setFirstImage(true);
-          }}
-        />
-        <Button onClick={()=>setUrl('')}>Clear URL</Button>
-        {loading1 && <p>loading...</p>}
-        {error1 && <p>{error1.message}</p>}
-        {url.trim() !== '' && (
-          <img className={classes.img} src={url} />
-        )}
-        <p>Approximate Duration</p>
-        <TextField
-          id='add-activity-hours'
-          label='Hours'
-          value={hours}
-          onChange={(e) => setHours(e.target.value)}
-          type='number'
-        />
-        <TextField
-          id='add-activity-minutes'
-          label='Minutes'
-          value={minutes}
-          onChange={(e) => setMinutes(e.target.value)}
-          type='number'
-        />
+        <div className='add-activity-title'>
+          <TextField
+            id='add-activity-url'
+            label='Image URL'
+            value={url}
+            onChange={(e) => {
+              setUrl(e.target.value);
+              setFirstImage(true);
+            }}
+            style={{ }}
+          />
+          <Button onClick={()=>setUrl('')} style={{
+                fontFamily: 'Fredoka One',
+                fontSize: '0.7em',
+                justifyContent: 'left',
+                textTransform: 'lowercase',
+                height: '2em',
+                margin: '0.5em',
+                backgroundColor: '#e91e63',
+                color: '#fff' }} >Clear URL</Button>
+          {loading1 && <p>loading...</p>}
+          {error1 && <p>{error1.message}</p>}
+
+        </div>
+        <div style={{ marginTop: '1em' }}>
+          {url.trim() !== '' && (
+            <img className={classes.img} src={url} />
+          )}
+        </div>
+        <div className='duration-div'>
+          <div>
+            <p style={{ marginRight: '1em'}}>Duration</p>
+          </div>
+          <div className='duration-div'>
+            <TextField
+              id='add-activity-hours'
+              label='Hours'
+              value={hours}
+              onChange={(e) => setHours(e.target.value)}
+              type='number'
+              style={{ width: '4em' }}
+            />
+            <TextField
+              id='add-activity-minutes'
+              label='Minutes'
+              value={minutes}
+              onChange={(e) => setMinutes(e.target.value)}
+              type='number'
+              style={{ width: '4em', marginLeft: '1em' }}
+            />
+          </div>
+        </div>
+        <span style={{width: '3em' }}>
+        </span>
         <br></br>
         <Button variant='contained' onClick={addActivityHelper} color='primary'>
           Save
