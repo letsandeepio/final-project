@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Typography, TextField } from '@material-ui/core';
 import '../index.scss';
 import pluralize from 'pluralize';
 import timeInputFormat from '../helpers/timeInputFormat';
 
 export default function TimePicker(props) {
-
-  const handleTimeChange = function (value) {
-    props.onChange(value);
-  };
+  const inputRef=useRef(null);
 
   return (
     <div className="timePicker">
@@ -16,13 +13,16 @@ export default function TimePicker(props) {
         <div class="time-picker-text-group">
           <Typography class="time-picker-text">I&nbsp;have&nbsp;</Typography>
           <TextField
+            ref={inputRef}
             value={props.timeAvailable.hours}
             onClick={e=>e.target.select()}
             onChange={(e) =>
-              handleTimeChange({
+              props.onChange({
                 hours: timeInputFormat(e.target.value, 'hours'),
+                minutes: props.timeAvailable.minutes
               })
             }
+            onBlur={()=>inputRef.current.target()}
           />
           <Typography class="time-picker-text">
             {pluralize('hour', props.timeAvailable.hours)}
@@ -34,7 +34,8 @@ export default function TimePicker(props) {
             value={props.timeAvailable.minutes}
             onClick={e=>e.target.select()}
             onChange={(e) =>
-              handleTimeChange({
+              props.onChange({
+                hours: props.timeAvailable.hours,
                 minutes: timeInputFormat(e.target.value, 'minutes')
               })
             }
