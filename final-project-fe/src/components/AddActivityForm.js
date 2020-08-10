@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import ls from 'local-storage'
 
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -58,11 +59,11 @@ export default function AddActivityForm(props) {
     <MenuItem value={category}>{category}</MenuItem>
   ));
 
-  const [category, setCategory] = useState('');
-  const [title, setTitle] = useState('');
-  const [url, setUrl] = useState('');
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
+  const [category, setCategory] = useState(localStorage.getItem('category') || '');
+  const [title, setTitle] = useState(localStorage.getItem('title') || '');
+  const [url, setUrl] = useState(localStorage.getItem('url') || '');
+  const [hours, setHours] = useState(Number(localStorage.getItem('hours')) ||0);
+  const [minutes, setMinutes] = useState(Number(localStorage.getItem('minutes')) || 0);
   const [firstImage, setFirstImage] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -123,8 +124,14 @@ export default function AddActivityForm(props) {
   }
 
   function addActivityHelper() {
+    localStorage.setItem('category', category);
+    localStorage.setItem('title', title);
+    localStorage.setItem('url', url);
+    localStorage.setItem('hours', hours);
+    localStorage.setItem('minutes', minutes);
+
     if (!title) {
-      showSnackBar({ message: 'Title required.', severity: 'warning' });
+      showSnackBar({ message: 'Activity name required.', severity: 'warning' });
       return;
     }
 
@@ -151,6 +158,11 @@ export default function AddActivityForm(props) {
     });
 
     history.push('/categories');
+    localStorage.removeItem('category');
+    localStorage.removeItem('title');
+    localStorage.removeItem('url');
+    localStorage.removeItem('hours');
+    localStorage.removeItem('minutes');
   }
 
   return (
