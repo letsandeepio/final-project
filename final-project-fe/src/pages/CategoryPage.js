@@ -16,6 +16,7 @@ export default function CategoryPage(props) {
         <Typography variant="h1">Just ask!</Typography>
         <TimePicker className="timePicker" onChange={props.onTimeChange} timeAvailable={props.timeAvailable}/>
         <CategoryButtonList className="CategoryButtonList" categories={props.categories} onSelect={props.onSelect}/>
+        <div className='spacer' ></div>
       </div>
         <AddActivityButton className="addActivityButton" component={Link} to="/add-activity"></AddActivityButton>
     </>

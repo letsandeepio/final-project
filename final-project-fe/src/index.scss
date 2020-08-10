@@ -44,7 +44,7 @@ body {
   }
   .categoryButton {
     margin: 0.5em;
-    width: 23em;
+    width: 18em;
     color: $body-font;
 
     // .button-dot {
@@ -84,7 +84,15 @@ body {
 
 
   }
+
   
+}
+// .CategoryButtonList {
+//   margin-bottom: 12em;
+// }
+
+.spacer {
+  height: 5em;
 }
 
 .homepage-art {
@@ -209,9 +217,26 @@ body {
     box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
   }
 }
+
+.nav-welcome-name {
+  opacity: 0%;
+}
+
 @media (min-width: 640px){
-  
-  
+  .categoryPage,
+  .suggestorPage,
+  .homePage { 
+    .categoryButton {
+      margin: 0.5em;
+      width: 23em;
+      color: $body-font;
+    
+      // .button-dot {
+      //   font-size: 2em;
+      // }
+    
+    }
+  }
 }
 
 @media (min-width: 768px){
@@ -219,6 +244,9 @@ body {
     margin-left: 50px;
     margin-right: 50px;
     margin-top: -100px;
+  }
+  .nav-welcome-name {
+    opacity: 100%;
   }
   
 }
