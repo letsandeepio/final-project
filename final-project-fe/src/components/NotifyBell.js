@@ -34,7 +34,7 @@ const CHANGESTATUS_MUTATION = gql`
 export default function NotifyBell() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { data, refetch } = useQuery(ACTIVITY_QUERY, {
-    pollInterval: 10000
+    pollInterval: 30000
   });
 
   const [changeStatus] = useMutation(CHANGESTATUS_MUTATION, {
