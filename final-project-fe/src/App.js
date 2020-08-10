@@ -32,7 +32,7 @@ function App() {
 
   function updateTimeAvailable(command) {
     const timeAvailable = getHoursAndMinutes(command);
-    setTimeAvailable(prev=>({...prev, ...timeAvailable}));
+    setTimeAvailable((prev) => ({ ...prev, ...timeAvailable }));
   }
 
   function onAsk(index) {
@@ -87,8 +87,7 @@ function App() {
   return (
     <div>
       <Header className="header" loggedIn={isLoggedIn} logout={logOut} />
-      {location.pathname.includes('categories') ||
-      location.pathname.includes('suggestions') ? (
+      {location.pathname.includes('categories') ? (
         <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
       ) : (
         ''
@@ -110,7 +109,7 @@ function App() {
           <Route exact path="/categories">
             <CategoryPage
               categories={questions}
-              onSelect={(value, time)=> {
+              onSelect={(value, time) => {
                 selectCategory(value);
                 setTimeAvailable(time);
               }}
