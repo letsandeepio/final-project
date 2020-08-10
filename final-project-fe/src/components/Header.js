@@ -112,7 +112,7 @@ export default function Header({ loggedIn, logout }) {
           </Button> */}
           {loggedIn ? (
             <span>
-              <Typography style={{ display: 'inline' }}>
+              <Typography className='nav-welcome-name' style={{ display: 'inline' }}>
                 Welcome, {localStorage.getItem(USER_NAME)}
               </Typography>
               <NotifyBell />
