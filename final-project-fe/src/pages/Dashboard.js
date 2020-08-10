@@ -40,10 +40,12 @@ export default function Dashboard() {
             <div
               style={{
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                fontFamily: 'Fredoka One',
+                fontSize: '1.2em'
               }}
             >
-              Monthwise Breakup of Completed Activities
+              Completed activities by month
             </div>
           </div>
           <div>
@@ -51,10 +53,12 @@ export default function Dashboard() {
             <div
               style={{
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                fontFamily: 'Fredoka One',
+                fontSize: '1.2em'
               }}
             >
-              Categorywise Breakup of Incomplete Activities
+              Completed activities by Category
             </div>
           </div>
 
@@ -64,10 +68,12 @@ export default function Dashboard() {
               style={{
                 display: 'flex',
                 justifyContent: 'center',
+                fontFamily: 'Fredoka One',
+                fontSize: '1.2em',
                 marginBottom: '30px'
               }}
             >
-              Categorywise Breakup of complete Activities
+              Incomplete activities by Category
             </div>
           </div>
         </Container>
