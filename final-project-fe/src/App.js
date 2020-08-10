@@ -11,6 +11,7 @@ import CategoryPage from './pages/CategoryPage';
 import SuggesterPage from './pages/SuggesterPage';
 import HomePage from './pages/HomePage';
 import SuccessPage from './pages/SuccessPage';
+import Dashboard from './pages/Dashboard';
 import Timeline from './pages/Timeline';
 import AddActivityPage from './pages/AddActivityPage';
 import Dictaphone from './components/Speech';
@@ -131,6 +132,9 @@ function App() {
           </Route>
           <Route exact path="/timeline">
             <Timeline />
+          </Route>
+          <Route exact path="/dashboard">
+            <Dashboard />
           </Route>
           <Route exact path="/add-activity">
             <AddActivityPage
