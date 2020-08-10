@@ -269,7 +269,7 @@ export default function AddActivityForm(props) {
                 justifyContent: 'left',
                 textTransform: 'lowercase',
                 height: '2em',
-                margin: '0.5em',
+                marginTop: '2em',
                 backgroundColor: '#e91e63',
                 color: '#fff' }}>
           Save
