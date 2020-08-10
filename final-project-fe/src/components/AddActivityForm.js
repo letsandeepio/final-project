@@ -9,6 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { gql, useMutation, useLazyQuery } from '@apollo/client';
 
+import Card from '@material-ui/core/Card';
+
 import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -154,64 +156,67 @@ export default function AddActivityForm(props) {
   return (
     <section>
       <CssBaseline />
-
-      <div>
-        <FormControl>
-          <Select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            {menuItems}
-          </Select>
-        </FormControl>
-      </div>
-      <TextField
-        id='standard-search'
-        label='Activity Name'
-        value={title}
-        onChange={changeTitle}
-        type='search'
-      />
-      {title.trim() !== '' && (!firstImage && data1 && data1.images && url !== '' ? (
-        <Button onClick={getNextImage}>Find Me A Different Image</Button>
-        ) : (
-        <Button onClick={getImage}>Find Me An Image!</Button>
-      ))}
-      <p>Image URL</p>
-      <TextField
-        id='add-activity-url'
-        label='URL'
-        value={url}
-        onChange={(e) => {
-          setUrl(e.target.value);
-          setFirstImage(true);
-        }}
-      />
-      <Button onClick={()=>setUrl('')}>Clear URL</Button>
-      {loading1 && <p>loading...</p>}
-      {error1 && <p>{error1.message}</p>}
-      {url.trim() !== '' && (
-        <img className={classes.img} src={url} />
-      )}
-      <p>Approximate Duration</p>
-      <TextField
-        id='add-activity-hours'
-        label='Hours'
-        value={hours}
-        onChange={(e) => setHours(e.target.value)}
-        type='number'
-      />
-      <TextField
-        id='add-activity-minutes'
-        label='Minutes'
-        value={minutes}
-        onChange={(e) => setMinutes(e.target.value)}
-        type='number'
-      />
-      <br></br>
-      <Button variant='contained' onClick={addActivityHelper} color='primary'>
-        Save
-      </Button>
+      <div></div>
+      <Card className='add-activity-card'>
+        <div>
+          <text>Category</text>
+          <FormControl>
+            <Select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              {menuItems}
+            </Select>
+          </FormControl>
+        </div>
+        <TextField
+          id='standard-search'
+          label='Activity Name'
+          value={title}
+          onChange={changeTitle}
+          type='search'
+        />
+        {title.trim() !== '' && (!firstImage && data1 && data1.images && url !== '' ? (
+          <Button onClick={getNextImage}>Find Me A Different Image</Button>
+          ) : (
+          <Button onClick={getImage}>Find Me An Image!</Button>
+        ))}
+        <br></br>
+        <TextField
+          id='add-activity-url'
+          label='Image URL'
+          value={url}
+          onChange={(e) => {
+            setUrl(e.target.value);
+            setFirstImage(true);
+          }}
+        />
+        <Button onClick={()=>setUrl('')}>Clear URL</Button>
+        {loading1 && <p>loading...</p>}
+        {error1 && <p>{error1.message}</p>}
+        {url.trim() !== '' && (
+          <img className={classes.img} src={url} />
+        )}
+        <p>Approximate Duration</p>
+        <TextField
+          id='add-activity-hours'
+          label='Hours'
+          value={hours}
+          onChange={(e) => setHours(e.target.value)}
+          type='number'
+        />
+        <TextField
+          id='add-activity-minutes'
+          label='Minutes'
+          value={minutes}
+          onChange={(e) => setMinutes(e.target.value)}
+          type='number'
+        />
+        <br></br>
+        <Button variant='contained' onClick={addActivityHelper} color='primary'>
+          Save
+        </Button>
+      </Card>
     </section>
   );
 }
