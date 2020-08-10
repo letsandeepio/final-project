@@ -1,11 +1,15 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Typography, TextField } from '@material-ui/core';
 import '../index.scss';
 import pluralize from 'pluralize';
 import timeInputFormat from '../helpers/timeInputFormat';
 
 export default function TimePicker(props) {
-  const inputRef=useRef(null);
+  const inputRef=useRef();
+
+  useEffect(()=> {
+    inputRef.current.focus()
+  })
 
   return (
     <div className="timePicker">
@@ -22,7 +26,6 @@ export default function TimePicker(props) {
                 minutes: props.timeAvailable.minutes
               })
             }
-            onBlur={()=>inputRef.current.target()}
           />
           <Typography class="time-picker-text">
             {pluralize('hour', props.timeAvailable.hours)}
@@ -39,6 +42,7 @@ export default function TimePicker(props) {
                 minutes: timeInputFormat(e.target.value, 'minutes')
               })
             }
+            // onBlur={}
           />
           <Typography class="time-picker-text">
             &nbsp;

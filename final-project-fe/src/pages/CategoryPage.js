@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CategoryButtonList from '../components/CategoryButtonList';
 import TimePicker from '../components/TimePicker';
 import AddActivityButton from '../components/AddActivityButton';
@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 export default function CategoryPage(props) {
+  const []
   return (
     <>
       <div className="categoryPage">
