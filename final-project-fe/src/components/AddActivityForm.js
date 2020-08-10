@@ -256,7 +256,15 @@ export default function AddActivityForm(props) {
         <span style={{width: '3em' }}>
         </span>
         <br></br>
-        <Button variant='contained' onClick={addActivityHelper} color='primary'>
+        <Button variant='contained' onClick={addActivityHelper} color='primary' style={{
+                fontFamily: 'Fredoka One',
+                fontSize: '1.2em',
+                justifyContent: 'left',
+                textTransform: 'lowercase',
+                height: '2em',
+                margin: '0.5em',
+                backgroundColor: '#e91e63',
+                color: '#fff' }}>
           Save
         </Button>
       </Card>
