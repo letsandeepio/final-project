@@ -191,8 +191,10 @@ export default function AddActivityForm(props) {
               textTransform: 'lowercase',
               height: '2em',
               margin: '0.5em',
+              paddingRight: '2.6em',
               backgroundColor: '#868686',
-              color: '#fff' }}>Find New Image</Button>
+              width: 'fit-content',
+              color: '#fff' }}>Find&nbsp;New&nbsp;Image</Button>
             ) : (
             <Button onClick={getImage} style={{
               fontFamily: 'Fredoka One',
@@ -201,8 +203,10 @@ export default function AddActivityForm(props) {
               textTransform: 'lowercase',
               height: '2em',
               margin: '0.5em',
+              paddingRight: '2.2em',
               backgroundColor: '#e91e63',
-              color: '#fff' }} >Find An Image!</Button>
+              width: 'fit-content',
+              color: '#fff' }} >Find&nbsp;An&nbsp;Image!</Button>
           ))}
         </div>
         <br></br>
@@ -219,7 +223,16 @@ export default function AddActivityForm(props) {
               width: '100%'
             }}
           />
-          <Button onClick={()=>setUrl('')} style={{
+          {url.trim() !== '' && <Button onClick={()=>setUrl('')} style={{
+              fontFamily: 'Fredoka One',
+              fontSize: '0.7em',
+              justifyContent: 'left',
+              textTransform: 'lowercase',
+              height: '2em',
+              margin: '0.5em',
+              backgroundColor: '#e91e63',
+              color: '#fff' }}>Clear URL</Button> }
+          {/* <Button onClick={()=>setUrl('')} style={{
                 fontFamily: 'Fredoka One',
                 fontSize: '0.7em',
                 justifyContent: 'left',
@@ -227,7 +240,7 @@ export default function AddActivityForm(props) {
                 height: '2em',
                 margin: '0.5em',
                 backgroundColor: '#e91e63',
-                color: '#fff' }} >Clear URL</Button>
+                color: '#fff' }} >Clear URL</Button> */}
           {loading1 && <p>loading...</p>}
           {error1 && <p>{error1.message}</p>}
 
