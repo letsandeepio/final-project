@@ -179,6 +179,9 @@ export default function AddActivityForm(props) {
             value={title}
             onChange={changeTitle}
             type='search'
+            style={{ 
+              width: '100%'
+            }}
           />
           {title.trim() !== '' && (!firstImage && data1 && data1.images && url !== '' ? (
             <Button onClick={getNextImage} style={{
@@ -203,7 +206,7 @@ export default function AddActivityForm(props) {
           ))}
         </div>
         <br></br>
-        <div className='add-activity-title'>
+        <div className='add-activity-title' style={{ marginTop: '0.5em' }}>
           <TextField
             id='add-activity-url'
             label='Image URL'
@@ -212,7 +215,9 @@ export default function AddActivityForm(props) {
               setUrl(e.target.value);
               setFirstImage(true);
             }}
-            style={{ }}
+            style={{ 
+              width: '100%'
+            }}
           />
           <Button onClick={()=>setUrl('')} style={{
                 fontFamily: 'Fredoka One',
@@ -232,7 +237,7 @@ export default function AddActivityForm(props) {
             <img className={classes.img} src={url} />
           )}
         </div>
-        <div className='duration-div'>
+        <div className='duration-div' style={{ marginTop: '2.4em' }} >
           <div>
             <p style={{ marginRight: '1em'}}>Duration</p>
           </div>
