@@ -82,10 +82,21 @@ async function addActivity(parent: any, args: any, context: any) {
 
 async function changeStatus(parent: any, args: any, context: any) {
   const { id, status } = args;
-  const activity = await context.prisma.activity.update({
-    where: { id },
-    data: { status }
-  });
+  const date = Date.now().toString();
+  let activity = {};
+
+  if (status === 'complete') {
+    activity = await context.prisma.activity.update({
+      where: { id },
+      data: { status, completed_on: date }
+    });
+  } else {
+    activity = await context.prisma.activity.update({
+      where: { id },
+      data: { status }
+    });
+  }
+
   return activity;
 }
 

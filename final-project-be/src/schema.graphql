@@ -2,6 +2,7 @@ type Query {
   info: String!
   activities: [Activity!]!
   inProgress: [Activity!]!
+  completeActivities: [Activity!]!
   images(searchTerm: String!): [String!]
 }
 
@@ -19,6 +20,7 @@ type Activity {
   duration: Int!
   status: String!
   image_url: String
+  completed_on: String!
 }
 
 type Mutation {
