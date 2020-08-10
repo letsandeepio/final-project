@@ -164,8 +164,9 @@ export default function AddActivityForm(props) {
             <Select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
+              displayEmpty
             >
-              <MenuItem value="" defaultValue><em>Choose:</em></MenuItem>
+              <MenuItem value=""><em>Choose:</em></MenuItem>
               {menuItems}
             </Select>
           </FormControl>
@@ -192,7 +193,7 @@ export default function AddActivityForm(props) {
             setFirstImage(true);
           }}
         />
-        <Button onClick={()=>setUrl('')}>Clear URL</Button>
+        {url.trim() !== '' && <Button onClick={()=>setUrl('')}>Clear URL</Button> }
         {loading1 && <p>loading...</p>}
         {error1 && <p>{error1.message}</p>}
         {url.trim() !== '' && (
