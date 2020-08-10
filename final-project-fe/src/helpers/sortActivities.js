@@ -61,7 +61,7 @@ export default function sortActivities(
         filteredActivitiesCopy.length
       )
     );
-    for (let i = 0; i < eightyArray.length; i++) {
+    for (let i = 0; i < (eightyArray.length > 0 ? eightyArray.length : twentyArray.length); i++) {
       if (twentyArray[i]) {
         filteredActivities.push(twentyArray[i]);
       }

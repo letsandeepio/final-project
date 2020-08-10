@@ -1,8 +1,12 @@
 export default function timeInputFormat(value, type) {
   const maxLength = 2;
   let output = value;
+
+  if (output < 0) {
+    output = 0;
+  }
     
-  if (isNaN(output)) {
+  if (isNaN(value)) {
     output = value.slice(0, value.length - 1);
   }
 
@@ -13,6 +17,5 @@ export default function timeInputFormat(value, type) {
   if (type === 'minutes' && value.slice(0, 2) >= 60) {
     output = value.slice(0, maxLength - 1);
   }
-  
   return Number(output);
 }

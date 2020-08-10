@@ -31,6 +31,7 @@ const CHANGESTATUS_MUTATION = gql`
 `;
 
 export default function SuggesterPage(props) {
+  const [timeAvailable, setTimeAvailable] = useState(props.timeAvailable)
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [activitySuggestions, setActivitySuggestions] = useState(null);
   const [category, setCategory] = useState(props.category);
@@ -61,17 +62,17 @@ export default function SuggesterPage(props) {
       const filteredActivities = sortActivities(
         data.activities,
         category,
-        props.timeAvailable,
+        timeAvailable,
         'keith',
       );
       setActivitySuggestions(filteredActivities);
     }
-  }, [data, props.timeAvailable, category]);
+  }, [data, timeAvailable, category]);
 
   useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.timeAvailable, category]);
+  }, [timeAvailable, category]);
 
   const indexIncrementor = function () {
     let i = suggestionIndex;
@@ -94,8 +95,8 @@ export default function SuggesterPage(props) {
           }}
         />
         <TimePicker
-          onChange={props.onTimeChange}
-          timeAvailable={props.timeAvailable}
+          onChange={setTimeAvailable}
+          timeAvailable={timeAvailable}
         />
         {loading || activitySuggestions === null ? (
           'loading'
