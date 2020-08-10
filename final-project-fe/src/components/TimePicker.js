@@ -14,11 +14,13 @@ export default function TimePicker(props) {
           <TextField
             value={props.timeAvailable.hours}
             onClick={e=>e.target.select()}
-            onChange={(e) =>
-              props.onChange({
-                hours: timeInputFormat(e.target.value, 'hours'),
-                minutes: props.timeAvailable.minutes
-              })
+            onChange={(e) => {
+              if (e.target.value.length <= 2) {
+                props.onChange({
+                  hours: timeInputFormat(e.target.value, 'hours'),
+                  minutes: props.timeAvailable.minutes
+                })
+              }}
             }
           />
           <Typography class="time-picker-text">
@@ -30,13 +32,13 @@ export default function TimePicker(props) {
           <TextField
             value={props.timeAvailable.minutes}
             onClick={e=>e.target.select()}
-            onChange={(e) =>
+            onChange={(e) => {
+              if (e.target.value.length <= 2) {
               props.onChange({
                 hours: props.timeAvailable.hours,
                 minutes: timeInputFormat(e.target.value, 'minutes')
               })
-            }
-            // onBlur={}
+            }}}
           />
           <Typography class="time-picker-text">
             &nbsp;
