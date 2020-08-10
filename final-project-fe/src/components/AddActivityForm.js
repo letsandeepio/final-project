@@ -105,6 +105,24 @@ export default function AddActivityForm(props) {
     localStorage.removeItem('currentImageIndex')
   })
 
+  function imageSearchHelper(title, category) {
+    switch (category) {
+      case 'what should i watch?':
+        categoryFilter = 'watch';
+        break;
+      case 'where should i eat?':
+        categoryFilter = 'eat';
+        break;
+      case 'what should i cook?':
+        categoryFilter = 'cook';
+        break;
+      case 'what else could i do?':
+        categoryFilter = 'other';
+        break;
+      
+    }
+  }
+
   function getImage() {
     if (data1 && data1.images) {
       setUrl(data1.images[0]);

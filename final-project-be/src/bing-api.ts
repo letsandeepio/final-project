@@ -30,7 +30,7 @@ export default function getThreeImagesFromBing(term: any) {
         body = JSON.parse(body);
 
         resolve(
-          body.value
+          body && body.value && body.value[0]
             ? [
                 body.value[0].thumbnailUrl,
                 body.value[1].thumbnailUrl,
