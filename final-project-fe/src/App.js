@@ -87,7 +87,13 @@ function App() {
   return (
     <div>
       <Header className="header" loggedIn={isLoggedIn} logout={logOut} />
-      <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
+      {location.pathname.includes('categories') ||
+      location.pathname.includes('suggestions') ? (
+        <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
+      ) : (
+        ''
+      )}
+
       <Switch>
         <Route exact path="/login">
           <Signin setLoggedIn={setLoggedIn} showSnackBar={showSnackBar} />
