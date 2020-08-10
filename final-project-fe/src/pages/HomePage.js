@@ -4,6 +4,11 @@ import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
+import WomanHeadphonesSVG from '../components/WomanHeadphonesSVG';
+
+
+// import womanHeadphonesSVG from '../../public/images/undraw_Imagination_re_i0xi';
+
 export default function CategoryPage(props) {
   return (
     <section className="move-down8">
@@ -16,6 +21,12 @@ export default function CategoryPage(props) {
           </Button>
         </div>
       {/* </div> */}
+      <div className="homepage-art-div">
+        {/* <div className="homepage-art" > */}
+        <div >
+          <WomanHeadphonesSVG className="homepage-art" style={{ height: '2em'}} />
+        </div>
+      </div>
     </section>
   )
 }
