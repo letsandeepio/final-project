@@ -86,7 +86,8 @@ function App() {
 
   return (
     <div>
-      <Header className='header' loggedIn={isLoggedIn} logout={logOut} />
+      <Header className="header" loggedIn={isLoggedIn} logout={logOut} />
+      <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
       <Switch>
         <Route exact path="/login">
           <Signin setLoggedIn={setLoggedIn} showSnackBar={showSnackBar} />
@@ -139,7 +140,6 @@ function App() {
           {snackBar.message}
         </Alert>
       </Snackbar>
-      {/* <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} /> */}
     </div>
   );
 }

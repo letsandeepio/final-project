@@ -5,7 +5,7 @@ $main-text-colour: #868686;
 $accent-font: 'Fredoka One';
 $body-font: 'Roboto Condensed', sans-serif;
 
-$small-font: .6em;
+$small-font: 0.6em;
 // $body-font: 'Arial';
 
 body {
@@ -50,11 +50,10 @@ body {
     // .button-dot {
     //   font-size: 2em;
     // }
-
   }
 
   .top-text {
-    margin-top: 8em;
+    margin-top: 2em;
     margin-bottom: 0em;
     // font-style: to-lower-case($string: "");
   }
@@ -73,19 +72,15 @@ body {
 
   .suggester-button {
     margin-top: 1em;
-    margin-left: .5em;
-    margin-right: .5em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
   }
 
   .homepage-art-div {
     display: flex;
     // justify-content: flex-end;
     // align-items: right;
-
-
   }
-
-  
 }
 // .CategoryButtonList {
 //   margin-bottom: 12em;
@@ -124,7 +119,7 @@ body {
 }
 
 .move-down {
-  padding-top: 7em;
+  padding-top: 1em;
 }
 
 .time-picker-form {
@@ -222,24 +217,23 @@ body {
   opacity: 0%;
 }
 
-@media (min-width: 640px){
+@media (min-width: 640px) {
   .categoryPage,
   .suggestorPage,
-  .homePage { 
+  .homePage {
     .categoryButton {
       margin: 0.5em;
       width: 23em;
       color: $body-font;
-    
+
       // .button-dot {
       //   font-size: 2em;
       // }
-    
     }
   }
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
   .homepage-art {
     margin-left: 50px;
     margin-right: 50px;
@@ -248,16 +242,12 @@ body {
   .nav-welcome-name {
     opacity: 100%;
   }
-  
 }
 
-
-@media (min-width: 1024px){
-  
-  
+@media (min-width: 1024px) {
 }
-  
-@media (min-width: 1200px){
+
+@media (min-width: 1200px) {
   .homepage-art {
     // height: 2em;
     // display: flex;
@@ -271,5 +261,10 @@ body {
     margin-top: 0px;
     height: 500px;
   }
+}
 
+.speech {
+  font-family: $accent-font;
+  flex-grow: 1;
+  text-align: right;
 }
