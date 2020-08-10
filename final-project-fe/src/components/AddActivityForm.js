@@ -64,8 +64,8 @@ export default function AddActivityForm(props) {
   const [url, setUrl] = useState(localStorage.getItem('url') || '');
   const [hours, setHours] = useState(Number(localStorage.getItem('hours')) ||0);
   const [minutes, setMinutes] = useState(Number(localStorage.getItem('minutes')) || 0);
-  const [firstImage, setFirstImage] = useState(true);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [firstImage, setFirstImage] = useState(localStorage.getItem('firstImage') || true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(Number(localStorage.getItem('currentImageIndex')) || 0);
 
   const [addActivity] = useMutation(ADDACTIVITY_MUTATION, {
     onCompleted(response) {
@@ -101,6 +101,8 @@ export default function AddActivityForm(props) {
     localStorage.removeItem('url');
     localStorage.removeItem('hours');
     localStorage.removeItem('minutes');
+    localStorage.removeItem('firstImage')
+    localStorage.removeItem('currentImageIndex')
   })
 
   function getImage() {
@@ -108,7 +110,7 @@ export default function AddActivityForm(props) {
       setUrl(data1.images[0]);
     }
     if (title.trim() !== '') {
-      fetchImages({ variables: { searchTerm: title } });
+      fetchImages({ variables: { searchTerm: category === 'watch' ? title + ' movie' : title } });
       setFirstImage(false);
     }
     setCurrentImageIndex(1);
@@ -116,7 +118,7 @@ export default function AddActivityForm(props) {
 
   function getNextImage() {
     if (data1 && data1.images) {
-      if (currentImageIndex !== 9) {
+      if (currentImageIndex !== data1.images.length - 1) {
         setCurrentImageIndex(prev => prev+1);
       } else {
         setCurrentImageIndex(0);
@@ -137,6 +139,8 @@ export default function AddActivityForm(props) {
     localStorage.setItem('url', url);
     localStorage.setItem('hours', hours);
     localStorage.setItem('minutes', minutes);
+    localStorage.setItem('firstImage', firstImage);
+    localStorage.setItem('currentImageIndex', currentImageIndex);
 
     if (!title) {
       showSnackBar({ message: 'Activity name required.', severity: 'warning' });
@@ -171,6 +175,8 @@ export default function AddActivityForm(props) {
     localStorage.removeItem('url');
     localStorage.removeItem('hours');
     localStorage.removeItem('minutes');
+    localStorage.removeItem('firstImage')
+    localStorage.removeItem('currentImageIndex')
   }
 
   return (
