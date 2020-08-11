@@ -12,7 +12,19 @@ const Dictaphone = ({ onCommand, onAsk }) => {
       callback: (duration) => onCommand(duration)
     },
     {
+      command: "I got *",
+      callback: (duration) => onCommand(duration)
+    },
+    {
+      command: "got *",
+      callback: (duration) => onCommand(duration)
+    },
+    {
       command: 'I have *',
+      callback: (duration) => onCommand(duration)
+    },
+    {
+      command: 'have *',
       callback: (duration) => onCommand(duration)
     },
     {
@@ -20,7 +32,23 @@ const Dictaphone = ({ onCommand, onAsk }) => {
       callback: () => onAsk(0)
     },
     {
+      command: 'should i do',
+      callback: () => onAsk(0)
+    },
+    {
+      command: 'i do',
+      callback: () => onAsk(0)
+    },
+    {
       command: 'what should i watch',
+      callback: () => onAsk(1)
+    },
+    {
+      command: 'should i watch',
+      callback: () => onAsk(1)
+    },
+    {
+      command: 'i watch',
       callback: () => onAsk(1)
     },
     {
@@ -28,11 +56,23 @@ const Dictaphone = ({ onCommand, onAsk }) => {
       callback: () => onAsk(2)
     },
     {
+      command: 'should i eat',
+      callback: () => onAsk(2)
+    },
+    {
       command: 'what should i cook',
       callback: () => onAsk(3)
     },
     {
+      command: 'should i cook',
+      callback: () => onAsk(3)
+    },
+    {
       command: 'what else could i do',
+      callback: () => onAsk(4)
+    },
+    {
+      command: 'else could i do',
       callback: () => onAsk(4)
     }
   ];
