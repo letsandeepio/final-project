@@ -32,7 +32,11 @@ export default function Timeline() {
 
   const classes = useStyles();
   return (
-    <section>
+    <section
+      style={{
+        zIndex: '1'
+      }}
+    >
       <div className="homePage move-down8">
         <Typography variant="h2" style={{ color: '#afafaf' }}>
           Your most recent completed activities will appear here!

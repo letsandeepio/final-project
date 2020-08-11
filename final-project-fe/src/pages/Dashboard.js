@@ -25,11 +25,16 @@ export default function Dashboard() {
   }
 
   return stats ? (
-    <section>
+    <section
+      style={{
+        zIndex: '1'
+      }}
+    >
       <div>
         <div className="homePage move-down8">
           <Typography variant="h3">All of your stats in one place!</Typography>
           <Typography variant="h1">Dashboard</Typography>
+
           <Container maxWidth="sm" style={{ marginTop: '3em' }}>
             <div
               style={{
