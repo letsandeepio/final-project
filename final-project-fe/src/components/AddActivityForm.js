@@ -106,7 +106,7 @@ export default function AddActivityForm(props) {
   })
 
   function getImage() {
-    if (data1 && data1.images) {
+    if (data1 && data1.images && !firstImage) {
       setUrl(data1.images[0]);
     }
     if (title.trim() !== '') {
@@ -118,7 +118,7 @@ export default function AddActivityForm(props) {
 
   function getNextImage() {
     if (data1 && data1.images) {
-      if (currentImageIndex !== data1.images.length - 1) {
+      if (currentImageIndex < data1.images.length - 1) {
         setCurrentImageIndex(prev => prev+1);
       } else {
         setCurrentImageIndex(0);
@@ -128,6 +128,7 @@ export default function AddActivityForm(props) {
   }
 
   function changeTitle(e) {
+    setUrl('');
     setFirstImage(true);
     setCurrentImageIndex(1);
     setTitle(e.target.value);
@@ -268,11 +269,11 @@ export default function AddActivityForm(props) {
                 backgroundColor: '#e91e63',
                 color: '#fff' }} >Clear URL</Button> */}
           {loading1 && <p>loading...</p>}
-          {error1 && <p>{error1.message}</p>}
+          {error1 && <p>No images match your request</p>}
 
         </div>
         <div style={{ marginTop: '1em' }}>
-          {url.trim() !== '' && (
+          {url.trim() !== '' && !firstImage && (
             <img className={classes.img} src={url} />
           )}
         </div>
