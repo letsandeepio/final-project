@@ -273,7 +273,7 @@ export default function AddActivityForm(props) {
 
         </div>
         <div style={{ marginTop: '1em' }}>
-          {url.trim() !== '' && !firstImage && (
+          {url.trim() !== '' && (
             <img className={classes.img} src={url} />
           )}
         </div>
