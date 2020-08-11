@@ -81,10 +81,10 @@ export default function SuggesterPage(props) {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeAvailable, category]);
-
+  
   const indexIncrementor = function () {
     let i = suggestionIndex;
-    if (i >= activitySuggestions.activities.length - 1) {
+    if (i >= activitySuggestions.activities.length - 1 || activitySuggestions.activities.length === 1) {
       setSuggestionIndex(0);
     } else {
       setSuggestionIndex(i + 1);
