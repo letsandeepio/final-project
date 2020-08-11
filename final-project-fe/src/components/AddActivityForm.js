@@ -56,7 +56,7 @@ export default function AddActivityForm(props) {
   const classes = useStyles();
   const { showSnackBar } = props;
   const menuItems = ['watch', 'eat out', 'cook', 'other'].map((category) => (
-    <MenuItem value={category}>{category}</MenuItem>
+    <MenuItem key={category} value={category}>{category}</MenuItem>
   ));
 
   const [category, setCategory] = useState(localStorage.getItem('category') || '');
@@ -134,7 +134,7 @@ export default function AddActivityForm(props) {
     setTitle(e.target.value);
   }
 
-  function addActivityHelper() {
+  function addActivityHelper(another) {
     localStorage.setItem('category', category);
     localStorage.setItem('title', title);
     localStorage.setItem('url', url);
@@ -169,54 +169,11 @@ export default function AddActivityForm(props) {
         image_url: url.trim() === '' ? null : url,
       },
     });
-
-    history.push('/categories');
-    localStorage.removeItem('category');
-    localStorage.removeItem('title');
-    localStorage.removeItem('url');
-    localStorage.removeItem('hours');
-    localStorage.removeItem('minutes');
-    localStorage.removeItem('firstImage')
-    localStorage.removeItem('currentImageIndex')
-  }
-
-  function addAnother() {
-    localStorage.setItem('category', category);
-    localStorage.setItem('title', title);
-    localStorage.setItem('url', url);
-    localStorage.setItem('hours', hours);
-    localStorage.setItem('minutes', minutes);
-    localStorage.setItem('firstImage', firstImage);
-    localStorage.setItem('currentImageIndex', currentImageIndex);
-
-    if (!title) {
-      showSnackBar({ message: 'Activity name required.', severity: 'warning' });
-      return;
+    if (another === false) {
+      history.push('/categories');
+    } else if (another === true) {
+      history.push('/add-activity');
     }
-
-    if (!category) {
-      showSnackBar({ message: 'Category required.', severity: 'warning' });
-      return;
-    }
-
-    if (!hours && !minutes) {
-      showSnackBar({
-        message: 'Valid duration required.',
-        severity: 'warning',
-      });
-      return;
-    }
-
-    addActivity({
-      variables: {
-        title,
-        category: category === 'eat out' ? 'eat' : category,
-        duration: Number(hours * 60) + Number(minutes),
-        image_url: url.trim() === '' ? null : url,
-      },
-    });
-
-    history.push('/add-activity');
     localStorage.removeItem('category');
     localStorage.removeItem('title');
     localStorage.removeItem('url');
@@ -232,7 +189,7 @@ export default function AddActivityForm(props) {
       <div></div>
       <Card className='add-activity-card'>
         <div className='category-div'>
-          <text className='category-label' >Category</text>
+          <span className='category-label' >Category</span>
           {/* <text style={{ marginRight: '2em', alignItems: 'center' }} >Category</text> */}
           <FormControl>
             <Select
@@ -340,7 +297,7 @@ export default function AddActivityForm(props) {
         <span style={{width: '3em' }}>
         </span>
         <br></br>
-        <Button variant='contained' onClick={addActivityHelper} color='primary' style={{
+        <Button variant='contained' onClick={()=>addActivityHelper(false)} color='primary' style={{
                 fontFamily: 'Fredoka One',
                 fontSize: '1.2em',
                 justifyContent: 'left',
@@ -351,7 +308,7 @@ export default function AddActivityForm(props) {
                 color: '#fff' }}>
           Save
         </Button>
-        <Button onClick={addAnother} color='primary' style={{
+        <Button onClick={()=> addActivityHelper(true)} color='primary' style={{
                 fontSize: '1.2em',
                 justifyContent: 'left',
                 textTransform: 'lowercase',

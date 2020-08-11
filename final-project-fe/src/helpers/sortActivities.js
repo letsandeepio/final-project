@@ -65,7 +65,9 @@ export default function sortActivities(
       if (twentyArray[i]) {
         filteredActivities.push(twentyArray[i]);
       }
-      filteredActivities.push(eightyArray[i]);
+      if (eightyArray[i]) {
+        filteredActivities.push(eightyArray[i]);
+      }
     }
   }
   if (sortStyle === 'duration') {
