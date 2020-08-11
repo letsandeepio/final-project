@@ -9,6 +9,12 @@ import sortActivities from '../helpers/sortActivities';
 import { useMutation } from '@apollo/client';
 import AddActivityButton from '../components/AddActivityButton';
 
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import pluralize from 'pluralize';
+
+import { Typography } from '@material-ui/core';
+
 const ACTIVITY_QUERY = gql`
   query ActivityQuery {
     activities {
@@ -107,9 +113,29 @@ export default function SuggesterPage(props) {
             />
           </>
         ) : activitySuggestions.hasActivities === true ? (
-          'nothing in this time frame'
+          <Card style={{ marginTop: '4em' }} >
+            <CardContent>
+              <Typography variant='h1' style={{ marginTop: '0.3em'}}>
+                ☹️
+              </Typography>
+              <Typography variant='h3' style={{ marginTop: '0.3em', textAlign: 'center'}}>
+                all saved activities in this category
+                <br></br>
+                will take longer than {timeAvailable.hours} {pluralize('hour', timeAvailable.hours)} and {timeAvailable.minutes} {pluralize('minute',timeAvailable.minutes)}
+              </Typography>
+            </CardContent>
+          </Card>
         ) : (
-          'nothing in this category'
+          <Card style={{ marginTop: '4em' }} >
+            <CardContent>
+              <Typography variant='h1' style={{ marginTop: '0.3em'}}>
+                😔
+              </Typography>
+              <Typography variant='h3' style={{ marginTop: '0.3em', textAlign: 'center'}}>
+                there are no activities in this category
+              </Typography>
+            </CardContent>
+          </Card>
         )}
       </div>
       <AddActivityButton
