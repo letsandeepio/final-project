@@ -164,6 +164,11 @@ body {
   right: 400;
 }
 
+.suggestion-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .pulse-button {
   display: block;
   width: 100px;
