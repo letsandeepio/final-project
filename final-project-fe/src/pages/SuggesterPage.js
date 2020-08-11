@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import { gql, useLazyQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import CategoryDropdown from '../components/CategoryDropdown';
 import SuggestionCard from '../components/SuggestionCard';
 import TimePicker from '../components/TimePicker';
 import SuggesterButtonBox from '../components/SuggesterButtonBox';
 import sortActivities from '../helpers/sortActivities';
 import { useMutation } from '@apollo/client';
+
 import AddActivityButton from '../components/AddActivityButton';
 
 import Card from '@material-ui/core/Card';
@@ -43,7 +44,7 @@ export default function SuggesterPage(props) {
   const [category, setCategory] = useState(props.category);
   let history = useHistory();
 
-  const [getActivities, { loading, data }] = useLazyQuery(ACTIVITY_QUERY);
+  const { loading, data, refetch } = useQuery(ACTIVITY_QUERY);
 
   const [changeStatus] = useMutation(CHANGESTATUS_MUTATION, {
     onError(error) {
@@ -64,7 +65,6 @@ export default function SuggesterPage(props) {
   }
 
   useEffect(() => {
-    getActivities();
     if (data) {
       const filteredActivities = sortActivities(
         data.activities,
@@ -75,6 +75,11 @@ export default function SuggesterPage(props) {
       setActivitySuggestions(filteredActivities);
     }
   }, [data, timeAvailable, category]);
+
+  useEffect(() => {
+    refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeAvailable, category]);
 
   const indexIncrementor = function () {
     let i = suggestionIndex;
