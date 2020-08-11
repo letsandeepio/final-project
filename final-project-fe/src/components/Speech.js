@@ -1,7 +1,6 @@
 import React from 'react';
 import Mic from './mic';
 
-import { Typography } from '@material-ui/core';
 import SpeechRecognition, {
   useSpeechRecognition
 } from 'react-speech-recognition';
@@ -48,22 +47,24 @@ const Dictaphone = ({ onCommand, onAsk }) => {
 
   return (
     <div
+      className="dictaphone"
       style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
       }}
     >
       <div
         style={{
-          marginTop: '5em',
           display: 'flex',
           alignItems: 'center',
-          width: '400px'
+          width: '400px',
+          flexDirection: 'column'
+
         }}
       >
         <div className="speech">
-          {transcript ? transcript : 'Try saying, I have 30 minutes.'}
+          {transcript ? transcript : ''}
         </div>
         <Mic
           listening={listening}
