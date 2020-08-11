@@ -28,21 +28,16 @@ export default function getThreeImagesFromBing(term: any) {
       });
       response.on('end', () => {
         body = JSON.parse(body);
-
+        if (body.value.length > 10) {
+          body.value.splice(10);
+        }
+        const thumbnails: any = [];
+        for (let i = 0; i < body.value.length; i++) {
+          thumbnails.push(body.value[i].thumbnailUrl);
+        }
         resolve(
-          body && body.value && body.value[0]
-            ? [
-                body.value[0].thumbnailUrl,
-                body.value[1].thumbnailUrl,
-                body.value[2].thumbnailUrl,
-                body.value[3].thumbnailUrl,
-                body.value[4].thumbnailUrl,
-                body.value[5].thumbnailUrl,
-                body.value[6].thumbnailUrl,
-                body.value[7].thumbnailUrl,
-                body.value[8].thumbnailUrl,
-                body.value[9].thumbnailUrl
-              ]
+          body
+            ? (thumbnails.length > 0 ? thumbnails : null)
             : null
         );
       });
