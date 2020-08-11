@@ -19,11 +19,10 @@ const useStyles = makeStyles((theme) => ({
   //   marginTop: '0px'
   // },
   paper: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    paddingTop: '10em'
+    alignItems: 'center'
   },
   signup: {
     // marginTop: '6em'
@@ -111,7 +110,21 @@ export default function Signup({ setLoggedIn, showSnackBar }) {
   return (
     <Container className="containsall" component="main" maxWidth="xs">
       <CssBaseline />
-      {/* <div className={classes.paper} style={{ marginTop: '4rem' }}> */}
+      <section
+        style={{
+          marginTop: '7em',
+          display: 'flex',
+          justifyContent: 'center'
+        }}
+      >
+        <img
+          src="./images/contemplating.svg"
+          alt="welcome"
+          style={{
+            width: '200px'
+          }}
+        />
+      </section>
       <div className={classes.paper}>
         <Typography className="signup" component="h1" variant="h5">
           Sign up for DoSomething

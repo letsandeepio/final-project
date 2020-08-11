@@ -75,7 +75,12 @@ export default function Header({ loggedIn, logout }) {
   };
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      style={{
+        zIndex: '100'
+      }}
+    >
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
           <div className={classes.leftButtons}>

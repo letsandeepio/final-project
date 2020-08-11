@@ -31,7 +31,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function App() {
+function App(props) {
   const [category, setCategory] = useState(questions[0].question);
   const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
 
@@ -62,6 +62,7 @@ function App() {
   });
 
   let history = useHistory();
+
   const handleClose = (event, reason) => {
     console.log('snackbar closed', reason);
     setSnackBar(prev=>({ ...prev, open: false }));
@@ -79,6 +80,7 @@ function App() {
   function logOut() {
     localStorage.setItem(AUTH_TOKEN, '');
     setLoggedIn(false);
+    props.clearCache();
   }
 
   const RequireAuth = ({ children }) => {
@@ -106,18 +108,30 @@ function App() {
         <RequireAuth>
           <Route exact path="/categories">
             <div className="categoryPage">
-              <Typography className="top-text" variant="h3" >
+              <Typography className="top-text" variant="h3">
                 Don't know what to do?
               </Typography>
               <Typography variant="h1">Just ask!</Typography>
-              <TimePicker className="timePicker" onChange={setTimeAvailable} timeAvailable={timeAvailable}/>
+              <TimePicker
+                className="timePicker"
+                onChange={setTimeAvailable}
+                timeAvailable={timeAvailable}
+              />
               <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
-              <CategoryButtonList className="CategoryButtonList" categories={questions} onSelect={(value) => {
-                selectCategory(value);
-              }}/>
-              <div className='spacer' ></div>
+              <CategoryButtonList
+                className="CategoryButtonList"
+                categories={questions}
+                onSelect={(value) => {
+                  selectCategory(value);
+                }}
+              />
+              <div className="spacer"></div>
             </div>
-          <AddActivityButton className="addActivityButton" component={Link} to="/add-activity"></AddActivityButton>
+            <AddActivityButton
+              className="addActivityButton"
+              component={Link}
+              to="/add-activity"
+            ></AddActivityButton>
           </Route>
           <Route exact path="/suggestions">
             <SuggesterPage
