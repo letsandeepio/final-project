@@ -7,7 +7,6 @@ import Signin from './components/Signin';
 import About from './components/About';
 import Signup from './components/Signup';
 import Header from './components/Header';
-import CategoryPage from './pages/CategoryPage';
 import SuggesterPage from './pages/SuggesterPage';
 import HomePage from './pages/HomePage';
 import SuccessPage from './pages/SuccessPage';
@@ -16,6 +15,12 @@ import Timeline from './pages/Timeline';
 import AddActivityPage from './pages/AddActivityPage';
 import Dictaphone from './components/Speech';
 import { useLocation } from 'react-router-dom';
+
+import CategoryButtonList from './components/CategoryButtonList';
+import TimePicker from './components/TimePicker';
+import AddActivityButton from './components/AddActivityButton';
+import { Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 import getHoursAndMinutes from './helpers/getHoursAndMinutes';
 
@@ -89,12 +94,6 @@ function App() {
   return (
     <div>
       <Header className="header" loggedIn={isLoggedIn} logout={logOut} />
-      {location.pathname.includes('categories') ? (
-        <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
-      ) : (
-        ''
-      )}
-
       <Switch>
         <Route exact path="/login">
           <Signin setLoggedIn={setLoggedIn} showSnackBar={showSnackBar} />
@@ -106,17 +105,21 @@ function App() {
         <Route exact path="/">
           {isLoggedIn ? <Redirect to="/categories" /> : <HomePage />}
         </Route>
-
         <RequireAuth>
           <Route exact path="/categories">
-            <CategoryPage
-              categories={questions}
-              onSelect={(value, time) => {
+            <div className="categoryPage">
+              <Typography className="top-text" variant="h3" >
+                Don't know what to do?
+              </Typography>
+              <Typography variant="h1">Just ask!</Typography>
+              <TimePicker className="timePicker" onChange={setTimeAvailable} timeAvailable={timeAvailable}/>
+              <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
+              <CategoryButtonList className="CategoryButtonList" categories={questions} onSelect={(value) => {
                 selectCategory(value);
-                setTimeAvailable(time);
-              }}
-              timeAvailable={timeAvailable}
-            />
+              }}/>
+              <div className='spacer' ></div>
+            </div>
+          <AddActivityButton className="addActivityButton" component={Link} to="/add-activity"></AddActivityButton>
           </Route>
           <Route exact path="/suggestions">
             <SuggesterPage
