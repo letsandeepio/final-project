@@ -51,15 +51,18 @@ const Dictaphone = ({ onCommand, onAsk }) => {
       style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        // flexDirection: 'column'
       }}
     >
       <div
         style={{
-          marginTop: '5em',
+          // marginTop: '5em',
           display: 'flex',
           alignItems: 'center',
-          width: '400px'
+          width: '400px',
+          flexDirection: 'column'
+
         }}
       >
         <div className="speech">
