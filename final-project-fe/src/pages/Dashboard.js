@@ -8,8 +8,25 @@ import { Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
+import { gql, useQuery } from '@apollo/client';
+
+const STATS_QUERY = gql`
+  query StatsQuery {
+    getStats
+  }
+`;
+
 export default function Dashboard() {
-  return (
+  const { data } = useQuery(STATS_QUERY);
+  let stats;
+
+  if (data) {
+    stats = JSON.parse(data.getStats);
+  }
+
+  console.log(stats);
+
+  return stats ? (
     <section>
       <div className="homePage move-down8">
         <Typography variant="h3">All of your stats in one place!</Typography>
@@ -26,20 +43,24 @@ export default function Dashboard() {
               <Typography variant="h2" style={{ color: '#afafaf' }}>
                 Pending Activities
               </Typography>
-              <Typography variant="h1">10</Typography>
+              <Typography variant="h1">
+                {stats.incompleteActivityCount}
+              </Typography>
             </div>
 
             <div>
               <Typography variant="h2" style={{ color: '#afafaf' }}>
                 Complete Activities
               </Typography>
-              <Typography variant="h1">14</Typography>
+              <Typography variant="h1">
+                {stats.completeActivityCount}
+              </Typography>
             </div>
           </div>
           <Card className="graph-card">
             <CardContent>
               <div>
-                <BarChart />
+                <BarChart data={stats.monthlyBarChart} />
                 <div
                   style={{
                     display: 'flex',
@@ -56,7 +77,7 @@ export default function Dashboard() {
           <Card className="graph-card">
             <CardContent>
               <div>
-                <PieChart />
+                <PieChart data={stats.inCompleteCategoryBreakdown} />
                 <div
                   style={{
                     display: 'flex',
@@ -73,7 +94,7 @@ export default function Dashboard() {
           <Card className="graph-card">
             <CardContent>
               <div>
-                <PieChart />
+                <PieChart data={stats.completeCategoryBreakdown} />
                 <div
                   style={{
                     display: 'flex',
@@ -92,5 +113,7 @@ export default function Dashboard() {
       </div>
       <div style={{ height: '8em' }}></div>
     </section>
+  ) : (
+    'Loading stats...'
   );
 }
