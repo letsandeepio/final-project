@@ -3,6 +3,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import hourTimeConvert from '../helpers/hourTimeConvert';
 
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
@@ -31,12 +34,21 @@ export default function SuggestionCard(props) {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography variant="h5" component="h2" className={classes.title}>
-          {props.activity.title}
-        </Typography>
-        <Typography color="textSecondary" className={classes.pos}>
-          {hourTimeConvert(props.activity.duration)}
-        </Typography>
+        <div className='suggestion-card-header'>
+          <div>
+            <Typography variant="h5" component="h2" className={classes.title}>
+              {props.activity.title}
+            </Typography>
+            <Typography color="textSecondary" className={classes.pos}>
+              {hourTimeConvert(props.activity.duration)}
+            </Typography>
+          </div>
+          <div>
+            <IconButton aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </div>
+        </div>
         <img
           className={classes.img}
           src={
