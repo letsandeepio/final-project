@@ -65,6 +65,7 @@ export default function SuggesterPage(props) {
   }
 
   useEffect(() => {
+    console.log('calling useeffect');
     if (data) {
       const filteredActivities = sortActivities(
         data.activities,
