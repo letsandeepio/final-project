@@ -11,6 +11,7 @@ import AddActivityButton from '../components/AddActivityButton';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import pluralize from 'pluralize';
 
 import { Typography } from '@material-ui/core';
 
@@ -120,7 +121,7 @@ export default function SuggesterPage(props) {
               <Typography variant='h3' style={{ marginTop: '0.3em', textAlign: 'center'}}>
                 all saved activities in this category
                 <br></br>
-                will take longer than {timeAvailable.hours} hours and {timeAvailable.minutes} minutes
+                will take longer than {timeAvailable.hours} {pluralize('hour', timeAvailable.hours)} and {timeAvailable.minutes} {pluralize('minute',timeAvailable.minutes)}
               </Typography>
             </CardContent>
           </Card>
