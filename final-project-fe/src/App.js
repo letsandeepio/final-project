@@ -31,7 +31,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function App() {
+function App(props) {
   const [category, setCategory] = useState(questions[0].question);
   const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
 
@@ -79,6 +79,7 @@ function App() {
   function logOut() {
     localStorage.setItem(AUTH_TOKEN, '');
     setLoggedIn(false);
+    props.clearCache();
   }
 
   const RequireAuth = ({ children }) => {

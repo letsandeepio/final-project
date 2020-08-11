@@ -56,7 +56,7 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <BrowserRouter>
         <MuiThemeProvider theme={theme}>
-          <App />
+          <App clearCache={()=>client.cache.reset()}/>
         </MuiThemeProvider>
       </BrowserRouter>
     </ApolloProvider>
