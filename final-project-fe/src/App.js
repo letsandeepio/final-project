@@ -7,7 +7,6 @@ import Signin from './components/Signin';
 import About from './components/About';
 import Signup from './components/Signup';
 import Header from './components/Header';
-// import CategoryPage from './pages/CategoryPage';
 import SuggesterPage from './pages/SuggesterPage';
 import HomePage from './pages/HomePage';
 import SuccessPage from './pages/SuccessPage';
@@ -95,12 +94,6 @@ function App() {
   return (
     <div>
       <Header className="header" loggedIn={isLoggedIn} logout={logOut} />
-      {/* {location.pathname.includes('categories') ? (
-        <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
-      ) : (
-        ''
-      )} */}
-
       <Switch>
         <Route exact path="/login">
           <Signin setLoggedIn={setLoggedIn} showSnackBar={showSnackBar} />
@@ -112,7 +105,6 @@ function App() {
         <Route exact path="/">
           {isLoggedIn ? <Redirect to="/categories" /> : <HomePage />}
         </Route>
-
         <RequireAuth>
           <Route exact path="/categories">
             <div className="categoryPage">
@@ -120,23 +112,13 @@ function App() {
                 Don't know what to do?
               </Typography>
               <Typography variant="h1">Just ask!</Typography>
-              <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
               <TimePicker className="timePicker" onChange={setTimeAvailable} timeAvailable={timeAvailable}/>
-              <CategoryButtonList className="CategoryButtonList" categories={questions} onSelect={(value, time) => {
+              <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
+              <CategoryButtonList className="CategoryButtonList" categories={questions} onSelect={(value) => {
                 selectCategory(value);
-                setTimeAvailable(time);
               }}/>
               <div className='spacer' ></div>
             </div>
-
-            {/* <CategoryPage
-              categories={questions}
-              onSelect={(value, time) => {
-                selectCategory(value);
-                setTimeAvailable(time);
-              }}
-              timeAvailable={timeAvailable}
-            /> */}
           <AddActivityButton className="addActivityButton" component={Link} to="/add-activity"></AddActivityButton>
           </Route>
           <Route exact path="/suggestions">
