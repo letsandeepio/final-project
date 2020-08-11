@@ -122,13 +122,19 @@ export default function SuggesterPage(props) {
                 <br></br>
                 will take longer than {timeAvailable.hours} hours and {timeAvailable.minutes} minutes
               </Typography>
-              {/* <Typography variant='h3' style={{ marginTop: '0.3em'}}>
-                try a longer duration or a different category
-              </Typography> */}
             </CardContent>
           </Card>
         ) : (
-          'nothing in this category'
+          <Card style={{ marginTop: '4em' }} >
+            <CardContent>
+              <Typography variant='h1' style={{ marginTop: '0.3em'}}>
+                😔
+              </Typography>
+              <Typography variant='h3' style={{ marginTop: '0.3em', textAlign: 'center'}}>
+                there are no activities in this category
+              </Typography>
+            </CardContent>
+          </Card>
         )}
       </div>
       <AddActivityButton
