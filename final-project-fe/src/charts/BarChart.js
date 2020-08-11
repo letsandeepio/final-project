@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { BarSeries, Tooltip, ChartProvider, XAxis, YAxis } from 'rough-charts';
-import { colors } from '../helpers/colors';
 
 const data = [
   { name: 'Jan', subtotal: 90 },
@@ -19,7 +18,7 @@ export default function BarChart() {
       <BarSeries
         dataKey="subtotal"
         options={{
-          fill: colors[0],
+          fill: '#0082e6',
           strokeWidth: 2
         }}
       />
