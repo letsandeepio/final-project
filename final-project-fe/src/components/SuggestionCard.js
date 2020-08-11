@@ -44,7 +44,7 @@ export default function SuggestionCard(props) {
             </Typography>
           </div>
           <div>
-            <IconButton aria-label="delete">
+            <IconButton aria-label="delete" onClick={()=>props.onDelete(props.activity.id)}>
               <DeleteIcon />
             </IconButton>
           </div>

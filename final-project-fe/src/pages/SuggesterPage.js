@@ -28,11 +28,20 @@ const ACTIVITY_QUERY = gql`
     }
   }
 `;
+
 const CHANGESTATUS_MUTATION = gql`
   mutation changeStatusMutation($id: Int!, $status: String!) {
     changeStatus(id: $id, status: $status) {
       id
       status
+    }
+  }
+`;
+
+const DELETE_ACTIVITY = gql`
+  mutation deleteActivityMutation ($id: Int!) {
+    deleteActivity (id: $id) {
+      id
     }
   }
 `;
@@ -46,11 +55,30 @@ export default function SuggesterPage(props) {
 
   const { loading, data, refetch } = useQuery(ACTIVITY_QUERY);
 
+  console.log(data);
+
   const [changeStatus] = useMutation(CHANGESTATUS_MUTATION, {
     onError(error) {
       console.error(error);
     }
   });
+
+  const [deleteActivity] = useMutation(DELETE_ACTIVITY, {
+    onError(error) {
+      console.error(error);
+    },
+    onCompleted() {
+      refetch();
+    }
+  })
+
+  function deleteActivityFromDatabase(id) {
+    deleteActivity({
+      variables: {
+        id: Number(id)
+      }
+    });
+  }
 
   function handleNow() {
     const id = activitySuggestions.activities[suggestionIndex].id;
@@ -64,9 +92,7 @@ export default function SuggesterPage(props) {
     history.push('/success');
   }
 
-
   useEffect(() => {
-    console.log('calling useeffect');
     if (data) {
       const filteredActivities = sortActivities(
         data.activities,
@@ -113,6 +139,7 @@ export default function SuggesterPage(props) {
           <>
             <SuggestionCard
               activity={activitySuggestions.activities[suggestionIndex]}
+              onDelete={deleteActivityFromDatabase}
             />
             <SuggesterButtonBox
               onAccept={handleNow}
