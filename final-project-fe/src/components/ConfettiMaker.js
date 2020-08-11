@@ -8,6 +8,8 @@ export default function ConfettiMaker() {
     <Confetti
       width={width}
       height={height}
+      numberOfPieces={1000}
+      recycle={false}
     />
   )
 }
