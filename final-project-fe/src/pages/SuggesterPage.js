@@ -16,6 +16,29 @@ import pluralize from 'pluralize';
 
 import { Typography } from '@material-ui/core';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+}));
+
 const ACTIVITY_QUERY = gql`
   query ActivityQuery {
     activities {
@@ -37,6 +60,8 @@ const CHANGESTATUS_MUTATION = gql`
   }
 `;
 
+
+
 export default function SuggesterPage(props) {
   const [timeAvailable, setTimeAvailable] = useState(props.timeAvailable)
   const [suggestionIndex, setSuggestionIndex] = useState(0);
@@ -51,6 +76,26 @@ export default function SuggesterPage(props) {
       console.error(error);
     }
   });
+
+  //------
+
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(Number(event.target.value) || '');
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  //------
 
   function handleNow() {
     const id = activitySuggestions.activities[suggestionIndex].id;
@@ -106,10 +151,11 @@ export default function SuggesterPage(props) {
           onChange={setTimeAvailable}
           timeAvailable={timeAvailable}
         />
+
         {loading || activitySuggestions === null ? (
           'loading'
-        ) : activitySuggestions.activities.length > 0 ? (
-          <>
+          ) : activitySuggestions.activities.length > 0 ? (
+            <>
             <SuggestionCard
               activity={activitySuggestions.activities[suggestionIndex]}
             />
@@ -143,6 +189,51 @@ export default function SuggesterPage(props) {
             </CardContent>
           </Card>
         )}
+        
+
+
+        <div style={{ width: '400px', textAlign: 'center' }}>
+          <Button onClick={handleClickOpen} style={{
+                fontSize: '1em',
+                justifyContent: 'center',
+                textTransform: 'lowercase',
+                height: '2em',
+                marginTop: '.9em',
+                paddingLeft: '1em',
+                // marginLeft: '1em',
+                color: '#868686' }}>sort</Button>
+          <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+            <DialogTitle>Filters</DialogTitle>
+            <DialogContent>
+              <form className={classes.container}>
+                <FormControl className={classes.formControl}>
+                  <InputLabel htmlFor="demo-dialog-native">Sort Method</InputLabel>
+                  <Select
+                    native
+                    value={age}
+                    onChange={handleChange}
+                    input={<Input id="demo-dialog-native" />}
+                  >
+                    <option aria-label="None" value="" />
+                    <option value={10}>Ten</option>
+                    <option value={20}>Twenty</option>
+                    <option value={30}>Thirty</option>
+                  </Select>
+                </FormControl>
+              </form>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleClose} color="primary">
+                Ok
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+
+
       </div>
       <AddActivityButton
         className="addActivityButton"
@@ -152,3 +243,95 @@ export default function SuggesterPage(props) {
     </>
   );
 }
+
+
+//////////////////////
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import clsx from 'clsx';
+// import { makeStyles } from '@material-ui/core/styles';
+// import Drawer from '@material-ui/core/Drawer';
+// import Button from '@material-ui/core/Button';
+// import List from '@material-ui/core/List';
+// import Divider from '@material-ui/core/Divider';
+// import ListItem from '@material-ui/core/ListItem';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import InboxIcon from '@material-ui/icons/MoveToInbox';
+// import MailIcon from '@material-ui/icons/Mail';
+
+// const useStyles = makeStyles({
+//   list: {
+//     width: 250,
+//   },
+//   fullList: {
+//     width: 'auto',
+//   },
+// });
+
+// export default function TemporaryDrawer() {
+//   const classes = useStyles();
+//   const [state, setState] = React.useState({
+//     top: false,
+//     left: false,
+//     bottom: false,
+//     right: false,
+//   });
+
+//   const toggleDrawer = (anchor, open) => (event) => {
+//     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+//       return;
+//     }
+
+//     setState({ ...state, [anchor]: open });
+//   };
+
+//   const list = (anchor) => (
+//     <div
+//       className={clsx(classes.list, {
+//         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+//       })}
+//       role="presentation"
+//       onClick={toggleDrawer(anchor, false)}
+//       onKeyDown={toggleDrawer(anchor, false)}
+//     >
+//       <List>
+//         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+//           <ListItem button key={text}>
+//             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+//             <ListItemText primary={text} />
+//           </ListItem>
+//         ))}
+//       </List>
+//       <Divider />
+//       <List>
+//         {['All mail', 'Trash', 'Spam'].map((text, index) => (
+//           <ListItem button key={text}>
+//             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+//             <ListItemText primary={text} />
+//           </ListItem>
+//         ))}
+//       </List>
+//     </div>
+//   );
+
+//   return (
+//     <div>
+//       {['left', 'right', 'top', 'bottom'].map((anchor) => (
+//         <React.Fragment key={anchor}>
+//           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+//           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+//             {list(anchor)}
+//           </Drawer>
+//         </React.Fragment>
+//       ))}
+//     </div>
+//   );
+// }
