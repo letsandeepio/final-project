@@ -56,7 +56,7 @@ export default function AddActivityForm(props) {
   const classes = useStyles();
   const { showSnackBar } = props;
   const menuItems = ['watch', 'eat out', 'cook', 'other'].map((category) => (
-    <MenuItem value={category}>{category}</MenuItem>
+    <MenuItem key={category} value={category}>{category}</MenuItem>
   ));
 
   const [category, setCategory] = useState(localStorage.getItem('category') || '');
@@ -189,7 +189,7 @@ export default function AddActivityForm(props) {
       <div></div>
       <Card className='add-activity-card'>
         <div className='category-div'>
-          <text className='category-label' >Category</text>
+          <span className='category-label' >Category</span>
           {/* <text style={{ marginRight: '2em', alignItems: 'center' }} >Category</text> */}
           <FormControl>
             <Select
