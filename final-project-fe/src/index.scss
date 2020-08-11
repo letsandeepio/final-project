@@ -41,29 +41,29 @@ body {
     width: 18em;
     color: $body-font;
   }
-
+  
   .top-text {
     margin-top: 8em;
     margin-bottom: 0em;
   }
-
+  
   .center-text {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
+  
   .category-dropdown {
     font-family: $accent-font;
     color: $accent-color;
   }
-
+  
   .suggester-button {
     margin-top: 1em;
     margin-left: 0.5em;
     margin-right: 0.5em;
   }
-
+  
   .homepage-art-div {
     display: flex;
   }
