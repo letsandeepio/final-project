@@ -83,7 +83,6 @@ export default function SuggesterPage(props) {
   }, [timeAvailable, category]);
   
   const indexIncrementor = function () {
-    console.log(activitySuggestions);
     let i = suggestionIndex;
     if (i >= activitySuggestions.activities.length - 1 || activitySuggestions.activities.length === 1) {
       setSuggestionIndex(0);
