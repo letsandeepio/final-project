@@ -138,7 +138,49 @@ export default function SuggesterPage(props) {
 
   return (
     <>
-      <div className="suggestorPage move-down">
+      <div className="suggestorPage">
+        <div>
+          <div style={{ width: '400px', textAlign: 'right', marginTop: '5em' }}>
+            <Button onClick={handleClickOpen} style={{
+                  fontSize: '1em',
+                  justifyContent: 'center',
+                  textTransform: 'lowercase',
+                  height: '2em',
+                  marginTop: '.9em',
+                  // paddingLeft: '1em',
+                  // marginLeft: '1em',
+                  color: '#868686' }}>sort</Button>
+            <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+              <DialogTitle>Filters</DialogTitle>
+              <DialogContent>
+                <form className={classes.container}>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="demo-dialog-native">Sort Method</InputLabel>
+                    <Select
+                      native
+                      value={age}
+                      onChange={handleChange}
+                      input={<Input id="demo-dialog-native" />}
+                    >
+                      <option aria-label="None" value="" />
+                      <option value={10}>Smart Sort</option>
+                      <option value={20}>Duration</option>
+                      <option value={30}>Random</option>
+                    </Select>
+                  </FormControl>
+                </form>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={handleClose} color="primary">
+                  Ok
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
+        </div>
         <CategoryDropdown
           questions={props.categories}
           question={props.category}
@@ -147,11 +189,12 @@ export default function SuggesterPage(props) {
             props.onCategoryChange(value);
           }}
         />
-        <TimePicker
-          onChange={setTimeAvailable}
-          timeAvailable={timeAvailable}
-        />
-
+        <div style={{ marginTop: '0.5em', marginBottom: '2em' }}>
+          <TimePicker
+            onChange={setTimeAvailable}
+            timeAvailable={timeAvailable}
+          />
+        </div>
         {loading || activitySuggestions === null ? (
           'loading'
           ) : activitySuggestions.activities.length > 0 ? (
@@ -189,51 +232,6 @@ export default function SuggesterPage(props) {
             </CardContent>
           </Card>
         )}
-        
-
-
-        <div style={{ width: '400px', textAlign: 'center' }}>
-          <Button onClick={handleClickOpen} style={{
-                fontSize: '1em',
-                justifyContent: 'center',
-                textTransform: 'lowercase',
-                height: '2em',
-                marginTop: '.9em',
-                paddingLeft: '1em',
-                // marginLeft: '1em',
-                color: '#868686' }}>sort</Button>
-          <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
-            <DialogTitle>Filters</DialogTitle>
-            <DialogContent>
-              <form className={classes.container}>
-                <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="demo-dialog-native">Sort Method</InputLabel>
-                  <Select
-                    native
-                    value={age}
-                    onChange={handleChange}
-                    input={<Input id="demo-dialog-native" />}
-                  >
-                    <option aria-label="None" value="" />
-                    <option value={10}>Ten</option>
-                    <option value={20}>Twenty</option>
-                    <option value={30}>Thirty</option>
-                  </Select>
-                </FormControl>
-              </form>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} color="primary">
-                Cancel
-              </Button>
-              <Button onClick={handleClose} color="primary">
-                Ok
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </div>
-
-
       </div>
       <AddActivityButton
         className="addActivityButton"
@@ -243,95 +241,3 @@ export default function SuggesterPage(props) {
     </>
   );
 }
-
-
-//////////////////////
-
-
-
-
-
-
-
-
-// import React from 'react';
-// import clsx from 'clsx';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Drawer from '@material-ui/core/Drawer';
-// import Button from '@material-ui/core/Button';
-// import List from '@material-ui/core/List';
-// import Divider from '@material-ui/core/Divider';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
-// import MailIcon from '@material-ui/icons/Mail';
-
-// const useStyles = makeStyles({
-//   list: {
-//     width: 250,
-//   },
-//   fullList: {
-//     width: 'auto',
-//   },
-// });
-
-// export default function TemporaryDrawer() {
-//   const classes = useStyles();
-//   const [state, setState] = React.useState({
-//     top: false,
-//     left: false,
-//     bottom: false,
-//     right: false,
-//   });
-
-//   const toggleDrawer = (anchor, open) => (event) => {
-//     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-//       return;
-//     }
-
-//     setState({ ...state, [anchor]: open });
-//   };
-
-//   const list = (anchor) => (
-//     <div
-//       className={clsx(classes.list, {
-//         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-//       })}
-//       role="presentation"
-//       onClick={toggleDrawer(anchor, false)}
-//       onKeyDown={toggleDrawer(anchor, false)}
-//     >
-//       <List>
-//         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-//           <ListItem button key={text}>
-//             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-//             <ListItemText primary={text} />
-//           </ListItem>
-//         ))}
-//       </List>
-//       <Divider />
-//       <List>
-//         {['All mail', 'Trash', 'Spam'].map((text, index) => (
-//           <ListItem button key={text}>
-//             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-//             <ListItemText primary={text} />
-//           </ListItem>
-//         ))}
-//       </List>
-//     </div>
-//   );
-
-//   return (
-//     <div>
-//       {['left', 'right', 'top', 'bottom'].map((anchor) => (
-//         <React.Fragment key={anchor}>
-//           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-//           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-//             {list(anchor)}
-//           </Drawer>
-//         </React.Fragment>
-//       ))}
-//     </div>
-//   );
-// }
