@@ -63,14 +63,12 @@ function App() {
 
   let history = useHistory();
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setSnackBar({ ...snackBar, open: false });
+    console.log('snackbar closed', reason);
+    setSnackBar(prev=>({ ...prev, open: false }));
   };
 
   const showSnackBar = (args) => {
-    setSnackBar({ ...snackBar, open: true, ...args });
+    setSnackBar(prev=>({ ...prev, open: true, ...args }));
   };
 
   const selectCategory = function (category) {

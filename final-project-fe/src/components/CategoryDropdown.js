@@ -7,7 +7,7 @@ export default function (props) {
   const [question, setQuestion] = useState(props.question);
 
   const menuItems = props.questions.map((obj) => (
-    <MenuItem value={obj.question}>{obj.question}</MenuItem>
+    <MenuItem key={question} value={obj.question}>{obj.question}</MenuItem>
   ));
 
   return (
