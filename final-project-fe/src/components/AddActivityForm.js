@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { useBeforeunload } from 'react-beforeunload';
 
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -58,13 +59,13 @@ export default function AddActivityForm(props) {
     <MenuItem value={category}>{category}</MenuItem>
   ));
 
-  const [category, setCategory] = useState('');
-  const [title, setTitle] = useState('');
-  const [url, setUrl] = useState('');
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [firstImage, setFirstImage] = useState(true);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [category, setCategory] = useState(localStorage.getItem('category') || '');
+  const [title, setTitle] = useState(localStorage.getItem('title') || '');
+  const [url, setUrl] = useState(localStorage.getItem('url') || '');
+  const [hours, setHours] = useState(Number(localStorage.getItem('hours')) ||0);
+  const [minutes, setMinutes] = useState(Number(localStorage.getItem('minutes')) || 0);
+  const [firstImage, setFirstImage] = useState(localStorage.getItem('firstImage') || true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(Number(localStorage.getItem('currentImageIndex')) || 0);
 
   const [addActivity] = useMutation(ADDACTIVITY_MUTATION, {
     onCompleted(response) {
@@ -94,12 +95,22 @@ export default function AddActivityForm(props) {
     }
   }, [data1]);
 
+  useBeforeunload(()=> {
+    localStorage.removeItem('category');
+    localStorage.removeItem('title');
+    localStorage.removeItem('url');
+    localStorage.removeItem('hours');
+    localStorage.removeItem('minutes');
+    localStorage.removeItem('firstImage')
+    localStorage.removeItem('currentImageIndex')
+  })
+
   function getImage() {
-    if (data1 && data1.images) {
+    if (data1 && data1.images && !firstImage) {
       setUrl(data1.images[0]);
     }
     if (title.trim() !== '') {
-      fetchImages({ variables: { searchTerm: title } });
+      fetchImages({ variables: { searchTerm: category === 'watch' ? title + ' movie' : title } });
       setFirstImage(false);
     }
     setCurrentImageIndex(1);
@@ -107,7 +118,7 @@ export default function AddActivityForm(props) {
 
   function getNextImage() {
     if (data1 && data1.images) {
-      if (currentImageIndex !== 9) {
+      if (currentImageIndex < data1.images.length - 1) {
         setCurrentImageIndex(prev => prev+1);
       } else {
         setCurrentImageIndex(0);
@@ -117,14 +128,23 @@ export default function AddActivityForm(props) {
   }
 
   function changeTitle(e) {
+    setUrl('');
     setFirstImage(true);
     setCurrentImageIndex(1);
     setTitle(e.target.value);
   }
 
   function addActivityHelper() {
+    localStorage.setItem('category', category);
+    localStorage.setItem('title', title);
+    localStorage.setItem('url', url);
+    localStorage.setItem('hours', hours);
+    localStorage.setItem('minutes', minutes);
+    localStorage.setItem('firstImage', firstImage);
+    localStorage.setItem('currentImageIndex', currentImageIndex);
+
     if (!title) {
-      showSnackBar({ message: 'Title required.', severity: 'warning' });
+      showSnackBar({ message: 'Activity name required.', severity: 'warning' });
       return;
     }
 
@@ -151,6 +171,13 @@ export default function AddActivityForm(props) {
     });
 
     history.push('/categories');
+    localStorage.removeItem('category');
+    localStorage.removeItem('title');
+    localStorage.removeItem('url');
+    localStorage.removeItem('hours');
+    localStorage.removeItem('minutes');
+    localStorage.removeItem('firstImage')
+    localStorage.removeItem('currentImageIndex')
   }
 
   return (
@@ -242,7 +269,7 @@ export default function AddActivityForm(props) {
                 backgroundColor: '#e91e63',
                 color: '#fff' }} >Clear URL</Button> */}
           {loading1 && <p>loading...</p>}
-          {error1 && <p>{error1.message}</p>}
+          {error1 && <p>No images match your request</p>}
 
         </div>
         <div style={{ marginTop: '1em' }}>
