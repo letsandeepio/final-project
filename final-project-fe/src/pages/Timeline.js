@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Bounce from 'react-reveal/Bounce';
+
 import { Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -36,34 +38,38 @@ export default function Timeline() {
           Your most recent completed activities will appear here!
         </Typography>
         <Typography variant="h1">Timeline</Typography>
-        {data &&
-          data.completeActivities.map((item) => {
-            return (
-              <Card
-                className={classes.root}
-                key={item.id}
-                style={{
-                  margin: '10px'
-                }}
-              >
-                <CardContent>
-                  <Typography
-                    className={classes.title}
-                    color="textSecondary"
-                    gutterBottom
+        <Bounce bottom cascade>
+          <div>
+            {data &&
+              data.completeActivities.map((item) => {
+                return (
+                  <Card
+                    className={classes.root}
+                    key={item.id}
+                    style={{
+                      margin: '10px'
+                    }}
                   >
-                    {item.category}
-                  </Typography>
-                  <Typography variant="h5" component="h2">
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    {moment(Number(item.completed_on)).fromNow()}
-                  </Typography>
-                </CardContent>
-              </Card>
-            );
-          })}
+                    <CardContent>
+                      <Typography
+                        className={classes.title}
+                        color="textSecondary"
+                        gutterBottom
+                      >
+                        {item.category}
+                      </Typography>
+                      <Typography variant="h5" component="h2">
+                        {item.title}
+                      </Typography>
+                      <Typography variant="body2" component="p">
+                        {moment(Number(item.completed_on)).fromNow()}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+          </div>
+        </Bounce>
       </div>
     </section>
   );

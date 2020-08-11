@@ -4,6 +4,7 @@ type Query {
   inProgress: [Activity!]!
   completeActivities: [Activity!]!
   images(searchTerm: String!): [String]!
+  getStats: String!
 }
 
 type User {
