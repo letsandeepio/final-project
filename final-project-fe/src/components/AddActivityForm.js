@@ -180,6 +180,52 @@ export default function AddActivityForm(props) {
     localStorage.removeItem('currentImageIndex')
   }
 
+  function addAnother() {
+    localStorage.setItem('category', category);
+    localStorage.setItem('title', title);
+    localStorage.setItem('url', url);
+    localStorage.setItem('hours', hours);
+    localStorage.setItem('minutes', minutes);
+    localStorage.setItem('firstImage', firstImage);
+    localStorage.setItem('currentImageIndex', currentImageIndex);
+
+    if (!title) {
+      showSnackBar({ message: 'Activity name required.', severity: 'warning' });
+      return;
+    }
+
+    if (!category) {
+      showSnackBar({ message: 'Category required.', severity: 'warning' });
+      return;
+    }
+
+    if (!hours && !minutes) {
+      showSnackBar({
+        message: 'Valid duration required.',
+        severity: 'warning',
+      });
+      return;
+    }
+
+    addActivity({
+      variables: {
+        title,
+        category: category === 'eat out' ? 'eat' : category,
+        duration: Number(hours * 60) + Number(minutes),
+        image_url: url.trim() === '' ? null : url,
+      },
+    });
+
+    history.push('/add-activity');
+    localStorage.removeItem('category');
+    localStorage.removeItem('title');
+    localStorage.removeItem('url');
+    localStorage.removeItem('hours');
+    localStorage.removeItem('minutes');
+    localStorage.removeItem('firstImage')
+    localStorage.removeItem('currentImageIndex')
+  }
+
   return (
     <section>
       <CssBaseline />
@@ -259,15 +305,6 @@ export default function AddActivityForm(props) {
               margin: '0.5em',
               backgroundColor: '#e91e63',
               color: '#fff' }}>Clear URL</Button> }
-          {/* <Button onClick={()=>setUrl('')} style={{
-                fontFamily: 'Fredoka One',
-                fontSize: '0.7em',
-                justifyContent: 'left',
-                textTransform: 'lowercase',
-                height: '2em',
-                margin: '0.5em',
-                backgroundColor: '#e91e63',
-                color: '#fff' }} >Clear URL</Button> */}
           {loading1 && <p>loading...</p>}
           {error1 && <p>No images match your request</p>}
 
@@ -313,6 +350,16 @@ export default function AddActivityForm(props) {
                 backgroundColor: '#e91e63',
                 color: '#fff' }}>
           Save
+        </Button>
+        <Button onClick={addAnother} color='primary' style={{
+                fontSize: '1.2em',
+                justifyContent: 'left',
+                textTransform: 'lowercase',
+                height: '2em',
+                marginTop: '2em',
+                marginLeft: '1em',
+                color: '#e91e63' }}>
+          save and add another
         </Button>
       </Card>
     </section>
