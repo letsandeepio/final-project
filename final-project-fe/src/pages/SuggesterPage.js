@@ -91,6 +91,9 @@ export default function SuggesterPage(props) {
   const [deleteActivity] = useMutation(DELETE_ACTIVITY, {
     onError(error) {
       console.error(error);
+    },
+    onCompleted() {
+      refetch();
     }
   })
 
@@ -100,7 +103,6 @@ export default function SuggesterPage(props) {
         id: Number(id)
       }
     });
-    refetch();
   }
 
   const handleChange = (event) => {
