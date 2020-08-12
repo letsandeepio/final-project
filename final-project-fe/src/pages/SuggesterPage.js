@@ -7,6 +7,8 @@ import TimePicker from '../components/TimePicker';
 import SuggesterButtonBox from '../components/SuggesterButtonBox';
 import sortActivities from '../helpers/sortActivities';
 import { useMutation } from '@apollo/client';
+import { useBeforeunload } from 'react-beforeunload';
+
 
 import AddActivityButton from '../components/AddActivityButton';
 
@@ -74,8 +76,8 @@ export default function SuggesterPage(props) {
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [activitySuggestions, setActivitySuggestions] = useState(null);
   const [category, setCategory] = useState(props.category);
-  const [open, setOpen] = React.useState(false);
-  const [sortMethod, setSortMethod] = React.useState('keith');
+  const [open, setOpen] = useState(false);
+  const [sortMethod, setSortMethod] = useState('keith');
 
   let history = useHistory();
   const classes = useStyles();
@@ -148,6 +150,7 @@ export default function SuggesterPage(props) {
         sortMethod,
       );
       setActivitySuggestions(filteredActivities);
+      setSuggestionIndex(0);
     }
   }, [data, timeAvailable, category, sortMethod]);
 
