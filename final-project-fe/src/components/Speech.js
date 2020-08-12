@@ -56,6 +56,10 @@ const Dictaphone = ({ onCommand, onAsk }) => {
       callback: () => onAsk(2)
     },
     {
+      command: 'what should i eat',
+      callback: () => onAsk(2)
+    },
+    {
       command: 'should i eat',
       callback: () => onAsk(2)
     },

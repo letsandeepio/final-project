@@ -1,11 +1,86 @@
 INSERT INTO users(name, email, password)
-  VALUES ('Sandeep', 'sandeepchopra7@gmail.com', '$2b$10$iHW8ZG4X2jJmg/AMNR4G/.3xJQUQtvFH65Dbahxq7J39/vyMW3CV2'),
+  VALUES ('Eileen', 'eileen@gmail.com', '$2b$10$iHW8ZG4X2jJmg/AMNR4G/.3xJQUQtvFH65Dbahxq7J39/vyMW3CV2'),
   ('Keith', 'keithmillar@hotmail.ca', '$2b$10$iHW8ZG4X2jJmg/AMNR4G/.3xJQUQtvFH65Dbahxq7J39/vyMW3CV2'),
-  ('Eileen', 'eileenlimur@gmail.com', '$2b$10$iHW8ZG4X2jJmg/AMNR4G/.3xJQUQtvFH65Dbahxq7J39/vyMW3CV2'),
+  ('Sandeep', 'sandeepchopra7@gmail.com', '$2b$10$iHW8ZG4X2jJmg/AMNR4G/.3xJQUQtvFH65Dbahxq7J39/vyMW3CV2'),
   ('Iva Harrison', 'allisonjackson@mail.com', '$2b$10$iHW8ZG4X2jJmg/AMNR4G/.3xJQUQtvFH65Dbahxq7J39/vyMW3CV2');
 
-INSERT INTO activity (user_id, title, category, duration, image_url)
-  VALUES (1, 'Shark', 'watch', '120', 'https://www.mvtimes.com/mvt/uploads/2014/07/jaws-horizontal-poster.jpg'), (1, 'Superman', 'watch', '130', 'https://i.pinimg.com/originals/31/66/3e/31663e9580a8e3dbd72a1295dcc471d3.jpg'), (1, 'Popeyes', 'eat', '30', 'https://cdn.pixabay.com/photo/2014/01/24/04/05/fried-chicken-250863_1280.jpg'), (1, 'Mcdonalds', 'eat', '30', 'https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_1280.jpg');
+INSERT INTO activity (user_id, title, category, duration, status, completed_on)
+  VALUES
+  (1, 'Go Fishing', 'other', '400', 'complete', '1594174469838'),
+  (1, 'Clean Garage', 'other', '600', 'complete', '1594154469838'),
+  (1, 'Yoga', 'other', '60', 'complete', '1585097878838'),
+  (1, 'Frozen 2', 'watch', '130', 'complete', '1585097878838'),
+  (1, 'Rugrats: The Movie', 'watch', '75', 'complete', '1597123469838'),
+  (1, 'Macaroni Salad', 'watch', '30', 'complete', '1594174469838'),
+  (1, 'Lord Of The Rings Marathon', 'watch', '500', 'complete', '1597115469838'),
+  (1, 'Spring Rolls', 'eat', '80', 'complete', '1594115329838'),
+  (1, 'Burrate Chicken', 'cook', '100', 'complete', '1597112229838'),
+  (1, 'Chicken Fried Rice', 'cook', '45', 'complete', '1585097878838'),
+  (1, 'Beyond Meat Burger', 'cook', '30', 'complete', '1592097878838'),
+  (1, 'Enchiladas', 'cook', '90', 'complete', '1590097878838'),
+  (1, 'Spicy Noodles', 'cook', '30', 'complete', '1577097878838'),
+  (1, 'Lasagne', 'cook', '100', 'complete', '1589097878838'),
+  (1, 'Superstar', 'watch', '90', 'complete', '1591096678838'), 
+  (1, 'Tacos', 'cook', '45', 'complete', '1591097878838'),
+  (1, 'Starbucks', 'eat', '25', 'complete', '1588097878838');
 
-INSERT INTO activity (user_id, title, category, duration)
-  VALUES (1, 'Burrate Chicken', 'cook', '100'), (1, 'Laundry', 'other', '15'), (1, 'Trim Hedges', 'other', '60'), (1, 'Superstar', 'watch', '90'), (1, 'The 3 Brewers', 'eat', '90'), (1, 'Lasagne', 'cook', '100'), (1, 'Chicken Fried Rice', 'cook', '45'), (1, 'Visit Niagara Falls', 'other', '300'), (1, 'Back-To-School Shopping', 'other', '300'), (1, 'Harry Potter Marathon', 'watch', '420'), (1, 'Rick and Morty Marathon', 'watch', '420'), (1, 'Top Ramen', 'eat', '120'), (1, 'Panda Express', 'eat', '60'), (1, 'Visit Auntie May', 'other', '300'), (1, 'Get Haircut', 'other', '100'), (1, 'Dye Hair', 'other', '240'), (1, 'Maccaroni Salad', 'cook', '30'), (1, 'Beyond Meat Burger', 'cook', '30'), (1, 'A&W', 'eat', '20'), (1, 'Go To Library', 'other', '90'), (1, 'Study Codecademy', 'other', '120'), (1, 'Get Dog Groomed', 'other', '180'), (1, 'Read Women Who Run With Wolves', 'other', '20'), (1, 'Taco Bell', 'eat', '20'), (1, 'Tacos', 'cook', '45'), (1, 'Spring Cleaning', 'other', '420'), (1, 'BBC Oceans', 'watch', '30'), (1, 'Taquitos', 'eat', '30'), (1, 'Spicy Noodles', 'cook', '30'), (1, 'Korean BBQ', 'eat', '120'), (1, 'Enchiladas', 'cook', '90');
+
+INSERT INTO activity (user_id, title, category, duration, image_url)
+  VALUES 
+  (1, 'Laundry', 'other', '15', 'https://cdn.pixabay.com/photo/2016/11/29/09/17/feet-1868670_1280.jpg'),
+  (1, 'Trim Hedges', 'other', '60', 'https://cdn.pixabay.com/photo/2015/07/31/12/06/box-hedge-topiary-869073_1280.jpg'),
+  (1, 'Visit Niagara Falls', 'other', '300', 'https://cdn.pixabay.com/photo/2016/08/13/07/20/niagara-1590345_1280.jpg'),
+  (1, 'Back-To-School Shopping', 'other', '300', 'https://cdn.pixabay.com/photo/2017/02/26/08/49/ruler-2099742_1280.jpg'),
+  (1, 'Visit Auntie May', 'other', '300', 'https://images.unsplash.com/photo-1534818113099-dbe2b2e800ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'),
+  (1, 'Get Haircut', 'other', '100', 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'),
+  (1, 'Dye Hair', 'other', '240', 'https://images.unsplash.com/photo-1519934950232-98c83d9c37ca?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'),
+  (1, 'A&W', 'eat', '20', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/A%26W_Okinawa_DX_Chicken_Curly_Flies_Root_beer.jpg/1200px-A%26W_Okinawa_DX_Chicken_Curly_Flies_Root_beer.jpg'),
+  (1, 'Go To Library', 'other', '90', 'https://images.unsplash.com/photo-1549675584-91f19337af3d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1504&q=80'),
+  (1, 'Study Codecademy', 'other', '120', 'https://cdn.pixabay.com/photo/2015/12/04/14/05/code-1076536_1280.jpg'),
+  (1, 'Get Dog Groomed', 'other', '180', 'https://images.unsplash.com/photo-1531719045252-d9721d0d1ba8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1494&q=80'),
+  (1, 'Read 7 Habits', 'other', '20', 'https://www.morethancake.org/wp-content/uploads/2018/09/7-habits-book.png'),
+  (1, 'Spring Cleaning', 'other', '420', 'https://images.unsplash.com/photo-1563453392212-326f5e854473?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'),
+  (1, 'Hike the Pink Lake Trail', 'other', '300', 'https://images.unsplash.com/photo-1525474089639-b5fff4440315?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2691&q=80'),
+  (1, 'Get Some Sun', 'other', '60', 'https://images.unsplash.com/photo-1542159919831-40fb0656b45a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'),
+  (1, 'Bike to the Farm', 'other', '300', 'https://c.pxhere.com/photos/b3/02/shed_bicycle_bike_old_wooden_shack_cabin_cottage_farm_house_farm-971419.jpg!d'),
+  (1, 'Driving Range', 'other', '180', 'https://i2.pickpik.com/photos/237/554/460/golf-clubs-golf-bags-driving-range-golf-school-preview.jpg'),
+  (1, 'Call Mom', 'other', '40', 'https://images.unsplash.com/photo-1551854590-dc9c6265b1b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'),
+  (1, 'Go to the Mall', 'other', '80', 'https://www.movoto.com/blog/wp-content/uploads/sites/2/sites/2/2014/01/movetomedford10.jpg'),
+  (1, 'Painting Class', 'other', '100', 'https://images.unsplash.com/photo-1596495718166-7ac739ca1bc4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1502&q=80'),
+  (1, 'Roller Skate', 'other', '150', 'https://cdn.pixabay.com/photo/2014/07/01/12/25/roller-skates-381216_960_720.jpg'),
+  (1, 'Go Birdwatching', 'other', '140', 'https://images.unsplash.com/photo-1580950669431-1f27645f1a18?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2378&q=80'),
+
+
+  (1, 'Jaws', 'watch', '120', 'https://www.mvtimes.com/mvt/uploads/2014/07/jaws-horizontal-poster.jpg'),
+  (1, 'Superman', 'watch', '130', 'https://i.pinimg.com/originals/31/66/3e/31663e9580a8e3dbd72a1295dcc471d3.jpg'),
+  (1, 'Harry Potter Marathon', 'watch', '420', 'http://4.bp.blogspot.com/-cgsa2D6BvkM/UsHyd0J3CjI/AAAAAAAAHhM/j_fKsllsSuY/s1600/harry-potter-movie.jpg'),
+  (1, 'Rick and Morty Marathon', 'watch', '420', 'http://3.bp.blogspot.com/-BVDo26FvxQQ/VgQSBUJvkeI/AAAAAAAI3eQ/_TBS59H2f-o/s1600/RickAndMorty.jpg'),
+  (1, 'BBC Oceans', 'watch', '30', 'http://www.discdish.com/wp-content/uploads/2010/05/oceans.jpg'),
+  (1, 'Midsommar', 'watch', '148', 'https://images.wired.it/wp-content/uploads/2019/07/23141721/midsommar-1.jpg'),
+  (1, 'Parasite', 'watch', '110', 'https://th.bing.com/th/id/OIP._95xdK3Aj_aLhCrRJqR8CQHaD4?pid=Api&rs=1'), 
+  (1, 'Joker', 'watch', '130', 'https://1.bp.blogspot.com/-XsKWVG5Q-e0/Xl1eXFf1PbI/AAAAAAABMQQ/RXOvDkEEatkEboomFsxyLSHmT8FcWGk5ACLcBGAsYHQ/s640/Joker-Wallpaper%2B%252874%2529.jpg'), 
+  (1, 'Drive', 'watch', '125', 'https://autokino-dortmund.de/wp-content/uploads/2020/05/Drive_Plakat-320x457.jpg'), 
+  (1, 'Spaceballs', 'watch', '107', 'https://www.blogography.com/photos65/SpaceballsPoster.jpg'), 
+  (1, 'Pulp Fiction', 'watch', '180', 'https://th.bing.com/th/id/OIP.QLPoq-cPJ_vR13SniAtpFwHaKg?pid=Api&rs=1'), 
+  (1, 'Get Out', 'watch', '154', 'https://c1.staticflickr.com/1/750/33251490846_4e20637775_b.jpg'), 
+  (1, 'Django Unchained', 'watch', '110', 'https://stateofmind13.files.wordpress.com/2013/01/django-unchained-poster.jpg'), 
+  (1, 'Die Hard', 'watch', '98', 'https://cdn-images-1.medium.com/max/1600/1*Z-KN88rHzXUszfSxHgNm-A.jpeg'), 
+
+
+  (1, 'Popeyes', 'eat', '30', 'https://cdn.pixabay.com/photo/2014/01/24/04/05/fried-chicken-250863_1280.jpg'),
+  (1, 'Mcdonalds', 'eat', '30', 'https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_1280.jpg'),
+  (1, 'Wendys', 'eat', '20', 'https://c2.staticflickr.com/4/3914/14636847074_7edfc55059_b.jpg'),
+  (1, 'The Keg', 'eat', '130', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/The_Keg_at_Yonge_and_Eglinton_in_Toronto.jpg/1200px-The_Keg_at_Yonge_and_Eglinton_in_Toronto.jpg'),
+  (1, 'Shaan Curry House', 'eat', '60', 'https://th.bing.com/th/id/OIP.1_wAKOHcvm9nn0oJ-HyMngHaFj?pid=Api&rs=1'),
+  (1, 'Veggie Grill', 'eat', '90', 'https://th.bing.com/th/id/OIP.Hhy2pOodjfINndHE6s066gHaE8?pid=Api&rs=1'),
+  (1, 'Mucho Burrito', 'eat', '20', 'https://images.unsplash.com/photo-1566740933430-b5e70b06d2d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'),
+  (1, 'Subway', 'eat', '15', 'https://images.pexels.com/photos/933655/pexels-photo-933655.jpeg?auto=compress&cs=tinysrgb&h=350'),
+  (1, 'Sushi Kan', 'eat', '100', 'https://carileee.files.wordpress.com/2011/05/img_1713.jpg?w=750'),
+  (1, 'Shawarma Prince', 'eat', '50', 'https://s3-media3.fl.yelpcdn.com/bphoto/3L_QcMyiowPwwvP8SrYT4g/348s.jpg'),
+  (1, 'The 3 Brewers', 'eat', '90', 'https://cdn.pixabay.com/photo/2018/05/31/16/51/glass-of-beer-3444480_1280.jpg'),
+  (1, 'Top Ramen', 'eat', '120', 'https://images.unsplash.com/photo-1478749485505-2a903a729c63?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'),
+  (1, 'Panda Express', 'eat', '60', 'https://2.bp.blogspot.com/-W4XMNAqG6-U/WTq8Xwa7DrI/AAAAAAAAF3I/WLutjy0FnoEvfoExI9iA6CeEr5kIKOc3QCLcB/s1600/LR%2B-%2BChow%2BMein%2Bwith%2BHomemade%2BNoodles%2B%25E7%2582%2592%25E9%259D%25A2%2B02.jpg'),
+  (1, 'Taco Bell', 'eat', '20', 'https://th.bing.com/th/id/OIP.fmPMELAjq7YqdfU6uTBU0AHaE8?pid=Api&rs=1'),
+  (1, 'Taquitos', 'eat', '30', 'https://www.budgetbytes.com/wp-content/uploads/2017/01/Creamy-Black-Bean-Taquitos-front.jpg'),
+  (1, 'Korean BBQ', 'eat', '120', 'https://c1.staticflickr.com/5/4018/4644238828_52a2b19747.jpg');
+  
