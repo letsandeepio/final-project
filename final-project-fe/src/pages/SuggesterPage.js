@@ -51,6 +51,7 @@ const ACTIVITY_QUERY = gql`
     }
   }
 `;
+
 const CHANGESTATUS_MUTATION = gql`
   mutation changeStatusMutation($id: Int!, $status: String!) {
     changeStatus(id: $id, status: $status) {
@@ -60,13 +61,22 @@ const CHANGESTATUS_MUTATION = gql`
   }
 `;
 
-
+const DELETE_ACTIVITY = gql`
+  mutation deleteActivityMutation ($id: Int!) {
+    deleteActivity (id: $id) {
+      id
+    }
+  }
+`;
 
 export default function SuggesterPage(props) {
   const [timeAvailable, setTimeAvailable] = useState(props.timeAvailable)
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [activitySuggestions, setActivitySuggestions] = useState(null);
   const [category, setCategory] = useState(props.category);
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const [age, setAge] = React.useState('');
   let history = useHistory();
 
   const { loading, data, refetch } = useQuery(ACTIVITY_QUERY);
@@ -77,11 +87,20 @@ export default function SuggesterPage(props) {
     }
   });
 
-  //------
+  const [deleteActivity] = useMutation(DELETE_ACTIVITY, {
+    onError(error) {
+      console.error(error);
+    }
+  })
 
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState('');
+  function deleteActivityFromDatabase(id) {
+    deleteActivity({
+      variables: {
+        id: Number(id)
+      }
+    });
+    refetch();
+  }
 
   const handleChange = (event) => {
     setAge(Number(event.target.value) || '');
@@ -95,8 +114,6 @@ export default function SuggesterPage(props) {
     setOpen(false);
   };
 
-  //------
-
   function handleNow() {
     const id = activitySuggestions.activities[suggestionIndex].id;
     changeStatus({
@@ -109,9 +126,17 @@ export default function SuggesterPage(props) {
     history.push('/success');
   }
 
+  function indexIncrementor() {
+    console.log('index atttempted increment');
+    let i = suggestionIndex;
+    if (i >= activitySuggestions.activities.length - 1 || activitySuggestions.activities.length === 1) {
+      setSuggestionIndex(0);
+    } else {
+      setSuggestionIndex(i + 1);
+    }
+  };
 
   useEffect(() => {
-    console.log('calling useeffect');
     if (data) {
       const filteredActivities = sortActivities(
         data.activities,
@@ -127,15 +152,6 @@ export default function SuggesterPage(props) {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeAvailable, category]);
-  
-  const indexIncrementor = function () {
-    let i = suggestionIndex;
-    if (i >= activitySuggestions.activities.length - 1 || activitySuggestions.activities.length === 1) {
-      setSuggestionIndex(0);
-    } else {
-      setSuggestionIndex(i + 1);
-    }
-  };
 
   return (
     <>
@@ -202,6 +218,7 @@ export default function SuggesterPage(props) {
             <>
             <SuggestionCard
               activity={activitySuggestions.activities[suggestionIndex]}
+              onDelete={deleteActivityFromDatabase}
             />
             <SuggesterButtonBox
               onAccept={handleNow}
