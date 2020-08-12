@@ -6,9 +6,8 @@ export default function CategoryButtonList(props) {
   const categories = props.categories.map(
     (category, index) => {
       return (
-        <div className="categoryButton" >
+        <div className="categoryButton" key={index}>
           <CategoryButton
-          key={index}
           fullWidth
           onClick={() =>
             props.onSelect(category.question)}>

@@ -70,7 +70,7 @@ const DELETE_ACTIVITY = gql`
 `;
 
 export default function SuggesterPage(props) {
-  const [timeAvailable, setTimeAvailable] = useState(props.timeAvailable)
+  // const [timeAvailable, setTimeAvailable] = useState(props.timeAvailable)
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [activitySuggestions, setActivitySuggestions] = useState(null);
   const [category, setCategory] = useState(props.category);
@@ -144,17 +144,17 @@ export default function SuggesterPage(props) {
       const filteredActivities = sortActivities(
         data.activities,
         category,
-        timeAvailable,
+        props.timeAvailable,
         sortMethod,
       );
       setActivitySuggestions(filteredActivities);
     }
-  }, [data, timeAvailable, category, sortMethod]);
+  }, [data, props.timeAvailable, category, sortMethod]);
 
   useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeAvailable, category]);
+  }, [props.timeAvailable, category]);
 
   return (
     <>
@@ -211,8 +211,8 @@ export default function SuggesterPage(props) {
         />
         <div style={{ marginTop: '0.5em', marginBottom: '2em' }}>
           <TimePicker
-            onChange={setTimeAvailable}
-            timeAvailable={timeAvailable}
+            onChange={props.onTimeChange}
+            timeAvailable={props.timeAvailable}
           />
         </div>
         {loading || activitySuggestions === null ? (
@@ -237,7 +237,7 @@ export default function SuggesterPage(props) {
               <Typography variant='h3' style={{ marginTop: '0.3em', textAlign: 'center'}}>
                 all saved activities in this category
                 <br></br>
-                will take longer than {timeAvailable.hours} {pluralize('hour', timeAvailable.hours)} and {timeAvailable.minutes} {pluralize('minute',timeAvailable.minutes)}
+                will take longer than {props.timeAvailable.hours} {pluralize('hour', props.timeAvailable.hours)} and {props.timeAvailable.minutes} {pluralize('minute',props.timeAvailable.minutes)}
               </Typography>
             </CardContent>
           </Card>

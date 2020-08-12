@@ -114,8 +114,10 @@ function App(props) {
               <Typography variant="h1">Just ask!</Typography>
               <TimePicker
                 className="timePicker"
-                onChange={setTimeAvailable}
-                timeAvailable={timeAvailable}
+                setTimeAvailable={setTimeAvailable}
+                // timeAvailable={timeAvailable}
+                hours={timeAvailable.hours}
+                minutes={timeAvailable.minutes}
               />
               <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
               <CategoryButtonList
@@ -138,7 +140,7 @@ function App(props) {
               categories={questions}
               category={category}
               onCategoryChange={setCategory}
-              onTimeChange={setTimeAvailable}
+              setTimeAvailable={setTimeAvailable}
               timeAvailable={timeAvailable}
             />
           </Route>
