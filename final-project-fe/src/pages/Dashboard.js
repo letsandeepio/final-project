@@ -53,7 +53,7 @@ export default function Dashboard() {
 
               <div>
                 <Typography variant="h2" style={{ color: '#afafaf' }}>
-                  Complete Activities
+                  Completed Activities
                 </Typography>
                 <Typography variant="h1">
                   {stats.completeActivityCount}
