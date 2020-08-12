@@ -35,6 +35,11 @@ function App(props) {
   const [category, setCategory] = useState(questions[0].question);
   const [timeAvailable, setTimeAvailable] = useState({ hours: 2, minutes: 30 });
 
+  function getTimeAvailableFrom(update) {
+    console.log(update);
+    setTimeAvailable((prev) => ({ ...prev, ...update }));
+  }
+
   const location = useLocation();
 
   function updateTimeAvailable(command) {
@@ -65,11 +70,11 @@ function App(props) {
 
   const handleClose = (event, reason) => {
     console.log('snackbar closed', reason);
-    setSnackBar(prev=>({ ...prev, open: false }));
+    setSnackBar((prev) => ({ ...prev, open: false }));
   };
 
   const showSnackBar = (args) => {
-    setSnackBar(prev=>({ ...prev, open: true, ...args }));
+    setSnackBar((prev) => ({ ...prev, open: true, ...args }));
   };
 
   const selectCategory = function (category) {
@@ -118,6 +123,7 @@ function App(props) {
                 // timeAvailable={timeAvailable}
                 hours={timeAvailable.hours}
                 minutes={timeAvailable.minutes}
+                getTimeAvailableFrom={getTimeAvailableFrom}
               />
               <Dictaphone onCommand={updateTimeAvailable} onAsk={onAsk} />
               <CategoryButtonList
@@ -129,11 +135,11 @@ function App(props) {
               />
               <div className="spacer"></div>
             </div>
-            <AddActivityButton
+            {/*   <AddActivityButton
               className="addActivityButton"
               component={Link}
               to="/add-activity"
-            ></AddActivityButton>
+            ></AddActivityButton> */}
           </Route>
           <Route exact path="/suggestions">
             <SuggesterPage

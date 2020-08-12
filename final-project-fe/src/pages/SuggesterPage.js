@@ -31,12 +31,12 @@ import Select from '@material-ui/core/Select';
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
-  },
+    minWidth: 120
+  }
 }));
 
 const ACTIVITY_QUERY = gql`
@@ -62,8 +62,8 @@ const CHANGESTATUS_MUTATION = gql`
 `;
 
 const DELETE_ACTIVITY = gql`
-  mutation deleteActivityMutation ($id: Int!) {
-    deleteActivity (id: $id) {
+  mutation deleteActivityMutation($id: Int!) {
+    deleteActivity(id: $id) {
       id
     }
   }
@@ -95,7 +95,7 @@ export default function SuggesterPage(props) {
     onCompleted() {
       refetch();
     }
-  })
+  });
 
   function deleteActivityFromDatabase(id) {
     deleteActivity({
@@ -132,50 +132,66 @@ export default function SuggesterPage(props) {
   function indexIncrementor() {
     console.log('index atttempted increment');
     let i = suggestionIndex;
-    if (i >= activitySuggestions.activities.length - 1 || activitySuggestions.activities.length === 1) {
+    if (
+      i >= activitySuggestions.activities.length - 1 ||
+      activitySuggestions.activities.length === 1
+    ) {
       setSuggestionIndex(0);
     } else {
       setSuggestionIndex(i + 1);
     }
-  };
+  }
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (data) {
       const filteredActivities = sortActivities(
         data.activities,
         category,
         props.timeAvailable,
-        sortMethod,
+        sortMethod
       );
       setActivitySuggestions(filteredActivities);
     }
-  }, [data, props.timeAvailable, category, sortMethod]);
+  }, [data, category, sortMethod]);
 
   useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.timeAvailable, category]);
+  }, [category]); */
 
   return (
     <>
       <div className="suggestorPage">
         <div>
           <div style={{ width: '400px', textAlign: 'right', marginTop: '5em' }}>
-            <Button onClick={handleClickOpen} style={{
-                  fontSize: '1em',
-                  justifyContent: 'center',
-                  textTransform: 'lowercase',
-                  height: '2em',
-                  marginTop: '.9em',
-                  // paddingLeft: '1em',
-                  // marginLeft: '1em',
-                  color: '#868686' }}>sort</Button>
-            <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+            <Button
+              onClick={handleClickOpen}
+              style={{
+                fontSize: '1em',
+                justifyContent: 'center',
+                textTransform: 'lowercase',
+                height: '2em',
+                marginTop: '.9em',
+                // paddingLeft: '1em',
+                // marginLeft: '1em',
+                color: '#868686'
+              }}
+            >
+              sort
+            </Button>
+            <Dialog
+              disableBackdropClick
+              disableEscapeKeyDown
+              open={open}
+              onClose={handleClose}
+            >
               <DialogTitle>Filters</DialogTitle>
               <DialogContent>
                 <form className={classes.container}>
                   <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="demo-dialog-native">Sort Method</InputLabel>
+                    <InputLabel htmlFor="demo-dialog-native">
+                      Sort Method
+                    </InputLabel>
                     <Select
                       native
                       value={sortMethod}
@@ -183,9 +199,9 @@ export default function SuggesterPage(props) {
                       input={<Input id="demo-dialog-native" />}
                     >
                       <option aria-label="None" value="" />
-                      <option value='keith'>Keith's Sort</option>
-                      <option value='duration'>Duration</option>
-                      <option value='random'>Random</option>
+                      <option value="keith">Keith's Sort</option>
+                      <option value="duration">Duration</option>
+                      <option value="random">Random</option>
                     </Select>
                   </FormControl>
                 </form>
@@ -217,8 +233,8 @@ export default function SuggesterPage(props) {
         </div>
         {loading || activitySuggestions === null ? (
           'loading'
-          ) : activitySuggestions.activities.length > 0 ? (
-            <>
+        ) : activitySuggestions.activities.length > 0 ? (
+          <>
             <SuggestionCard
               activity={activitySuggestions.activities[suggestionIndex]}
               onDelete={deleteActivityFromDatabase}
@@ -229,25 +245,34 @@ export default function SuggesterPage(props) {
             />
           </>
         ) : activitySuggestions.hasActivities === true ? (
-          <Card style={{ marginTop: '4em' }} >
+          <Card style={{ marginTop: '4em' }}>
             <CardContent>
-              <Typography variant='h1' style={{ marginTop: '0.3em'}}>
+              <Typography variant="h1" style={{ marginTop: '0.3em' }}>
                 ☹️
               </Typography>
-              <Typography variant='h3' style={{ marginTop: '0.3em', textAlign: 'center'}}>
+              <Typography
+                variant="h3"
+                style={{ marginTop: '0.3em', textAlign: 'center' }}
+              >
                 all saved activities in this category
                 <br></br>
-                will take longer than {props.timeAvailable.hours} {pluralize('hour', props.timeAvailable.hours)} and {props.timeAvailable.minutes} {pluralize('minute',props.timeAvailable.minutes)}
+                will take longer than {props.timeAvailable.hours}{' '}
+                {pluralize('hour', props.timeAvailable.hours)} and{' '}
+                {props.timeAvailable.minutes}{' '}
+                {pluralize('minute', props.timeAvailable.minutes)}
               </Typography>
             </CardContent>
           </Card>
         ) : (
-          <Card style={{ marginTop: '4em' }} >
+          <Card style={{ marginTop: '4em' }}>
             <CardContent>
-              <Typography variant='h1' style={{ marginTop: '0.3em'}}>
+              <Typography variant="h1" style={{ marginTop: '0.3em' }}>
                 😔
               </Typography>
-              <Typography variant='h3' style={{ marginTop: '0.3em', textAlign: 'center'}}>
+              <Typography
+                variant="h3"
+                style={{ marginTop: '0.3em', textAlign: 'center' }}
+              >
                 there are no activities in this category
               </Typography>
             </CardContent>
