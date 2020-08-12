@@ -66,9 +66,6 @@ export default function SuggesterPage(props) {
   const [deleteActivity] = useMutation(DELETE_ACTIVITY, {
     onError(error) {
       console.error(error);
-    },
-    onCompleted() {
-      refetch();
     }
   })
 
@@ -78,6 +75,7 @@ export default function SuggesterPage(props) {
         id: Number(id)
       }
     });
+    refetch();
   }
 
   function handleNow() {
@@ -91,6 +89,16 @@ export default function SuggesterPage(props) {
 
     history.push('/success');
   }
+
+  function indexIncrementor() {
+    console.log('index atttempted increment');
+    let i = suggestionIndex;
+    if (i >= activitySuggestions.activities.length - 1 || activitySuggestions.activities.length === 1) {
+      setSuggestionIndex(0);
+    } else {
+      setSuggestionIndex(i + 1);
+    }
+  };
 
   useEffect(() => {
     if (data) {
@@ -108,15 +116,6 @@ export default function SuggesterPage(props) {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeAvailable, category]);
-  
-  const indexIncrementor = function () {
-    let i = suggestionIndex;
-    if (i >= activitySuggestions.activities.length - 1 || activitySuggestions.activities.length === 1) {
-      setSuggestionIndex(0);
-    } else {
-      setSuggestionIndex(i + 1);
-    }
-  };
 
   return (
     <>
