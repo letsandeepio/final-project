@@ -74,10 +74,11 @@ export default function SuggesterPage(props) {
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [activitySuggestions, setActivitySuggestions] = useState(null);
   const [category, setCategory] = useState(props.category);
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState('');
+  const [sortMethod, setSortMethod] = React.useState('keith');
+
   let history = useHistory();
+  const classes = useStyles();
 
   const { loading, data, refetch } = useQuery(ACTIVITY_QUERY);
 
@@ -90,6 +91,9 @@ export default function SuggesterPage(props) {
   const [deleteActivity] = useMutation(DELETE_ACTIVITY, {
     onError(error) {
       console.error(error);
+    },
+    onCompleted() {
+      refetch();
     }
   })
 
@@ -99,11 +103,10 @@ export default function SuggesterPage(props) {
         id: Number(id)
       }
     });
-    refetch();
   }
 
   const handleChange = (event) => {
-    setAge(Number(event.target.value) || '');
+    setSortMethod(event.target.value);
   };
 
   const handleClickOpen = () => {
@@ -142,11 +145,11 @@ export default function SuggesterPage(props) {
         data.activities,
         category,
         timeAvailable,
-        'keith',
+        sortMethod,
       );
       setActivitySuggestions(filteredActivities);
     }
-  }, [data, timeAvailable, category]);
+  }, [data, timeAvailable, category, sortMethod]);
 
   useEffect(() => {
     refetch();
@@ -175,14 +178,14 @@ export default function SuggesterPage(props) {
                     <InputLabel htmlFor="demo-dialog-native">Sort Method</InputLabel>
                     <Select
                       native
-                      value={age}
+                      value={sortMethod}
                       onChange={handleChange}
                       input={<Input id="demo-dialog-native" />}
                     >
                       <option aria-label="None" value="" />
-                      <option value={10}>Smart Sort</option>
-                      <option value={20}>Duration</option>
-                      <option value={30}>Random</option>
+                      <option value='keith'>Keith's Sort</option>
+                      <option value='duration'>Duration</option>
+                      <option value='random'>Random</option>
                     </Select>
                   </FormControl>
                 </form>
