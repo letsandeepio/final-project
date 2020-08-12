@@ -16,6 +16,29 @@ import pluralize from 'pluralize';
 
 import { Typography } from '@material-ui/core';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+}));
+
 const ACTIVITY_QUERY = gql`
   query ActivityQuery {
     activities {
@@ -51,11 +74,12 @@ export default function SuggesterPage(props) {
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [activitySuggestions, setActivitySuggestions] = useState(null);
   const [category, setCategory] = useState(props.category);
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const [age, setAge] = React.useState('');
   let history = useHistory();
 
   const { loading, data, refetch } = useQuery(ACTIVITY_QUERY);
-
-  console.log(data);
 
   const [changeStatus] = useMutation(CHANGESTATUS_MUTATION, {
     onError(error) {
@@ -77,6 +101,18 @@ export default function SuggesterPage(props) {
     });
     refetch();
   }
+
+  const handleChange = (event) => {
+    setAge(Number(event.target.value) || '');
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   function handleNow() {
     const id = activitySuggestions.activities[suggestionIndex].id;
@@ -119,7 +155,49 @@ export default function SuggesterPage(props) {
 
   return (
     <>
-      <div className="suggestorPage move-down">
+      <div className="suggestorPage">
+        <div>
+          <div style={{ width: '400px', textAlign: 'right', marginTop: '5em' }}>
+            <Button onClick={handleClickOpen} style={{
+                  fontSize: '1em',
+                  justifyContent: 'center',
+                  textTransform: 'lowercase',
+                  height: '2em',
+                  marginTop: '.9em',
+                  // paddingLeft: '1em',
+                  // marginLeft: '1em',
+                  color: '#868686' }}>sort</Button>
+            <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+              <DialogTitle>Filters</DialogTitle>
+              <DialogContent>
+                <form className={classes.container}>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="demo-dialog-native">Sort Method</InputLabel>
+                    <Select
+                      native
+                      value={age}
+                      onChange={handleChange}
+                      input={<Input id="demo-dialog-native" />}
+                    >
+                      <option aria-label="None" value="" />
+                      <option value={10}>Smart Sort</option>
+                      <option value={20}>Duration</option>
+                      <option value={30}>Random</option>
+                    </Select>
+                  </FormControl>
+                </form>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={handleClose} color="primary">
+                  Ok
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
+        </div>
         <CategoryDropdown
           questions={props.categories}
           question={props.category}
@@ -128,14 +206,16 @@ export default function SuggesterPage(props) {
             props.onCategoryChange(value);
           }}
         />
-        <TimePicker
-          onChange={setTimeAvailable}
-          timeAvailable={timeAvailable}
-        />
+        <div style={{ marginTop: '0.5em', marginBottom: '2em' }}>
+          <TimePicker
+            onChange={setTimeAvailable}
+            timeAvailable={timeAvailable}
+          />
+        </div>
         {loading || activitySuggestions === null ? (
           'loading'
-        ) : activitySuggestions.activities.length > 0 ? (
-          <>
+          ) : activitySuggestions.activities.length > 0 ? (
+            <>
             <SuggestionCard
               activity={activitySuggestions.activities[suggestionIndex]}
               onDelete={deleteActivityFromDatabase}
