@@ -7,7 +7,6 @@ import TimePicker from '../components/TimePicker';
 import SuggesterButtonBox from '../components/SuggesterButtonBox';
 import sortActivities from '../helpers/sortActivities';
 import { useMutation } from '@apollo/client';
-import { useBeforeunload } from 'react-beforeunload';
 
 
 import AddActivityButton from '../components/AddActivityButton';
