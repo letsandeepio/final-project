@@ -173,6 +173,15 @@ export default function Header({ loggedIn, logout }) {
                 <Divider light />
                 <MenuItem
                   onClick={() => {
+                    setAnchorEl(null);
+                    history.push('/about');
+                  }}
+                >
+                  About
+                </MenuItem>
+                <Divider light />
+                <MenuItem
+                  onClick={() => {
                     handleClose();
                     logout();
                   }}
