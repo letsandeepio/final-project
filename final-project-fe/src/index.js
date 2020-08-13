@@ -18,7 +18,7 @@ import { AUTH_TOKEN } from './constants';
 
 let client = '';
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000'
+  uri: 'https://timefiller-api.herokuapp.com/'
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -56,7 +56,7 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <BrowserRouter>
         <MuiThemeProvider theme={theme}>
-          <App clearCache={()=>client.cache.reset()}/>
+          <App clearCache={() => client.cache.reset()} />
         </MuiThemeProvider>
       </BrowserRouter>
     </ApolloProvider>
