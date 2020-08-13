@@ -105,6 +105,16 @@ export default function Header({ loggedIn, logout }) {
                 alt="logo"
               />
             </a>
+            <Button
+              variant="outlined"
+              color="secondary"
+              style={{
+                marginLeft: '30px'
+              }}
+              onClick={() => history.push('/categories')}
+            >
+              Just Ask!
+            </Button>
           </div>
           {/* </div> */}
           {/* </img> */}
