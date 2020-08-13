@@ -12,11 +12,11 @@ const Dictaphone = ({ onCommand, onAsk }) => {
       callback: (duration) => onCommand(duration)
     },
     {
-      command: "I got *",
+      command: 'I got *',
       callback: (duration) => onCommand(duration)
     },
     {
-      command: "got *",
+      command: 'got *',
       callback: (duration) => onCommand(duration)
     },
     {
@@ -95,7 +95,7 @@ const Dictaphone = ({ onCommand, onAsk }) => {
       style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
       }}
     >
       <div
@@ -104,11 +104,10 @@ const Dictaphone = ({ onCommand, onAsk }) => {
           alignItems: 'center',
           width: '400px',
           flexDirection: 'column'
-
         }}
       >
         <div className="speech">
-          {transcript ? transcript : ''}
+          {transcript ? transcript : 'Try saying I have 30 minutes.'}
         </div>
         <Mic
           listening={listening}
