@@ -10,6 +10,7 @@ import Header from './components/Header';
 import SuggesterPage from './pages/SuggesterPage';
 import HomePage from './pages/HomePage';
 import SuccessPage from './pages/SuccessPage';
+import AboutPage from './pages/AboutPage';
 import Dashboard from './pages/Dashboard';
 import Timeline from './pages/Timeline';
 import AddActivityPage from './pages/AddActivityPage';
@@ -100,6 +101,9 @@ function App(props) {
         </Route>
         <Route exact path="/signup">
           <Signup setLoggedIn={setLoggedIn} showSnackBar={showSnackBar} />
+        </Route>
+        <Route exact path="/about">
+          <AboutPage />
         </Route>
         <Route path="/about" component={About} exact />
         <Route exact path="/">
