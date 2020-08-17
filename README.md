@@ -6,6 +6,8 @@ DoSomething helps people fill free time more mindfully. Users collect and catego
 
 ## App Welcome Screen
 
+![welcome](https://raw.githubusercontent.com/letsandeepio/final-project/master/documentation/welcome.png)
+
 ## Tech Stack
 
 ![tech stack](https://raw.githubusercontent.com/letsandeepio/final-project/master/final-project-fe/public/images/slide-tech-stack.png)
@@ -46,11 +48,11 @@ CD into `final-project-be` and run `npm install` and follow the steps below.
 
 - Setup a remote or local PostgreSQL databse and ensure it is running using PSQL command.
 
-- CD into `final-project-be/prsima`. Copy the .env-example to .env and set the databse url to your newly setup PSQL database (_postgresql://[user[:password]@][netloc][:port][/dbname]_)
+- CD into `final-project-be/prisma`. Copy the .env-example to .env and set the databse url to your newly setup PSQL database (_postgresql://[user[:password]@][netloc][:port][/dbname]_)
 
 - Run `npx prisma` to generate the local bindings & connect to the database using Prisma ORM.
 
-- Run ``npm run db:reset` to setup the tables and seed the data.
+- Run `npm run db:reset` to setup the tables and seed the data.
 
 - Install `nodemon` using NPM (`npm install -g nodemon` to install it globally)
 
